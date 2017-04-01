@@ -3,7 +3,8 @@ import React from 'react';
 import {text} from '../config/config';
 import styles from '../styles/greeter.css';
 
-class Greeter extends React.Component {
+export default class Greeter extends React.Component {
+
     render() {
 
         let person = {
@@ -17,14 +18,13 @@ class Greeter extends React.Component {
         };
 
         person = {...person, ...personExtends};
+        console.log(person);
 
         return (
             <div>
-                <span className={styles.peter}>{text}</span>
+                <span className={styles.peter}>{text} peter2 123456789...</span>
                 <span className={styles.peter}>{JSON.stringify(person)}</span>
             </div>
         );
     }
 }
-
-export default Greeter
