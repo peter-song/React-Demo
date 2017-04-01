@@ -1,7 +1,10 @@
 import React from 'react';
 
 import {text} from '../config/config';
-import styles from '../styles/greeter.css';
+// import styles from '../styles/greeter.css';
+
+import a from '../styles/greeter2.css';
+import b from '../styles/greeter.css';
 
 export default class Greeter extends React.Component {
 
@@ -22,8 +25,8 @@ export default class Greeter extends React.Component {
 
         return (
             <div>
-                <span className={styles.peter}>{text} peter2 123456789...</span>
-                <span className={styles.peter}>{JSON.stringify(person)}</span>
+                <span className={a.peter}>{text} peter2 123456789...</span>
+                <span className={b.peter}>{JSON.stringify(person)}</span>
             </div>
         );
     }

@@ -1,19 +1,22 @@
 let webpack = require('webpack');
 let path = require('path');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+let HtmlWebpackPlugin = require('html-webpack-plugin');//生成html
+var ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打包
 
 module.exports = {
     devtool: 'eval-source-map',
 
     // 文件入口
     entry: {
-        'main': path.resolve(__dirname, "./src/App.js") //_dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
+        main: path.resolve(__dirname, "./src/App.js") //_dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
     },
 
     // 打包文件出口
     output: {
+        // publicPath: "/dist/", //编译好的文件，在服务器的路径,这是静态资源引用路径
         path: path.resolve(__dirname, "./public"), //打包后文件存放位置
-        filename: "[name]-[hash].js" //打包后文件名（'name'为entry定义的key值，本例为main）
+        filename: "[name].js", //打包后文件名（'name'为entry定义的key值，本例为main）
+        chunkFilename: '[name].[chunkhash:5].min.js',
     },
 
     // 模块
@@ -26,15 +29,17 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                // exclude: /node_modules/,
+                exclude: /node_modules/,
                 loader: 'babel-loader'//js转码器
             },
             {
                 test: /\.css$/,
-                // 添加对样式表的处理，感叹号的作用在于使同一文件能够使用不同类型的loader;
-                // modules实现按模块记载css
-                loader: 'style-loader!css-loader?modules!postcss-loader'
-            }
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ['css-loader?modules', 'postcss-loader'],
+                    publicPath: "../"
+                })
+            },
         ],
     },
 
@@ -49,9 +54,15 @@ module.exports = {
         new webpack.BannerPlugin("Welcome to Peter's home."),
         //依据模板，生成最终的html5文件
         new HtmlWebpackPlugin({
-            title: 'React-Demo', //页面标题元素，模板文件中通过title获取
-            fileName: 'index.html', //输出的 HTML 文件名，默认是 index.html
-            template: __dirname + "/index.tmpl.html" //模板文件，会根据此文件生成加入了引用打包文件的html文件
+            title: 'ReactDemo', //w文件标题
+            //fileName: 'index.html', //文件名称，默认index.html
+            template: __dirname + "/index.tmpl.html", //模板文件，会根据此文件生成加入了引用打包文件的html文件
+            hash: true
+        }),
+        new ExtractTextPlugin({
+            filename: "css/[name].css",
+            disable: false,
+            allChunks: true
         }),
         new webpack.HotModuleReplacementPlugin()//热加载插件
     ],
