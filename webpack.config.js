@@ -3,24 +3,36 @@ let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');//生成html
 var ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打包
 
+//常用路径
+const ROOT_PATH = path.resolve(__dirname);
+const APP_PATH = path.resolve(ROOT_PATH, './src');
+const BUILD_PATH = path.resolve(ROOT_PATH, './public');
+
 module.exports = {
     devtool: 'eval-source-map',
 
     // 文件入口
     entry: {
-        main: path.resolve(__dirname, "./src/App.js") //_dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
+        main: path.resolve(APP_PATH, "./App.js") //_dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
     },
 
     // 打包文件出口
     output: {
         // publicPath: "/dist/", //编译好的文件，在服务器的路径,这是静态资源引用路径
-        path: path.resolve(__dirname, "./public"), //打包后文件存放位置
+        path: BUILD_PATH, //打包后文件存放位置
         filename: "[name].js", //打包后文件名（'name'为entry定义的key值，本例为main）
         chunkFilename: '[name].[chunkhash:5].min.js',
     },
 
     // 模块
     module: {
+        /*preLoaders: [
+            {
+                test: /\.js?$/,
+                loaders: 'eslint-loader',
+                // include: APP_PATH
+            }
+        ],*/
         // 各种加载器
         loaders: [
             {
@@ -74,6 +86,7 @@ module.exports = {
         //port: 8080, //监听端口，默认为8080，省略后如果8080被占用，会替换别的端口，控制台会打印
         inline: true, //实时刷新,
         hot: true
+        // progress: true
     }
 
 };

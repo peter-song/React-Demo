@@ -5,13 +5,13 @@ import {
     Route,
     Link
 } from 'react-router-dom';
-import Greeter from './component/Greeter';
+import Main from './component/Main';
 
 import './styles/main.css';
 
 ReactDOM.render(
     <Router>
-        <Route path="/" component={Greeter}/>
+        <Route path="/" component={Main}/>
     </Router>,
     document.getElementById('root')
 );
