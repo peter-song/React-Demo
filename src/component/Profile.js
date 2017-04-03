@@ -21,7 +21,7 @@ export default class Profile extends React.Component {
         super(props);
         this.state = {
             liked: 0,
-            hobbies: ['skateboarding', 'rock music']
+            hobbies: ['听音乐', '打篮球']
         };
         this.likedCallback = this.likedCallback.bind(this);
         this.addHobbyCallback = this.addHobbyCallback.bind(this);
@@ -38,7 +38,7 @@ export default class Profile extends React.Component {
                 <ul>
                     {this.state.hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
                 </ul>
-                <input type="text" ref="hobby"/>
+                <input type="text" ref="hobby"/>&nbsp;&nbsp;
                 <button onClick={this.addHobbyCallback}>添加爱好</button>
             </div>
         );
