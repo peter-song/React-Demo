@@ -3,6 +3,8 @@
  */
 export const ADD_HOBBY = 'ADD_HOBBY';
 export const GET_HOBBY = 'GET_HOBBY';
+export const UNDO_HOBBY = 'UNDO_HOBBY';
+export const REDO_HOBBY = 'REDO_HOBBY';
 
 export function addHobby(hobby) {
     return dispatch => {
@@ -15,5 +17,17 @@ export function addHobby(hobby) {
 export function getHobbies() {
     return {
         type: GET_HOBBY
+    }
+}
+
+export function undo() {
+    return {
+        type: UNDO_HOBBY
+    }
+}
+
+export function redo() {
+    return {
+        type: REDO_HOBBY
     }
 }

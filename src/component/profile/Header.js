@@ -2,18 +2,38 @@
  * Created by songzhongkun on 17/4/2.
  */
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import * as ActionsCreators from '../../action/Profile';
 
 import styles from '../../styles/greeter.css';
 import Hobby from './Hobby';
 
 import DevTools from "../../container/DevTools";
 
+@connect(
+    state => ({
+        hobbies: state.hobbies
+    }),
+    ActionsCreators
+)
+
+
 export default class Profile extends React.Component {
+
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        age: PropTypes.number.isRequired
+    };
+
+    static defaultProps = {
+        name: 'peter',
+        age: 27
+    };
 
     constructor(props) {
         super(props);
         this.state = {
-            liked: 0,
+            liked: 0
         };
         this.likedCallback = this.likedCallback.bind(this);
         this.addHobbyCallback = this.addHobbyCallback.bind(this);
@@ -30,8 +50,12 @@ export default class Profile extends React.Component {
                 <ul>
                     {this.props.hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
                 </ul>
-                <input type="text" ref="hobby"/>&nbsp;&nbsp;
+                <input type="text" defaultValue="爬山" ref="hobby"/>&nbsp;&nbsp;
                 <button onClick={this.addHobbyCallback}>添加爱好</button>
+                &nbsp;&nbsp;
+                <button onClick={this.props.undo}>撤销</button>
+                &nbsp;&nbsp;
+                <button onClick={this.props.redo}>重做</button>
                 <DevTools />
             </div>
         );
@@ -48,17 +72,7 @@ export default class Profile extends React.Component {
         const val = hobbyInput.value;
         if (val) {
             this.props.addHobby(val);
-            hobbyInput.value = '';
+            // hobbyInput.value = '';
         }
     }
 }
-
-Profile.propTypes = {
-    name: PropTypes.string.isRequired,
-    age: PropTypes.number.isRequired
-};
-
-Profile.defaultProps = {
-    name: 'peter',
-    age: 27
-};
