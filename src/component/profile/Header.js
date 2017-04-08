@@ -3,26 +3,27 @@
  */
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as ActionsCreators from '../../action/Profile';
+import * as ActionsCreators from '../../action/profile/index';
 
 import styles from '../../styles/greeter.css';
 import Hobby from './Hobby';
 
-import DevTools from "../../container/DevTools";
+import DevTools from "../../DevTools";
 
 @connect(
     state => ({
-        hobbies: state.hobbies
+        hobbies: state.hobbies.present
     }),
     ActionsCreators
 )
-
 
 export default class Profile extends React.Component {
 
     static propTypes = {
         name: PropTypes.string.isRequired,
-        age: PropTypes.number.isRequired
+        age: PropTypes.number.isRequired,
+        undo: PropTypes.func.isRequired,
+        redo: PropTypes.func.isRequired
     };
 
     static defaultProps = {
