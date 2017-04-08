@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from 'react-router-dom';
-import Main from './component/Main';
+import {Provider} from 'react-redux';
+import {BrowserRouter as Router, Route,} from 'react-router-dom';
+import configureStore from './store/configureStore';
+
+import Profile from './container/Profile';
 
 import './styles/main.css';
 
+const store = configureStore();
 ReactDOM.render(
-    <Router>
-        <Route path="/" component={Main}/>
-    </Router>,
+    <Provider store={store}>
+        <Router>
+            <Route path="/" component={Profile}/>
+        </Router>
+    </Provider>,
     document.getElementById('root')
 );

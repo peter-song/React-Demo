@@ -3,17 +3,10 @@
  */
 import React, {PropTypes} from 'react';
 
-import styles from '../styles/greeter.css';
+import styles from '../../styles/greeter.css';
 import Hobby from './Hobby';
 
-const propTypes = {
-    name: PropTypes.string.isRequired,
-    age: PropTypes.number.isRequired
-};
-
-const defaultProps = {
-    age: 27
-};
+import DevTools from "../../container/DevTools";
 
 export default class Profile extends React.Component {
 
@@ -21,7 +14,6 @@ export default class Profile extends React.Component {
         super(props);
         this.state = {
             liked: 0,
-            hobbies: ['听音乐', '打篮球']
         };
         this.likedCallback = this.likedCallback.bind(this);
         this.addHobbyCallback = this.addHobbyCallback.bind(this);
@@ -36,10 +28,11 @@ export default class Profile extends React.Component {
                 <h2>总点赞数： {this.state.liked}</h2>
                 <h2>我的爱好：</h2>
                 <ul>
-                    {this.state.hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
+                    {this.props.hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
                 </ul>
                 <input type="text" ref="hobby"/>&nbsp;&nbsp;
                 <button onClick={this.addHobbyCallback}>添加爱好</button>
+                <DevTools />
             </div>
         );
     }
@@ -54,16 +47,18 @@ export default class Profile extends React.Component {
         const hobbyInput = this.refs.hobby;
         const val = hobbyInput.value;
         if (val) {
-            let hobbies = this.state.hobbies;
-            hobbies = [...hobbies, val];
-            this.setState({
-                hobbies
-            }, () => {
-                hobbyInput.value = '';
-            });
+            this.props.addHobby(val);
+            hobbyInput.value = '';
         }
     }
 }
 
-Profile.propTypes = propTypes;
-Profile.defaultProps = defaultProps;
+Profile.propTypes = {
+    name: PropTypes.string.isRequired,
+    age: PropTypes.number.isRequired
+};
+
+Profile.defaultProps = {
+    name: 'peter',
+    age: 27
+};

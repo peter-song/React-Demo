@@ -86,7 +86,6 @@ module.exports = {
         //port: 8080, //监听端口，默认为8080，省略后如果8080被占用，会替换别的端口，控制台会打印
         inline: true, //实时刷新,
         hot: true
-        // progress: true
     }
 
 };
