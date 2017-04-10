@@ -8,7 +8,9 @@ import * as ActionsCreators from '../../action/profile/index';
 import styles from '../../styles/greeter.css';
 import Hobby from './Hobby';
 
-import DevTools from "../../DevTools";
+let person = require('../../config/person')
+
+import DevTools from "../DevTools/DevTools";
 
 @connect(
     state => ({
@@ -27,8 +29,8 @@ export default class Profile extends React.Component {
     };
 
     static defaultProps = {
-        name: 'peter',
-        age: 27
+        name: person.name,
+        age: person.age
     };
 
     constructor(props) {

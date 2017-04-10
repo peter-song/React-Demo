@@ -26,13 +26,6 @@ module.exports = {
 
     // 模块
     module: {
-        /*preLoaders: [
-            {
-                test: /\.js?$/,
-                loaders: 'eslint-loader',
-                // include: APP_PATH
-            }
-        ],*/
         // 各种加载器
         loaders: [
             {

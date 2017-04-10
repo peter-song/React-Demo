@@ -4,7 +4,7 @@
 import {createStore, applyMiddleware, compose} from "redux";
 import thunkMiddleware from "redux-thunk";
 import rootReducer from "../reducer/index";
-import DevTools from "../DevTools";
+import DevTools from "../component/DevTools/DevTools";
 
 export default function configureStore() {
 

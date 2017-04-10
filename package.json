@@ -2,28 +2,30 @@
   "name": "react-demo",
   "version": "1.0.0",
   "description": "This is a React Demo!",
-  "main": "postcss.config.js",
+  "main": "index.js",
   "dependencies": {
-    "babel-preset-react-hmre": "^1.1.1",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-loader": "^1.7.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
+    "webpack": "^2.3.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-stage-0": "^6.24.1",
     "redux-devtools": "^3.3.2",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.2.0",
     "redux-thunk": "^2.2.0",
-    "redux-undo": "^0.6.1"
-  },
-  "devDependencies": {
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-stage-0": "^6.24.1"
+    "redux-undo": "^0.6.1",
+    "css-loader": "^0.28.0",
+    "json-loader": "^0.5.4",
+    "style-loader": "^0.16.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -33,7 +35,7 @@
     "type": "git",
     "url": "git+https://github.com/peter-song/React-Demo.git"
   },
-  "author": "",
+  "author": "peter",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/peter-song/React-Demo/issues"
