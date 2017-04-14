@@ -4,7 +4,7 @@ This is a React Demo!
 # 下载
 
 ````
-git@github.com:peter-song/React-Demo.git
+git clone git@github.com:peter-song/React-Demo.git
 
 cd React-Demo
 
@@ -16,14 +16,14 @@ npm init
 ````
 npm start
 
-http://localhost:8080
+open http://localhost:8080
 ````
 
 # 提交记录
 
 ## 2017.4.1
 
-```$xslt
+```
 完善开发环境
 ```
 
@@ -32,4 +32,10 @@ http://localhost:8080
 ```
 添加redux
 添加撤销重置功能
+```
+
+## 2017.4.14
+
+```
+添加自定义中间件与logger中间件使用
 ```
