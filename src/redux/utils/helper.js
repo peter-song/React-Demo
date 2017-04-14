@@ -4,7 +4,7 @@
 
 import warning from 'warning';
 
-const prefix = 'TEST';
+const prefix = 'FIND';
 const fail = 'FAIL';
 const success = 'SUCCESS';
 const separator = '_';
@@ -28,26 +28,24 @@ export function dispatchAction(action, apiPath, query, method) {
     let isRemoteRequest = typeof apiPath == 'string';
     const q = Object.is(method, 'get') ? {params: query} : {data: query};
 
-    let actions = generateActionTypes(action, isRemoteRequest);
-    console.log(actions);
-
     return {
-        types: actions,
-        // promise: isRemoteRequest ? client => client[method]('/' + apiPath, q) : null
-        promise: isRemoteRequest ? client => client : null
+        types: generateActionTypes(action, isRemoteRequest),
+        promise: isRemoteRequest ? client => client[method]('/' + apiPath, q) : null
     }
 }
 
 export function registerActions(state, action, acceptActions, callBacks, callFails) {
     for (let ac of acceptActions) {
-        if (action.type == generateActionTypes(ac, false)) {
+        let actionTypes = generateActionTypes(ac, false);
+        if (action.type == actionTypes) {
             warning(callBacks[ac] !== undefined, `you should implement call back function for action ${ac}`);
             return Object.assign({
                 ...state,
-                isFetching: false,
+                isFetching: false
             }, callBacks[ac](action, state));
         } else {
-            for (let gac of generateActionTypes(ac, true)) {
+            let actionTypes2 = generateActionTypes(ac, true);
+            for (let gac of actionTypes2) {
                 if (action.type === gac) {
                     if (action.type.indexOf(fail) > 0) {
                         return Object.assign({

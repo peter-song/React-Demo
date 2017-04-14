@@ -1,10 +1,8 @@
 /**
  * Created by songzhongkun on 2017/4/14.
  */
-export default function clientMiddleWare() {
+export default function clientMiddleWare(client) {
     return ({dispatch, getState}) => next => action => {
-        console.log(action);
-
         if (typeof action === 'function') {
             return action(dispatch, getState);
         }
@@ -19,23 +17,19 @@ export default function clientMiddleWare() {
 
         next({...rest, type: REQUEST});
 
-        const actionPromise = promise(request());
+        const actionPromise = promise(client);
 
         actionPromise.then(
-            (msg) => console.log(msg)
+            result => {
+                const response = result.response;
+                if (result.status === 'OK') {
+                    next({...rest, response, type: SUCCESS})
+                } else {
+                    next({...rest, response, type: FAILURE})
+                }
+            }
         ).catch(
             (msg) => console.log(msg)
         )
     }
-}
-
-function request() {
-    
-    return new Promise((resolve, reject) => {
-        if (1 != 1) {
-            resolve('success')
-        } else {
-            reject('failure');
-        }
-    })
 }

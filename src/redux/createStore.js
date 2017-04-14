@@ -2,17 +2,17 @@
  * Created by songzhongkun on 17/4/8.
  */
 import {createStore, applyMiddleware, compose} from "redux";
-import rootReducer from "./reducers";
+import rootReducer from "./reducers/index";
 // import thunkMiddleWare from './middleware/ThunkMiddleWare';
 import thunkMiddleWare from './middleware/clientMiddleWare';
 import createLogger from 'redux-logger';
 
 import DevTools from "../component/DevTools/DevTools";
 
-export default function configureStore() {
+export default function configureStore(client) {
 
     const middleware = [
-        thunkMiddleWare(), // 自定义
+        thunkMiddleWare(client), // 自定义
         // createLogger //日志组件
     ];
 

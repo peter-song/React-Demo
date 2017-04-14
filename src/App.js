@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter as Router, Route,} from 'react-router-dom';
+import ApiClient from './helper/ApiClient';
 import configureStore from './redux/createStore';
 
 import Profile from './component/profile/Header';
 
 import './styles/main.css';
-
-const store = configureStore();
+const client = new ApiClient();
+const store = configureStore(client);
 ReactDOM.render(
     <Provider store={store}>
         <Router>

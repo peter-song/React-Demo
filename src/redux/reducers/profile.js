@@ -5,34 +5,34 @@
 import {dispatchAction, registerActions} from '../utils/helper';
 
 export const ADD_HOBBY = 'ADD_HOBBY';
-export const GET_HOBBY = 'GET_HOBBY';
+export const FIND_HOBBY = 'FIND_HOBBY';
 
-const acceptActions = [ADD_HOBBY, GET_HOBBY];
+const acceptActions = [ADD_HOBBY, FIND_HOBBY];
 
-export function hobbies(state = ['听音乐', '打篮球'], action) {
-    switch (action.type) {
-        case ADD_HOBBY:
-            return [...state, action.data];
-        case GET_HOBBY:
-        default:
-            return state;
-    }
-}
-
-const callBacks = {
-    HOBBY: action => {
-        return {
-            hobbies: action.request.hobbies
-        }
+const hobbies = action => {
+    return {
+        hobbies: action.response.hobbies
     }
 };
 
-const initState = {};
+const callBacks = {
+    ADD_HOBBY: hobbies,
+    FIND_HOBBY: hobbies
+};
+
+const initState = {
+    isFetching: false,
+    hobbies: []
+};
 
 export default function hobbyReducer(state = initState, action) {
     return registerActions(state, action, acceptActions, callBacks);
 }
 
 export function addHobby(params) {
-    return dispatchAction(ADD_HOBBY, 'add_hobby', params);
+    return dispatchAction(ADD_HOBBY, 'addHobby', params);
+}
+
+export function findHobbies() {
+    return dispatchAction(FIND_HOBBY, 'findHobbies');
 }
