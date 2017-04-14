@@ -2,8 +2,9 @@
  * Created by songzhongkun on 17/4/8.
  */
 import {createStore, applyMiddleware, compose} from "redux";
-import rootReducer from "../reducers/index";
-import thunkMiddleWare from '../redux/middleware/ThunkMiddleWare';
+import rootReducer from "./reducers";
+// import thunkMiddleWare from './middleware/ThunkMiddleWare';
+import thunkMiddleWare from './middleware/clientMiddleWare';
 import createLogger from 'redux-logger';
 
 import DevTools from "../component/DevTools/DevTools";
@@ -12,7 +13,7 @@ export default function configureStore() {
 
     const middleware = [
         thunkMiddleWare(), // 自定义
-        createLogger //日志组件
+        // createLogger //日志组件
     ];
 
     //使用自定义中间件时需要加上括号
@@ -33,8 +34,8 @@ export default function configureStore() {
 
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers
-        module.hot.accept('../reducers', () => {
-            const nextReducer = require('../reducers');
+        module.hot.accept('./reducers', () => {
+            const nextReducer = require('./reducers');
             store.replaceReducer(nextReducer);
         });
     }

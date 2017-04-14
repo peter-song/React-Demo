@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter as Router, Route,} from 'react-router-dom';
-import configureStore from './store/configureStore';
+import configureStore from './redux/createStore';
 
 import Profile from './component/profile/Header';
 

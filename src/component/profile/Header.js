@@ -3,18 +3,19 @@
  */
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as ActionsCreators from '../../action/profile/index';
+import * as ActionsCreators from '../../redux/reducers/profile';
 
 import styles from '../../styles/greeter.css';
 import Hobby from './Hobby';
 
-let person = require('../../config/person')
+let person = require('../../config/person');
 
 import DevTools from "../DevTools/DevTools";
 
 @connect(
     state => ({
-        hobbies: state.hobbies.present
+        hobbies: state.hobbies
+        // hobbies: state.hobbies.present
     }),
     ActionsCreators
 )
@@ -24,8 +25,6 @@ export default class Profile extends React.Component {
     static propTypes = {
         name: PropTypes.string.isRequired,
         age: PropTypes.number.isRequired,
-        undo: PropTypes.func.isRequired,
-        redo: PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -43,6 +42,8 @@ export default class Profile extends React.Component {
     }
 
     render() {
+        console.log(this.props.hobbies);
+        let hobbies = [];
         return (
             <div>
                 <h1 className={styles.name}>我的名字叫 {this.props.name}</h1>
@@ -51,14 +52,11 @@ export default class Profile extends React.Component {
                 <h2>总点赞数： {this.state.liked}</h2>
                 <h2>我的爱好：</h2>
                 <ul>
-                    {this.props.hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
+                    {hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
                 </ul>
                 <input type="text" defaultValue="爬山" ref="hobby"/>&nbsp;&nbsp;
                 <button onClick={this.addHobbyCallback}>添加爱好</button>
                 &nbsp;&nbsp;
-                <button onClick={this.props.undo}>撤销</button>
-                &nbsp;&nbsp;
-                <button onClick={this.props.redo}>重做</button>
                 <DevTools />
             </div>
         );
@@ -74,7 +72,7 @@ export default class Profile extends React.Component {
         const hobbyInput = this.refs.hobby;
         const val = hobbyInput.value;
         if (val) {
-            this.props.addHobby(val);
+            this.props.addHobby({text: val});
             // hobbyInput.value = '';
         }
     }

@@ -4,8 +4,10 @@
 
 import {combineReducers} from 'redux';
 import undoable, {includeAction} from 'redux-undo';
-import {hobbies} from './profile/index';
-import {ADD_HOBBY, UNDO_HOBBY, REDO_HOBBY} from '../action/profile/index';
+import {hobbies} from './profile';
+import {ADD_HOBBY, UNDO_HOBBY, REDO_HOBBY} from '../../action/profile/index';
+
+import hobbyReducer from './profile';
 
 const rootReducer = combineReducers({
     hobbies: undoable(hobbies, {
@@ -17,4 +19,10 @@ const rootReducer = combineReducers({
     })
 });
 
-export default rootReducer;
+export default function AppReducer(state = {}, action) {
+    return {
+        hobby: hobbyReducer(state.hobbies, action)
+    }
+}
+
+// export default rootReducer;
