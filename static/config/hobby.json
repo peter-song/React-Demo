@@ -1,0 +1,10 @@
+{
+  "code": 0,
+  "status": "OK",
+  "response": {
+    "hobbies": [
+      "听音乐",
+      "打篮球"
+    ]
+  }
+}

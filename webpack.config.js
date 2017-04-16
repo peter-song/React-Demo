@@ -18,7 +18,7 @@ module.exports = {
 
     // 打包文件出口
     output: {
-        // publicPath: "/dist/", //编译好的文件，在服务器的路径,这是静态资源引用路径
+        // publicPath: "/public/", //编译好的文件，在服务器的路径,这是静态资源引用路径
         path: BUILD_PATH, //打包后文件存放位置
         filename: "[name].js", //打包后文件名（'name'为entry定义的key值，本例为main）
         chunkFilename: '[name].[chunkhash:5].min.js',
@@ -75,7 +75,7 @@ module.exports = {
     // 开发服务器（webpack-dev-server）
     devServer: {
         historyApiFallback: true,
-        contentBase: "./public",//本地服务器所加载的页面所在的目录
+        // contentBase: "./public",//本地服务器所加载的页面所在的目录
         //port: 8080, //监听端口，默认为8080，省略后如果8080被占用，会替换别的端口，控制台会打印
         inline: true, //实时刷新,
         hot: true

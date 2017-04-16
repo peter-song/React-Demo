@@ -14,7 +14,7 @@ import DevTools from "../DevTools/DevTools";
 
 @connect(
     state => ({
-        resultHobbies: state.hobby.hobbies,
+        hobbies: state.hobby.hobbies,
         isFetching: state.hobby.isFetching
     }),
     ActionsCreators
@@ -46,8 +46,8 @@ export default class Profile extends React.Component {
     }
 
     render() {
-        let resultHobbies = this.props.resultHobbies;
-        resultHobbies = resultHobbies == undefined ? [] : resultHobbies;
+        let hobbies = this.props.hobbies;
+        hobbies = hobbies == undefined ? [] : hobbies;
 
         return (
             <div>
@@ -57,7 +57,7 @@ export default class Profile extends React.Component {
                 <h2>总点赞数： {this.state.liked}</h2>
                 <h2>我的爱好：</h2>
                 <ul>
-                    {resultHobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
+                    {hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
                 </ul>
                 <input type="text" defaultValue="爬山" ref="hobby"/>&nbsp;&nbsp;
                 <button onClick={this.addHobbyCallback}>添加爱好</button>

@@ -2,35 +2,29 @@
  * Created by songzhongkun on 17/4/14.
  */
 const methods = ['post', 'get'];
-let hobbies = ['听音乐', '打篮球'];
+let result = {};
 
 export default class ApiClient {
     constructor() {
         methods.forEach(method => {
             this[method] = (path, {data, params} = {}) => {
+
                 return new Promise((resolve, reject) => {
-                    if (1 == 1) {
-                        if (path.indexOf('add') > 0) {
-                            hobbies.push(data.text);
-                        }
-                        let result = {
-                            code: 0,
-                            status: 'OK',
-                            response: {
-                                hobbies: hobbies
-                            }
-                        };
+                    if (path.indexOf('add') > 0) {
+                        result.response.hobbies.push(data.text);
                         resolve(result)
                     } else {
-                        let result = {
-                            code: 0,
-                            status: 'FAIL',
-                            response: 'error'
-                        };
-                        reject(result);
+                        fetch('/static/config/hobby.json')
+                            .then(response => response.json())
+                            .then(json => {
+                                result = json;
+                                resolve(json)
+                            })
+
                     }
                 })
             }
         })
     }
+
 }
