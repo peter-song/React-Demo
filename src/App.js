@@ -10,7 +10,7 @@ import DevTools from "./component/DevTools/DevTools";
 
 import '../static/styles/main.css';
 const client = new ApiClient();
-const store = configureStore(client);
+const store = configureStore(client, window.__INITIAL_STATE__);
 ReactDOM.render(
     <Provider store={store}>
         <div>

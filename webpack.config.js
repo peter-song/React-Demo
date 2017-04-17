@@ -1,7 +1,7 @@
 let webpack = require('webpack');
 let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');//生成html
-var ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打包
+let ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打包
 
 //常用路径
 const ROOT_PATH = path.resolve(__dirname);

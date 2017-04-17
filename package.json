@@ -4,6 +4,7 @@
   "description": "This is a React Demo!",
   "main": "index.js",
   "dependencies": {
+    "node-fetch": "^1.6.3",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
     "react-redux": "^5.0.3",

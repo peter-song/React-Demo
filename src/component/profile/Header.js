@@ -49,8 +49,6 @@ export default class Profile extends React.Component {
         let hobbies = this.props.hobbies;
         hobbies = hobbies == undefined ? [] : hobbies;
 
-        console.log(headImg);
-
         return (
             <div>
                 <div className={styles.contentLeft}>

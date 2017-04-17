@@ -9,7 +9,7 @@ import createLogger from 'redux-logger';
 
 import DevTools from "../component/DevTools/DevTools";
 
-export default function configureStore(client) {
+export default function configureStore(client, initialState) {
 
     const middleware = [
         thunkMiddleWare(client), // 自定义
@@ -36,7 +36,7 @@ export default function configureStore(client) {
         // Enable Webpack hot module replacement for reducers
         module.hot.accept('./reducers', () => {
             const nextReducer = require('./reducers');
-            store.replaceReducer(nextReducer);
+            store.replaceReducer(nextReducer, initialState);
         });
     }
 
