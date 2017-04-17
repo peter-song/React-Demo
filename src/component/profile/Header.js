@@ -5,12 +5,12 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as ActionsCreators from '../../redux/reducers/profile';
 
-import styles from '../../styles/greeter.css';
+import styles from '../../../static/styles/greeter.css';
+import styles2 from '../../../static/styles/test.scss';
+let person = require('../../../static/config/person');
+let headImg = require('../../../static/img/head-portrait.jpg');
+
 import Hobby from './Hobby';
-
-let person = require('../../config/person');
-
-import DevTools from "../DevTools/DevTools";
 
 @connect(
     state => ({
@@ -41,7 +41,7 @@ export default class Profile extends React.Component {
         this.addHobbyCallback = this.addHobbyCallback.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.findHobbies();
     }
 
@@ -49,20 +49,25 @@ export default class Profile extends React.Component {
         let hobbies = this.props.hobbies;
         hobbies = hobbies == undefined ? [] : hobbies;
 
+        console.log(headImg);
+
         return (
             <div>
-                <h1 className={styles.name}>我的名字叫 {this.props.name}</h1>
-                <h2>我今年 {this.props.age} 岁</h2>
-                <button onClick={this.likedCallback}>给我点赞</button>
-                <h2>总点赞数： {this.state.liked}</h2>
-                <h2>我的爱好：</h2>
-                <ul>
-                    {hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
-                </ul>
-                <input type="text" defaultValue="爬山" ref="hobby"/>&nbsp;&nbsp;
-                <button onClick={this.addHobbyCallback}>添加爱好</button>
-                &nbsp;&nbsp;
-                <DevTools />
+                <div className={styles.contentLeft}>
+                    <h1 className={styles.name}>我的名字叫 {this.props.name}</h1>
+                    <h2 className={styles2.color}>我今年 {this.props.age} 岁</h2>
+                    <button onClick={this.likedCallback}>给我点赞</button>
+                    <h2>总点赞数： {this.state.liked}</h2>
+                    <h2>我的爱好：</h2>
+                    <ul>
+                        {hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
+                    </ul>
+                    <input type="text" defaultValue="爬山" ref="hobby"/>&nbsp;&nbsp;
+                    <button onClick={this.addHobbyCallback}>添加爱好</button>
+                </div>
+                <div className={styles.contentRight}>
+                    <img src={headImg}/>
+                </div>
             </div>
         );
     }

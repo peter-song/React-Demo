@@ -45,6 +45,18 @@ module.exports = {
                     publicPath: "../"
                 })
             },
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ['css-loader?modules', 'sass-loader'],
+                    publicPath: "../"
+                })
+            },
+            {
+                test: /\.(png)|(jpg)$/,
+                loader: "url-loader?limit=10240&name=images/[hash:8].[name].[ext]"
+            }
         ],
     },
 

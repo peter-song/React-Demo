@@ -6,15 +6,19 @@ import ApiClient from './helper/ApiClient';
 import configureStore from './redux/createStore';
 
 import Profile from './component/profile/Header';
+import DevTools from "./component/DevTools/DevTools";
 
-import './styles/main.css';
+import '../static/styles/main.css';
 const client = new ApiClient();
 const store = configureStore(client);
 ReactDOM.render(
     <Provider store={store}>
-        <Router>
-            <Route path="/" component={Profile}/>
-        </Router>
+        <div>
+            <Router>
+                <Route path="/" component={Profile}/>
+            </Router>
+            <DevTools />
+        </div>
     </Provider>,
     document.getElementById('root')
 );
