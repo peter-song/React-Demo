@@ -13,7 +13,10 @@ module.exports = {
 
     // 文件入口
     entry: {
-        main: path.resolve(APP_PATH, "./App.js") //_dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
+        main: [
+            // 'webpack-hot-middleware/client',
+            path.resolve(APP_PATH, "./App.js") //_dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
+        ]
     },
 
     // 打包文件出口
@@ -81,6 +84,7 @@ module.exports = {
             disable: false,
             allChunks: true
         }),
+        new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin()//热加载插件
     ],
 
