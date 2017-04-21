@@ -1,6 +1,7 @@
 /**
  * Created by songzhongkun on 17/4/14.
  */
+import fetch from 'isomorphic-fetch';
 const methods = ['post', 'get'];
 let result = {};
 

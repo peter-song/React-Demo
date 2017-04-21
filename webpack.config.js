@@ -6,7 +6,7 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打�
 //常用路径
 const ROOT_PATH = path.resolve(__dirname);
 const APP_PATH = path.resolve(ROOT_PATH, './src');
-const BUILD_PATH = path.resolve(ROOT_PATH, './public');
+const BUILD_PATH = path.resolve(ROOT_PATH, './dist');
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -14,14 +14,14 @@ module.exports = {
     // 文件入口
     entry: {
         main: [
-            // 'webpack-hot-middleware/client',
+            'webpack-hot-middleware/client',
             path.resolve(APP_PATH, "./App.js") //_dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
         ]
     },
 
     // 打包文件出口
     output: {
-        // publicPath: "/public/", //编译好的文件，在服务器的路径,这是静态资源引用路径
+        // publicPath: "/dist/", //编译好的文件，在服务器的路径,这是静态资源引用路径
         path: BUILD_PATH, //打包后文件存放位置
         filename: "[name].js", //打包后文件名（'name'为entry定义的key值，本例为main）
         chunkFilename: '[name].[chunkhash:5].min.js',
