@@ -57,11 +57,12 @@ export default class Profile extends React.Component {
                     <button onClick={this.likedCallback}>给我点赞</button>
                     <h2>总点赞数： {this.state.liked}</h2>
                     <h2>我的爱好：</h2>
-                    <ul>
+                    <ul id="hobby">
                         {hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
                     </ul>
                     <input type="text" defaultValue="爬山" ref="hobby"/>&nbsp;&nbsp;
                     <button onClick={this.addHobbyCallback}>添加爱好</button>
+                    <button onClick={() => this.createPdf()}>DownLoad PDF</button>
                 </div>
                 <div className={styles.contentRight}>
                     <img src={headImg}/>
@@ -83,5 +84,23 @@ export default class Profile extends React.Component {
             this.props.addHobby({text: val});
             // hobbyInput.value = '';
         }
+    }
+
+    createPdf() {
+        console.log('create pdf');
+
+        // let h2c = require('html2canvas');
+        let jsPDF = require('jspdf');
+
+        let pdf = new jsPDF('p', 'pt', 'a4');
+        let options = {
+            pagesplit: true
+        };
+        
+        let hobby = document.getElementsByTagName('body')[0];
+        pdf.addHTML(hobby, options, function () {
+            pdf.save("test.pdf");
+        });
+
     }
 }
