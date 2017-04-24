@@ -14,9 +14,15 @@ npm init
 # 运行
 
 ````
-npm start
+npm run dev
 
 open http://localhost:8080
+
+or
+
+npm start
+
+open http://localhost:3000
 ````
 
 # 提交记录
