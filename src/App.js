@@ -9,6 +9,8 @@ import configureStore from './redux/createStore';
 import Profile from './component/profile/Header';
 import DevTools from "./component/DevTools/DevTools";
 
+require('../static/js/html2canvas.js');
+
 import '../static/styles/main.css';
 const client = new ApiClient();
 const store = configureStore(client, window.__INITIAL_STATE__);
@@ -18,7 +20,7 @@ ReactDOM.render(
             <Router>
                 <Route path="/" component={Profile}/>
             </Router>
-            <DevTools />
+            {/*<DevTools />*/}
         </div>
     </Provider>,
     document.getElementById('root')

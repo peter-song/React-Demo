@@ -50,7 +50,17 @@ export default class Profile extends React.Component {
         hobbies = hobbies == undefined ? [] : hobbies;
 
         return (
-            <div>
+            <div id="content" className={styles.content}>
+                <div id="title" style={{margin: 20, display: 'none'}}>
+                    <div className={styles.basicInfo}>Title</div>
+                    <img className={styles.logo} src={headImg}/>
+                    <div className={styles.clear}></div>
+                </div>
+                <div style={{margin: 20}}>
+                    <div className={styles.basicInfo}>BasicInfo</div>
+                    <div id="download" className={styles.downloadBtn} onClick={() => this.createPdf()}>DownLoad PDF</div>
+                </div>
+                <div className={styles.clear}></div>
                 <div className={styles.contentLeft}>
                     <h1 className={styles.name}>我的名字叫 {this.props.name}</h1>
                     <h2 className={styles2.color}>我今年 {this.props.age} 岁</h2>
@@ -62,10 +72,25 @@ export default class Profile extends React.Component {
                     </ul>
                     <input type="text" defaultValue="爬山" ref="hobby"/>&nbsp;&nbsp;
                     <button onClick={this.addHobbyCallback}>添加爱好</button>
-                    <button onClick={() => this.createPdf()}>DownLoad PDF</button>
                 </div>
                 <div className={styles.contentRight}>
                     <img src={headImg}/>
+                </div>
+                <div id="book" className={styles.book}>
+                    <p>飞狐外传</p>
+                    <p>雪山飞狐</p>
+                    <p>连城诀</p>
+                    <p>天龙八部</p>
+                    <p>射雕英雄传</p>
+                    <p>白马啸西风</p>
+                    <p>鹿鼎记</p>
+                    <p>笑傲江湖</p>
+                    <p>书剑恩仇录</p>
+                    <p>神雕侠侣</p>
+                    <p>侠客行</p>
+                    <p>倚天屠龙记</p>
+                    <p>碧血剑</p>
+                    <p>鸳鸯刀</p>
                 </div>
             </div>
         );
@@ -92,15 +117,31 @@ export default class Profile extends React.Component {
         // let h2c = require('html2canvas');
         let jsPDF = require('jspdf');
 
-        let pdf = new jsPDF('p', 'pt', 'a4');
+        let pdf = new jsPDF('p', 'mm', 'a4');
         let options = {
             pagesplit: true
         };
-        
-        let hobby = document.getElementsByTagName('body')[0];
+
+        let hobby = document.getElementById('content');
+        hobby.style.background = '#dae3ff';
+        hobby.style.padding = '20px';
+        console.log(hobby);
+
+        let book = document.getElementById('book');
+        book.style.height = 'auto';
+        // console.log(book);
+
+        let downloadBtn = document.getElementById('download');
+        downloadBtn.style.display = 'none';
+
+        let title = document.getElementById('title');
+        title.style.display = 'block';
+
         pdf.addHTML(hobby, options, function () {
             pdf.save("test.pdf");
+            book.style.height = '200px';
+            downloadBtn.style.display = 'block';
+            title.style.display = 'none';
         });
-
     }
 }
