@@ -4,6 +4,12 @@
     margin-top: 5px;
 }
 
+.content {
+    width: 80%;
+    /*padding:20px;*/
+    /*margin: 0 auto*/
+}
+
 .contentLeft {
     float: left;
     padding: 20px;
@@ -19,11 +25,6 @@
     height: 150px;
 }
 
-.content {
-    width: 50%;
-    margin: 0 auto
-}
-
 .book {
     clear: both;
     border: 1px solid gray;
@@ -32,10 +33,6 @@
     height: 200px;
     overflow-x: hidden;
     overflow-y: auto
-}
-
-.clear {
-    clear: both;
 }
 
 .basicInfo {
@@ -61,4 +58,8 @@
     width: 50px;
     height: 50px;
     float: right;
+}
+
+.color {
+    color: #ff0;
 }

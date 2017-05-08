@@ -19,3 +19,22 @@ h1, h2, h3, h4, h5, h6, p, ul {
     /*margin: 0;*/
     /*padding: 0;*/
 }
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.nav {
+    float: left;
+    width: 20%;
+    font-size: 20px;
+    padding: 20px;
+}

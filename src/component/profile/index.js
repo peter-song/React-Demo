@@ -1,12 +1,13 @@
 /**
  * Created by songzhongkun on 17/4/2.
  */
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import * as ActionsCreators from '../../redux/reducers/profile';
 
-import styles from '../../../static/styles/greeter.css';
-import styles2 from '../../../static/styles/test.scss';
+import {Button} from 'antd';
+
+import './profile.css';
 let person = require('../../../static/config/person');
 let headImg = require('../../../static/img/head-portrait.jpg');
 
@@ -23,8 +24,8 @@ import Hobby from './Hobby';
 export default class Profile extends React.Component {
 
     static propTypes = {
-        name: PropTypes.string.isRequired,
-        age: PropTypes.number.isRequired,
+        name: React.PropTypes.string.isRequired,
+        age: React.PropTypes.number.isRequired,
     };
 
     static defaultProps = {
@@ -50,33 +51,33 @@ export default class Profile extends React.Component {
         hobbies = hobbies == undefined ? [] : hobbies;
 
         return (
-            <div id="content" className={styles.content}>
+            <div id="content" className="content">
                 <div id="title" style={{margin: 20, display: 'none'}}>
-                    <div className={styles.basicInfo}>Title</div>
-                    <img className={styles.logo} src={headImg}/>
-                    <div className={styles.clear}></div>
+                    <div className="basicInfo">Title</div>
+                    <img className="logo" src={headImg}/>
+                    <div className="clear"></div>
                 </div>
                 <div style={{margin: 20}}>
-                    <div className={styles.basicInfo}>BasicInfo</div>
-                    <div id="download" className={styles.downloadBtn} onClick={() => this.createPdf()}>DownLoad PDF</div>
+                    <div className="basicInfo">BasicInfo</div>
+                    <div id="download" className="downloadBtn" onClick={() => this.createPdf()}>DownLoad PDF</div>
                 </div>
-                <div className={styles.clear}></div>
-                <div className={styles.contentLeft}>
-                    <h1 className={styles.name}>我的名字叫 {this.props.name}</h1>
-                    <h2 className={styles2.color}>我今年 {this.props.age} 岁</h2>
-                    <button onClick={this.likedCallback}>给我点赞</button>
+                <div className="clear"></div>
+                <div className="contentLeft">
+                    <h1 className="name">我的名字叫 {this.props.name}</h1>
+                    <h2 className="color">我今年 {this.props.age} 岁</h2>
+                    <Button onClick={this.likedCallback}>给我点赞</Button>
                     <h2>总点赞数： {this.state.liked}</h2>
                     <h2>我的爱好：</h2>
                     <ul id="hobby">
                         {hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
                     </ul>
                     <input type="text" defaultValue="爬山" ref="hobby"/>&nbsp;&nbsp;
-                    <button onClick={this.addHobbyCallback}>添加爱好</button>
+                    <Button onClick={this.addHobbyCallback}>添加爱好</Button>
                 </div>
-                <div className={styles.contentRight}>
+                <div className="contentRight">
                     <img src={headImg}/>
                 </div>
-                <div id="book" className={styles.book}>
+                <div id="book" className="book">
                     <p>飞狐外传</p>
                     <p>雪山飞狐</p>
                     <p>连城诀</p>
