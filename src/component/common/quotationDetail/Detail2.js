@@ -139,7 +139,7 @@ export default class Detail extends React.Component {
     }
 
     handlerToggle(index, isOpen) {
-        let items = this.props.quotationStatements.detail.items;
+        let items = this.props.detail.items;
         let isOpens = this.state.isOpens;
         if (!isOpens) {
             isOpens = new Array(items.length);
