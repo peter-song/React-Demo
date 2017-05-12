@@ -14,7 +14,7 @@ module.exports = {
     // 文件入口
     entry: {
         main: [
-            'webpack-hot-middleware/client',
+            // 'webpack-hot-middleware/client',
             path.resolve(APP_PATH, "./App.js") //_dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
         ]
     },
@@ -59,6 +59,10 @@ module.exports = {
             {
                 test: /\.(png)|(jpg)$/,
                 loader: "url-loader?limit=10240&name=images/[hash:8].[name].[ext]"
+            },
+            {
+                test: /\.svg$/,
+                loader: "svg-url-loader?limit=10240&name=images/[hash:8].[name].[ext]"
             }
         ],
     },

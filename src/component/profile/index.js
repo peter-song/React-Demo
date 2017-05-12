@@ -54,7 +54,7 @@ export default class Profile extends React.Component {
             <div id="content" className="content">
                 <div id="title" style={{margin: 20, display: 'none'}}>
                     <div className="basicInfo">Title</div>
-                    <img className="logo" src={headImg}/>
+                    <img className="logo2" src={headImg}/>
                     <div className="clear"></div>
                 </div>
                 <div style={{margin: 20}}>

@@ -1,0 +1,140 @@
+
+.quotationContent {
+    background: #fff;
+    padding: 10px;
+}
+
+.quotationContent .addCostBtn {
+    background: #4990E2;
+    border-radius: 4px;
+    padding: 8px 16px;
+    display: inline-block;
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+}
+
+.quotationCommon {
+    border: 1px solid #c9ccd9;
+}
+
+.quotationCommon .title span {
+    width: 20%;
+    background: #E9E9E9;
+    padding: 12px 0;
+    float: left;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.75);
+    letter-spacing: 0;
+}
+
+.quotationCommon .content2 span {
+    width: 20%;
+    background: #FFFFFF;
+    padding: 12px 0;
+    float: left;
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+    letter-spacing: 0;
+}
+
+.quotationDetail {
+    border: 1px solid #c9ccd9;
+    margin-top: 16px;
+}
+
+.quotationDetail .title div {
+    float: left;
+    background: #E9E9E9;
+    padding: 12px 0;
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.75);
+    letter-spacing: 0;
+    line-height: 14px;
+}
+
+.quotationDetail .content2 div {
+    float: left;
+    background: #F7F7F7;
+    padding: 15px 0;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+    letter-spacing: 0;
+}
+
+.quotationDetail .subContent div {
+    float: left;
+    background: #FFFFFF;
+    padding: 15px 0;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+    letter-spacing: 0;
+}
+
+.quotationDetail .totalPrice div {
+    float: left;
+    background: #FFF2DC;
+    padding: 15px 0;
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.75);
+    letter-spacing: 0;
+}
+
+.quotationDetail .col1 {
+    width: 25%;
+}
+
+.quotationDetail .col1 span {
+    padding-left: 10px;
+    display: inline-block;
+}
+
+.quotationDetail .col2 {
+    width: 35%;
+}
+
+.quotationDetail .col2 span {
+    padding-left: 10px;
+    display: inline-block;
+}
+
+.quotationDetail .col3 {
+    width: 20%;
+    text-align: right;
+}
+
+.quotationDetail .col3 span {
+    padding-right: 10px;
+    display: inline-block;
+}
+
+.quotationDetail .col4 {
+    width: 20%;
+    text-align: right;
+}
+
+.quotationDetail .col4 {
+    width: 15%;
+    text-align: right;
+}
+
+.quotationDetail .col4 span {
+    display: inline-block;
+}
+
+.quotationDetail .col5 {
+    width: 5%;
+}
+
+.quotationDetail .line {
+    border-top: 1px solid #e2e2e2
+}

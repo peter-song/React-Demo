@@ -1,0 +1,64 @@
+.topContent {
+    height: 56px;
+    padding: 14px;
+    background: #ffffff;
+    border: 1px solid #D9D9D9;
+}
+
+.topTitle {
+    float: left;
+    font-family: Roboto-Regular;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.75);
+    letter-spacing: 0;
+}
+
+.topButton {
+    float: left;
+    border-radius: 4px;
+    margin-left: 26px;
+}
+
+.topButtonIcon {
+    color: #FFFFFF;
+}
+
+.topButtonText {
+    font-family: Roboto-Regular;
+    font-size: 12px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    margin-left: 8px;
+}
+
+.topHome {
+    float: right;
+}
+
+.topHome .text {
+    font-family: Roboto-Regular;
+    font-size: 14px;
+    color: #4990E2;
+    letter-spacing: 0;
+}
+
+.topUserInfo {
+    float: right;
+    margin-left: 50px;
+}
+
+.topUserInfo .text {
+    font-family: Roboto-Regular;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+    letter-spacing: 0;
+}
+
+.topLogin {
+    float: right;
+    margin-left: 15px;
+    font-family: Roboto-Regular;
+    font-size: 14px;
+    color: #4990E2;
+    letter-spacing: 0;
+}
