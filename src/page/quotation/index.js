@@ -9,6 +9,7 @@ const {Header, Content, Footer} = Layout;
 import Top from '../../component/top/index';
 import Common from '../../component/quotation2/Common';
 import Detail from '../../component/quotation2/Detail2';
+import EditableCell from '../../component/quotation2/EditableCell';
 
 export default class Portal extends React.Component {
 
@@ -96,6 +97,7 @@ export default class Portal extends React.Component {
                     <div style={styles.quotationContent}>
                         <Common info={quotationStatements.common}/>
                         <Detail detail={quotationStatements.detail}/>
+                        <EditableCell />
                     </div>
                 </Content>
             </Layout>

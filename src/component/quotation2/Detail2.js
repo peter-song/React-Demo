@@ -4,8 +4,8 @@
 import React from 'react';
 import _ from 'lodash';
 
-import down from '../../../static/img/down.svg';
-import up from '../../../static/img/up.svg';
+import down from '../../../static/img/down.png';
+import up from '../../../static/img/up.png';
 
 export default class Detail extends React.Component {
 
@@ -153,7 +153,7 @@ export default class Detail extends React.Component {
                         <span style={styles.quotationDetailRight}>{item.USD}</span>
                     </div>
                     <div style={_.merge({}, styles.col5, styles.quotationDetailContent, {textAlign: 'center'})}>
-                        <img src={down} style={{cursor: 'pointer', height: 15, width: 15}}
+                        <img src={isOpen ? up : down} style={{cursor: 'pointer', height: 15, width: 15}}
                              onClick={this.handlerToggle.bind(this, i, !isOpen)}/>
                     </div>
                     <div style={styles.clear}></div>

@@ -11,6 +11,7 @@ const TabPane = Tabs.TabPane;
 import Top from '../../component/top/index';
 import Common from '../../component/quotation/Common';
 import Statement from '../../component/quotation/Statement2';
+import EditableCell from '../../component/quotation/EditableCell';
 
 export default class Portal extends React.Component {
 
@@ -112,6 +113,7 @@ export default class Portal extends React.Component {
                         </Tabs>
                         <Common data={[quotationStatements.common]}/>
                         <Statement detail={quotationStatements.detail}/>
+                        <EditableCell />
                     </div>
                 </Content>
             </Layout>
