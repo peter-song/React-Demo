@@ -6,7 +6,7 @@ import React from 'react';
 import {Layout, Breadcrumb} from 'antd';
 const {Header, Content, Footer} = Layout;
 
-import Top from '../common/top/index';
+import Top from '../top/index';
 
 export default class Portal extends React.Component {
 

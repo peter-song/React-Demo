@@ -3,12 +3,14 @@
  */
 
 import React from 'react';
-import {Layout, Breadcrumb} from 'antd';
+import {Layout, Table, Breadcrumb, Tabs} from 'antd';
 const {Header, Content, Footer} = Layout;
 
-import Top from '../common/top/index';
-import Common from '../common/quotationDetail/Common';
-import Detail from '../common/quotationDetail/Detail2';
+const TabPane = Tabs.TabPane;
+
+import Top from '../../component/top/index';
+import Common from '../../component/quotation/Common';
+import Statement from '../../component/quotation/Statement2';
 
 export default class Portal extends React.Component {
 
@@ -30,13 +32,13 @@ export default class Portal extends React.Component {
                         subDetail: [
                             {
                                 title: 'Agency Fee',
-                                remakes: 'NRT49000*0.8 *2 + 1.24*30000+1.04*30000+0.85 * 40000+0.52*20000=123456.00',
+                                remark: 'NRT49000*0.8 *2 + 1.24*30000+1.04*30000+0.85 * 40000+0.52*20000=123456.00',
                                 RMB: '3000.00',
                                 USD: '700.00',
                             },
                             {
                                 title: 'Communication Fee',
-                                remakes: '',
+                                remark: '',
                                 RMB: '7000.00',
                                 USD: '1200.00',
                             }
@@ -49,13 +51,13 @@ export default class Portal extends React.Component {
                         subDetail: [
                             {
                                 title: 'Towage for quarantine inspection at anchorage ',
-                                remakes: 'NRT49000*0.8 *2 + 1.24*30000+1.04*30000+0.85 * 40000+0.52*20000=123456.00',
+                                remark: 'NRT49000*0.8 *2 + 1.24*30000+1.04*30000+0.85 * 40000+0.52*20000=123456.00',
                                 RMB: '500.00',
                                 USD: '100.00',
                             },
                             {
                                 title: 'Communication Fee',
-                                remakes: '',
+                                remark: '',
                                 RMB: '200.00',
                                 USD: '20.00',
                             }
@@ -72,9 +74,17 @@ export default class Portal extends React.Component {
 
     getStyles() {
         let styles = {
-            quotationContent: {
+            quotation: {
                 background: '#fff',
                 padding: 10,
+            },
+
+            quotationCommon: {
+                marginTop: 10
+            },
+
+            quotationContent: {
+                marginTop: 20
             }
         };
 
@@ -84,6 +94,7 @@ export default class Portal extends React.Component {
     render() {
         let styles = this.getStyles();
         let quotationStatements = this.props.quotationStatements;
+
         return (
             <Layout>
                 <Top />
@@ -93,12 +104,21 @@ export default class Portal extends React.Component {
                         <Breadcrumb.Item>Inquiry Result</Breadcrumb.Item>
                         <Breadcrumb.Item>Quotation statement</Breadcrumb.Item>
                     </Breadcrumb>
-                    <div style={styles.quotationContent}>
-                        <Common info={quotationStatements.common}/>
-                        <Detail detail={quotationStatements.detail} />
+                    <div style={styles.quotation}>
+                        <Tabs onChange={this.callback} type="card">
+                            <TabPane tab="Tab 1" key="1">Content of Tab Pane 1</TabPane>
+                            <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>
+                            <TabPane tab="Tab 3" key="3">Content of Tab Pane 3</TabPane>
+                        </Tabs>
+                        <Common data={[quotationStatements.common]}/>
+                        <Statement detail={quotationStatements.detail}/>
                     </div>
                 </Content>
             </Layout>
         )
+    }
+
+    callback(key) {
+        console.log(key)
     }
 }

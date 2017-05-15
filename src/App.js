@@ -9,8 +9,9 @@ import configureStore from './redux/createStore';
 import Welcome from './component/Welcome';
 import Profile from './component/profile/index';
 import Portal from './component/portal/index';
-import Published from './component/published/index';
-import Quotation from './component/quotation/index';
+import Published from './page/published/index';
+import Quotation from './page/quotation/index';
+import Quotation2 from './page/quotation2/index';
 import DevTools from "./component/DevTools/DevTools";
 
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
@@ -57,6 +58,7 @@ class App extends React.Component {
                             <Menu.Item key="2"><Link to="/portal">Portal</Link></Menu.Item>
                             <Menu.Item key="3"><Link to="/published">Published</Link></Menu.Item>
                             <Menu.Item key="4"><Link to="/quotation">Quotation</Link></Menu.Item>
+                            <Menu.Item key="5"><Link to="/quotation2">Quotation2</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu
                             key="sub2"
@@ -73,6 +75,7 @@ class App extends React.Component {
                     <Route path="/portal" component={Portal}/>
                     <Route path="/published" component={Published}/>
                     <Route path="/quotation" component={Quotation}/>
+                    <Route path="/quotation2" component={Quotation2}/>
                 </div>
             </Layout>
         );

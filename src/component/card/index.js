@@ -22,6 +22,7 @@ export default class Card extends React.Component {
                 padding: 10,
                 background: '#FFFFFF',
                 border: '1px solid #E9E9E9',
+                marginBottom: 10,
             },
 
             productContent: {

@@ -5,13 +5,13 @@ import React from 'react';
 import {Layout, Breadcrumb} from 'antd';
 const {Header, Content, Footer} = Layout;
 
-import Top from '../common/top/index';
-import Card from '../common/card/index';
+import Top from '../../component/top/index';
+import Card from '../../component/card/index';
 
 export default class Portal extends React.Component {
 
     render() {
-        let title = 'Inquiry Detail';
+        let title = 'Inquiry Statement';
         return (
             <Layout>
                 <Top title={title}/>

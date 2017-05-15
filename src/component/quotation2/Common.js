@@ -3,25 +3,8 @@
  */
 
 import React from 'react';
-import {Button} from 'antd';
-
-import './detail.css';
-import down from '../../../../static/img/down.svg';
-import up from '../../../../static/img/up.svg';
 
 export default class QuotationDetail extends React.Component {
-
-    static defaultProps = {
-        quotationStatements: {
-            common: {
-                vessel: 'MV SSHSLDS DSLDKH',
-                date: '24/May/2017',
-                port: 'Shanghai',
-                serviceType: 'Protecting Agency (Discharging)',
-                rate: 'USD 1/6.9'
-            }
-        }
-    };
 
     getStyles() {
 
