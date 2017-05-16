@@ -12,6 +12,7 @@ import Portal from './component/portal/index';
 import Published from './page/published/index';
 import Quotation from './page/quotation/index';
 import Quotation2 from './page/quotation2/index';
+import Setting from './page/setting/index';
 import DevTools from "./component/DevTools/DevTools";
 
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
@@ -59,6 +60,7 @@ class App extends React.Component {
                             <Menu.Item key="3"><Link to="/published">Published</Link></Menu.Item>
                             <Menu.Item key="4"><Link to="/quotation">Quotation</Link></Menu.Item>
                             <Menu.Item key="5"><Link to="/quotation2">Quotation2</Link></Menu.Item>
+                            <Menu.Item key="setting"><Link to="/setting">Setting</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu
                             key="sub2"
@@ -76,6 +78,7 @@ class App extends React.Component {
                     <Route path="/published" component={Published}/>
                     <Route path="/quotation" component={Quotation}/>
                     <Route path="/quotation2" component={Quotation2}/>
+                    <Route path="/setting" component={Setting}/>
                 </div>
             </Layout>
         );

@@ -7,13 +7,12 @@ import _ from 'lodash';
 
 export default class Card extends React.Component {
 
-    static defaultProps = {};
-
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            isOpen: false
+        }
     }
-
 
     getStyles() {
 
@@ -28,7 +27,7 @@ export default class Card extends React.Component {
             productContent: {
                 float: 'left',
                 textAlign: 'center',
-                width: 80,
+                width: 90,
                 height: 100,
                 padding: 10,
                 cursor: 'pointer',
@@ -49,15 +48,17 @@ export default class Card extends React.Component {
             },
 
             productText: {
-                fontFamily: 'Roboto-Regular',
+                fontWeight: 400,
                 fontSize: 12,
                 color: 'rgba(0,0,0,0.65)',
                 letterSpacing: 0,
+                marginTop: 5,
+                display: 'inline-block',
             },
 
             moreDetail: {
                 float: 'right',
-                fontFamily: 'Roboto-Regular',
+                fontWeight: 400,
                 fontSize: 14,
                 color: '#4990E2',
                 letterSpacing: 0,
@@ -72,15 +73,15 @@ export default class Card extends React.Component {
         return styles;
     }
 
-    renderCardElem(styles) {
+    renderCardElem(styles, products = []) {
         let cardElem = [];
-        [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8].map(() => {
+        products.map((item, i) => {
             cardElem.push(
-                <div style={styles.productContent}>
+                <div key={`product_${i}`} style={styles.productContent}>
                     <div style={styles.productImgBg}>
                         <img style={styles.productImg} src="home.svg"/>
                     </div>
-                    <span style={styles.productText}>Spare Part Delivery</span>
+                    <span style={styles.productText}>{item.name}</span>
                 </div>
             );
         });
@@ -97,10 +98,13 @@ export default class Card extends React.Component {
 
     render() {
 
-        let styles = this.getStyles();
+        const styles = this.getStyles();
+
+        const products = this.props.products;
+
         return (
             <div style={styles.cardContent}>
-                {this.renderCardElem(styles)}
+                {this.renderCardElem(styles, products)}
                 {this.renderMoreDetails(styles)}
                 <div style={styles.clear}></div>
             </div>

@@ -9,7 +9,7 @@ import {Button, Input, Menu, Dropdown, InputNumber} from 'antd';
 import del from '../../../static/img/delete.png';
 import save from '../../../static/img/save.png';
 
-export default class Detail extends React.Component {
+export default class EditTable extends React.Component {
 
     getStyles() {
 

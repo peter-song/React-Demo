@@ -6,15 +6,13 @@ import React from 'react';
 import {Layout, Breadcrumb} from 'antd';
 const {Header, Content, Footer} = Layout;
 
-import Top from '../../component/top/index';
-import Common from '../../component/quotation2/Common';
-import Detail from '../../component/quotation2/Detail2';
-import EditableCell from '../../component/quotation2/EditableCell';
+import DetailTable from '../../component/Offer/DetailTable';
+import EditTable from '../../component/Offer/EditTable';
 
 export default class Portal extends React.Component {
 
     static defaultProps = {
-        quotationStatements: {
+        offerDetail: {
             common: {
                 vessel: 'MV SSHSLDS DSLDKH',
                 date: '28/May/2017',
@@ -84,10 +82,12 @@ export default class Portal extends React.Component {
 
     render() {
         let styles = this.getStyles();
-        let quotationStatements = this.props.quotationStatements;
+        let offerDetail = this.props.offerDetail;
         return (
             <Layout>
-                <Top />
+                <Header style={{background: '#fff'}}>
+                   title
+                </Header>
                 <Content>
                     <Breadcrumb style={{margin: '12px 16px'}}>
                         <Breadcrumb.Item>Price Inquiry</Breadcrumb.Item>
@@ -95,9 +95,8 @@ export default class Portal extends React.Component {
                         <Breadcrumb.Item>Quotation statement</Breadcrumb.Item>
                     </Breadcrumb>
                     <div style={styles.quotationContent}>
-                        <Common info={quotationStatements.common}/>
-                        <Detail detail={quotationStatements.detail}/>
-                        <EditableCell />
+                        <DetailTable offerDetail={offerDetail}/>
+                        <EditTable />
                     </div>
                 </Content>
             </Layout>
