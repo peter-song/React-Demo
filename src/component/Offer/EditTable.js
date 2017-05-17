@@ -65,6 +65,7 @@ export default class EditTable extends React.Component {
                 fontSize: 12,
                 color: 'rgba(0,0,0,0.43)',
                 letterSpacing: 0,
+                cursor: 'pointer',
             },
 
             costItemDownChanged: {
@@ -72,6 +73,7 @@ export default class EditTable extends React.Component {
                 fontSize: 14,
                 color: 'rgba(0,0,0,0.65)',
                 letterSpacing: 0,
+                cursor: 'pointer',
             },
 
             quotationDetailLeft: {
@@ -116,6 +118,29 @@ export default class EditTable extends React.Component {
                 width: 20,
             },
 
+            addText: {
+                fontWeight: 400,
+                fontSize: 14,
+                color: '#4990E2',
+                marginLeft: 14,
+                letterSpacing: 0,
+                float: 'left',
+            },
+
+            addCost: {
+                float: 'left',
+                border: '1px solid #4990E2',
+                borderRadius: 2,
+                padding: '7px 14px'
+            },
+
+            productPrompt: {
+                color: '#f04134',
+                fontWeight: 400,
+                fontSize: 12,
+                letterSpacing: 0,
+            },
+
             clear: {
                 clear: 'both'
             }
@@ -127,25 +152,6 @@ export default class EditTable extends React.Component {
     static defaultProps = {
         inputPrompt: 'Click to edit',
         selectPrompt: 'Click to select cost item',
-        title: 'Cash to Master',
-        productItems: [
-            {
-                id: 1,
-                name: 'Port Agency'
-            },
-            {
-                id: 2,
-                name: 'Spare Parts Delivery'
-            },
-            {
-                id: 3,
-                name: 'Crew Change'
-            },
-            {
-                id: 4,
-                name: 'Port Disbursement'
-            }
-        ]
     };
 
     constructor(props) {
@@ -186,7 +192,7 @@ export default class EditTable extends React.Component {
         return (
             <div key={`content`}>
                 <div style={_.merge({}, styles.col1, styles.quotationDetailContent)}>
-                    <span style={styles.quotationDetailLeft}>{this.props.title}</span>
+                    <span style={styles.quotationDetailLeft}>{this.props.productInfo.title}</span>
                 </div>
                 <div style={_.merge({}, styles.col2, styles.quotationDetailContent)}>
                     <span style={styles.quotationDetailLeft}>&nbsp;</span>
@@ -205,12 +211,14 @@ export default class EditTable extends React.Component {
     }
 
     renderSubContentElem(styles) {
+        const {detail} = this.state;
+        const {productInfo} = this.props;
         const subContentElem = [];
-        this.state.detail.items.map((item, i) => {
-            let changeItem = _.find(this.props.productItems, obj_item => obj_item.id == item.title);
+        detail.items.map((item, i) => {
+            let changeItem = _.find(productInfo.productItems, obj_item => obj_item.id == item.title);
 
-            const items = this.props.productItems.map(item => {
-                let isExists = _.find(this.state.detail.items, obj_item => obj_item.title == item.id);
+            const items = productInfo.productItems.map(item => {
+                let isExists = _.find(detail.items, obj_item => obj_item.title == item.id);
                 if (isExists) {
                     return <Menu.Item disabled key={`${i}_${item.id}`}>{item.name}</Menu.Item>
                 } else {
@@ -223,11 +231,13 @@ export default class EditTable extends React.Component {
                 <div key={`subContent_${i}`} style={_.merge({}, i > 0 ? styles.line : '')}>
                     <div style={_.merge({}, styles.col1, styles.quotationDetailSubContent, {paddingLeft: 10})}>
                         <Dropdown overlay={menu} trigger={['click']}>
-                            <a style={_.merge({}, changeItem ? styles.costItemDownChanged : styles.costItemDownDefault)}
-                               href="#">
+                            <span
+                                style={_.merge({}, changeItem ? styles.costItemDownChanged : styles.costItemDownDefault)}
+                                href="#">
                                 {changeItem ? changeItem.name : this.props.selectPrompt}
-                            </a>
+                            </span>
                         </Dropdown>
+                        {item.validateTitle ? '' : <div style={styles.productPrompt}>请选择产品</div>}
                     </div>
                     <div style={_.merge({}, styles.col2, styles.quotationDetailSubContent)}>
                         <Input type="textarea" autosize
@@ -237,16 +247,22 @@ export default class EditTable extends React.Component {
                                placeholder={this.props.inputPrompt}/>
                     </div>
                     <div style={_.merge({}, styles.col3, styles.quotationDetailSubContent)}>
-                        <InputNumber min={0} style={_.merge({}, styles.quotationDetailRight, {width: '80%'})}
-                                     onChange={this.handlerChangePrice.bind(this, i, 'rmb')}
+                        <InputNumber disabled={productInfo.offerType == 'RMB' ? false : true} min={0}
+                                     style={_.merge({}, styles.quotationDetailRight, {width: '80%'})}
+                                     onChange={this.handlerChangePrice.bind(this, i, 'RMB')}
                                      value={item.RMB}
                                      placeholder={this.props.inputPrompt}/>
+                        {item.validateRMB ? '' :
+                            <div style={_.merge({}, styles.productPrompt, {marginRight: 10})}>请填写金额</div>}
                     </div>
                     <div style={_.merge({}, styles.col4, styles.quotationDetailSubContent)}>
-                        <InputNumber min={0} style={_.merge({}, styles.quotationDetailRight, {width: '80%'})}
-                                     onChange={this.handlerChangePrice.bind(this, i, 'usd')}
+                        <InputNumber disabled={productInfo.offerType == 'USD' ? false : true} min={0}
+                                     style={_.merge({}, styles.quotationDetailRight, {width: '80%'})}
+                                     onChange={this.handlerChangePrice.bind(this, i, 'USD')}
                                      value={item.USD}
                                      placeholder={this.props.inputPrompt}/>
+                        {item.validateUSD ? '' :
+                            <div style={_.merge({}, styles.productPrompt, {marginRight: 10})}>请填写金额</div>}
                     </div>
                     <div style={_.merge({}, styles.col5, styles.quotationDetailSubContent)}>
                         <img src={del} style={_.merge({}, styles.icon, {})}
@@ -264,7 +280,6 @@ export default class EditTable extends React.Component {
 
     render() {
         let styles = this.getStyles();
-        let detail = this.props.detail;
 
         return (
             <div>
@@ -283,12 +298,15 @@ export default class EditTable extends React.Component {
     handlerAddCostItem() {
         const detail = this.state.detail;
 
-        if(detail.items.length < this.props.productItems.length){
+        if (detail.items.length < this.props.productInfo.productItems.length) {
             let defaultItem = {
                 title: '',
+                validateTitle: true,
                 remark: '',
                 RMB: '',
-                USD: ''
+                validateRMB: true,
+                USD: '',
+                validateUSD: true
             };
             detail.items.push(defaultItem);
 
@@ -309,13 +327,41 @@ export default class EditTable extends React.Component {
 
     handlerSaveCostItem(i) {
         const detail = this.state.detail;
+        const item = detail.items[i];
 
-        console.log(detail.items[i])
+        if (item.title == '') {
+            item.validateTitle = false;
+        } else {
+            item.validateTitle = true;
+        }
+
+        if (item.RMB == '' || item.RMB == '0.00') {
+            item.validateRMB = false;
+        } else {
+            item.validateRMB = true;
+        }
+
+        if (item.USD == '' || item.USD == '0.00') {
+            item.validateUSD = false;
+        } else {
+            item.validateUSD = true;
+        }
+
+        if (item.validateTitle && item.validateRMB && item.validateUSD) {
+            console.log(detail.items[i])
+        } else {
+            detail.items[i] = item;
+            this.setState({
+                detail
+            })
+        }
+
     }
 
     handlerChangeProductItem(i, {key}) {
         const detail = this.state.detail;
         detail.items[i].title = key.split('_')[1];
+        detail.items[i].validateTitle = true;
 
         this.setState({
             detail
@@ -332,17 +378,35 @@ export default class EditTable extends React.Component {
     }
 
     handlerChangePrice(i, type, value) {
+        if (value == '') value = 0;
         const detail = this.state.detail;
-        detail.items[i][type.toUpperCase()] = value;
+        if (value == 0) {
+            detail.items[i].validateRMB = false;
+            detail.items[i].validateUSD = false;
+        }else{
+            detail.items[i].validateRMB = true;
+            detail.items[i].validateUSD = true;
+        }
+
+        const productInfo = this.props.productInfo;
+        if (type == 'RMB') {
+            detail.items[i].RMB = Number.parseFloat(value).toFixed(2);
+            const USD = Number.parseFloat(value) * Number.parseFloat(productInfo.rate);
+            detail.items[i].USD = USD.toFixed(2);
+        } else {
+            const RMB = Number.parseFloat(value) / Number.parseFloat(productInfo.rate);
+            detail.items[i].RMB = RMB.toFixed(2);
+            detail.items[i].USD = Number.parseFloat(value).toFixed(2);
+        }
 
         let totalRMB = 0, totalUSD = 0;
         detail.items.forEach(item => {
-            totalRMB += item.RMB;
-            totalUSD += item.USD;
+            totalRMB += Number.parseFloat(item.RMB);
+            totalUSD += Number.parseFloat(item.USD);
         });
 
-        detail.total.RMB = totalRMB;
-        detail.total.USD = totalUSD;
+        detail.total.RMB = totalRMB.toFixed(2);
+        detail.total.USD = totalUSD.toFixed(2);
 
         this.setState({
             detail

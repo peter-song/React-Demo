@@ -10,7 +10,7 @@ export default class Card extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false
+            moreType: false
         }
     }
 
@@ -91,8 +91,14 @@ export default class Card extends React.Component {
 
     renderMoreDetails(styles) {
 
+        const moreType = this.state.moreType;
+
         return (
-            <div style={_.merge({}, styles.moreDetail, styles.clear)}>More Details ></div>
+            <div style={_.merge({}, styles.moreDetail, styles.clear)}
+                 onClick={() => this.handlerMoreDetail(!moreType)}
+            >
+                {!moreType ? 'More Details >' : 'Hide Details <'}
+            </div>
         )
     }
 
@@ -109,5 +115,9 @@ export default class Card extends React.Component {
                 <div style={styles.clear}></div>
             </div>
         )
+    }
+
+    handlerMoreDetail(moreType) {
+        this.setState({moreType})
     }
 }

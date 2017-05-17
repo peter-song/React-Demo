@@ -66,6 +66,29 @@ export default class Portal extends React.Component {
                     USD: '22030.00'
                 }
             }
+        },
+        productInfo: {
+            title: 'Cash to Master',
+            offerType: 'USD',
+            rate: '6.9',
+            productItems: [
+                {
+                    id: 1,
+                    name: 'Port Agency'
+                },
+                {
+                    id: 2,
+                    name: 'Spare Parts Delivery'
+                },
+                {
+                    id: 3,
+                    name: 'Crew Change'
+                },
+                {
+                    id: 4,
+                    name: 'Port Disbursement'
+                }
+            ]
         }
     };
 
@@ -86,7 +109,7 @@ export default class Portal extends React.Component {
         return (
             <Layout>
                 <Header style={{background: '#fff'}}>
-                   title
+                    title
                 </Header>
                 <Content>
                     <Breadcrumb style={{margin: '12px 16px'}}>
@@ -96,7 +119,7 @@ export default class Portal extends React.Component {
                     </Breadcrumb>
                     <div style={styles.quotationContent}>
                         <DetailTable offerDetail={offerDetail}/>
-                        <EditTable />
+                        <EditTable productInfo={this.props.productInfo}/>
                     </div>
                 </Content>
             </Layout>
