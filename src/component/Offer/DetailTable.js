@@ -14,7 +14,8 @@ export default class DetailTable extends React.Component {
         let styles = {
 
             quotationCommon: {
-                border: '1px solid #c9ccd9'
+                border: '1px solid #c9ccd9',
+                marginTop: 16,
             },
 
             commonTitle: {

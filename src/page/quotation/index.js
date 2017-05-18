@@ -6,6 +6,7 @@ import React from 'react';
 import {Layout, Breadcrumb} from 'antd';
 const {Header, Content, Footer} = Layout;
 
+import TotalPrice from '../../component/Offer/TotalPrice/TotalPrice';
 import DetailTable from '../../component/Offer/DetailTable';
 import EditTable from '../../component/Offer/EditTable';
 
@@ -118,6 +119,7 @@ export default class Portal extends React.Component {
                         <Breadcrumb.Item>Quotation statement</Breadcrumb.Item>
                     </Breadcrumb>
                     <div style={styles.quotationContent}>
+                        <TotalPrice />
                         <DetailTable offerDetail={offerDetail}/>
                         <EditTable productInfo={this.props.productInfo}/>
                     </div>

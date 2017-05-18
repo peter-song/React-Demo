@@ -340,7 +340,6 @@ export default class EditTable extends React.Component {
         } else {
             item.validateRMB = true;
         }
-
         if (item.USD == '' || item.USD == '0.00') {
             item.validateUSD = false;
         } else {
