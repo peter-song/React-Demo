@@ -12,6 +12,54 @@ import EditTable from '../../component/Offer/EditTable';
 
 export default class Portal extends React.Component {
 
+    getStyles() {
+
+        let styles = {
+            quotationContent: {
+                background: '#fff',
+                padding: 10,
+            },
+
+            service: {
+                marginTop: 16
+            },
+
+            serviceLeft: {
+                float: 'left',
+                width: '20%',
+            },
+
+            serviceRight: {
+                float: 'right',
+                minHeight: 300,
+                border: '1px solid #E9E9E9',
+                width: '80%',
+            },
+
+            serviceTitle: {
+                fontWeight: 500,
+                fontSize: 14,
+                color: 'rgba(0,0,0,0.75)',
+                letterSpacing: 0,
+            },
+
+            serviceOperation: {
+                marginLeft: 16,
+                fontWeight: 400,
+                fontSize: 14,
+                color: '#4990E2',
+                letterSpacing: 0,
+                cursor: 'pointer',
+            },
+
+            clear: {
+                clear: 'both'
+            }
+        };
+
+        return styles;
+    }
+
     static defaultProps = {
         offerDetail: {
             common: {
@@ -90,23 +138,63 @@ export default class Portal extends React.Component {
                     name: 'Port Disbursement'
                 }
             ]
-        }
+        },
+
     };
 
-    getStyles() {
-        let styles = {
-            quotationContent: {
-                background: '#fff',
-                padding: 10,
-            }
-        };
+    constructor(props) {
+        super(props);
+        this.state = {
+            isEdit: false
+        }
+    }
 
-        return styles;
+    renderServiceOperationElem(styles) {
+        if (this.state.isEdit) {
+            return <div>
+                <span style={styles.serviceOperation}
+                      onClick={this.handlerClickOperation.bind(this, 'cancel')}>Cancel</span>
+                <span style={styles.serviceOperation}
+                      onClick={this.handlerClickOperation.bind(this, 'save')}>Save</span>
+            </div>;
+        } else {
+            return <span style={styles.serviceOperation}
+                         onClick={this.handlerClickOperation.bind(this, 'edit')}>Edit</span>
+        }
+    }
+
+    renderServiceSettingElem(styles) {
+        return (
+            <div style={styles.service}>
+                <div style={styles.serviceLeft}>
+
+                </div>
+                <div style={styles.serviceRight}>
+                    <div style={{padding: '11px 14px', background: '#F7F7F7'}}>
+                        <div style={{float: 'left'}}>
+                            <span style={styles.serviceTitle}>Cash to Master Setting</span>
+                        </div>
+                        <div style={{float: 'right'}}>
+                            {this.renderServiceOperationElem(styles)}
+                        </div>
+                        <div style={styles.clear}></div>
+                    </div>
+                </div>
+                <div style={styles.clear}></div>
+            </div>
+        )
     }
 
     render() {
         let styles = this.getStyles();
         let offerDetail = this.props.offerDetail;
+
+        const totalPriceProps = {
+            price: 'USD 22,030.00',
+            company: 'Shanghai Seasky Shipping ltd.',
+            rule: 'owner'
+        };
+
         return (
             <Layout>
                 <Header style={{background: '#fff'}}>
@@ -119,12 +207,25 @@ export default class Portal extends React.Component {
                         <Breadcrumb.Item>Quotation statement</Breadcrumb.Item>
                     </Breadcrumb>
                     <div style={styles.quotationContent}>
-                        <TotalPrice />
+                        <TotalPrice {...totalPriceProps}/>
                         <DetailTable offerDetail={offerDetail}/>
+                        {this.renderServiceSettingElem(styles)}
                         <EditTable productInfo={this.props.productInfo}/>
                     </div>
                 </Content>
             </Layout>
         )
+    }
+
+    handlerClickOperation(value) {
+        let isEdit = this.state.isEdit;
+        if (value == 'edit') {
+            isEdit = true;
+        } else if (value == 'cancel') {
+            isEdit = false;
+        } else if (value == 'save') {
+            isEdit = false;
+        }
+        this.setState({isEdit})
     }
 }

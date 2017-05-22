@@ -3,7 +3,6 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
 import {Button} from 'antd';
 
 import ResolveModal from './ResolveModal';
@@ -79,35 +78,50 @@ class TotalPrice extends React.Component {
 
     static propTypes = {
         price: React.PropTypes.string,
-        company: React.PropTypes.string
+        company: React.PropTypes.string,
+        rule: React.PropTypes.string,
     };
 
     static defaultProps = {
         price: 'USD 22,030.00',
-        company: 'Shanghai Seasky Shipping ltd.'
+        company: 'Shanghai Seasky Shipping ltd.',
+        rule: 'owner'
     };
 
+    renderLeftElem(styles) {
+        return (
+            <div style={styles.contentLeft}>
+                <span style={styles.title}>Quotation: </span>
+                <span style={styles.price}>{this.props.price}</span>
+            </div>
+        )
+    }
+
+    renderRightElem(styles) {
+        return (
+            <div style={styles.contentRight}>
+                <span style={styles.from}>Form: </span>
+                <span style={styles.company}>{this.props.company}</span>
+                <Button type="primary" style={{marginLeft: 17}}
+                        onClick={this.handlerOpenResolveModal.bind(this, true)}
+                >
+                    Appointment
+                </Button>
+                <Button style={{marginLeft: 10}}
+                        onClick={this.handlerOpenRejectModal.bind(this, true)}
+                >Reject Quotation</Button>
+            </div>
+        )
+    }
+
     render() {
+        console.log(this.props.rule)
         const styles = this.getStyles();
 
         return (
             <div style={styles.content}>
-                <div style={styles.contentLeft}>
-                    <span style={styles.title}>Quotation: </span>
-                    <span style={styles.price}>{this.props.price}</span>
-                </div>
-                <div style={styles.contentRight}>
-                    <span style={styles.from}>Form: </span>
-                    <span style={styles.company}>{this.props.company}</span>
-                    <Button type="primary" style={{marginLeft: 17}}
-                            onClick={this.handlerOpenResolveModal.bind(this, true)}
-                    >
-                        Appointment
-                    </Button>
-                    <Button style={{marginLeft: 10}}
-                            onClick={this.handlerOpenRejectModal.bind(this, true)}
-                    >Reject Quotation</Button>
-                </div>
+                {this.renderLeftElem(styles)}
+                {this.props.rule == 'agent' ? '' : this.renderRightElem(styles)}
                 <div style={styles.clear}></div>
                 <ResolveModal resolveModalIsOpen={this.state.resolveModalIsOpen}
                               handlerOpenResolveModal={this.handlerOpenResolveModal.bind(this)}
@@ -118,10 +132,6 @@ class TotalPrice extends React.Component {
                 />
             </div>
         )
-    }
-
-    handlerExportQuotation(){
-        console.log('download pdf');
     }
 
     handlerOpenResolveModal(isOpen) {
