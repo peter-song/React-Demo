@@ -4,76 +4,116 @@
 
 import React from 'react';
 
+import ConfigForm from '../../component/form';
 import Other from '../../component/form/other';
 import Crew from '../../component/form/crew-see-doctor';
 
 export default class Setting extends React.Component {
 
+    static propTypes = {
+        products: React.PropTypes.array
+    };
+
+    static defaultProps = {
+        products: [
+            {
+                title: 'Other',
+                data: {
+                    requires: 'other'
+                },
+                code: 'OTHER'
+            },
+            {
+                title: 'Crew See Doctor',
+                data: {
+                    requires: 'crew',
+                    numberOfPeople: 0
+                },
+                code: 'CREW'
+            }
+        ]
+    };
+
 
     constructor(props) {
         super(props);
         this.state = {
-            other: {
-                edit: true,
-                requires: 'other'
+            product: {
+                title: 'Other',
+                data: {
+                    requires: 'other'
+                },
+                code: 'OTHER'
             },
-            agm: {
-                edit: true,
-                requires: 'agm'
-            },
-            crew: {
-                edit: true,
-                requires: 'agm',
-                numberOfPeople: 1
-            }
+            showBtn: true,
+            edit: false
         }
     }
 
     render() {
-        const {other, agm, crew} = this.state;
         const style = {
             margin: '20px 70px',
-            paddingTop: 20,
-            border: '1px solid #c9ccd9'
+            padding: 10,
+
         };
 
+        const props = {
+            showBtn: this.state.showBtn,
+            edit: this.state.edit,
+            title: this.state.product.title,
+            formData: this.state.product.data
+        };
+
+        let ProductForm = Other;
+        if (this.state.product.code == 'CREW') {
+            ProductForm = Crew;
+        }
+
+        console.log(props.formData);
+
         return (
-            <div>
-                <div style={style}>
-                    <Other info={other} edit={other.edit} onSubmit={this.onSubmitOther.bind(this)}/>
+            <div style={style}>
+                <div>
+                    {
+                        this.props.products.map((item, i) => {
+                            return (
+                                <span style={{marginLeft: 10, cursor: 'pointer'}}
+                                      onClick={this.handChangeItem.bind(this, i)}
+                                >
+                                    {item.code}
+                                </span>
+                            )
+                        })
+                    }
                 </div>
-                <div style={style}>
-                    <Crew info={crew} edit={crew.edit} onSubmit={this.onSubmitCrew.bind(this)}/>
+                <div style={{border: '1px solid #c9ccd9', marginTop: 20}}>
+                    <ProductForm {...props}
+                                 onSubmit={this.handleSubmit.bind(this)}
+                                 onEditCancel={this.handlerEditCancel.bind(this)}
+                    />
                 </div>
             </div>
         )
     }
 
-    onSubmitOther({requires}) {
-        const other = this.state.other;
-
-        if (other.edit)
-            other.requires = requires;
-
-        other.edit = !other.edit;
-
+    handChangeItem(i) {
+        const products = this.props.products;
         this.setState({
-            other
+            product: products[i]
         })
     }
 
-    onSubmitCrew({numberOfPeople, requires}) {
-        const crew = this.state.crew;
-
-        if (crew.edit) {
-            crew.requires = requires;
-            crew.numberOfPeople = numberOfPeople;
-        }
-
-        crew.edit = !crew.edit;
-
-        this.setState({
-            crew
-        })
+    //点击保存
+    handleSubmit(values) {
+        console.log(this.state.product.code, values);
+        const product = this.state.product;
+        product.data = values;
+        this.setState({edit: false, product})
     }
+
+    //编辑和取消
+    handlerEditCancel(edit) {
+        this.setState({edit})
+    }
+
 }

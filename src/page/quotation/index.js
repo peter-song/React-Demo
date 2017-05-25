@@ -207,7 +207,7 @@ export default class Portal extends React.Component {
                         <Breadcrumb.Item>Quotation statement</Breadcrumb.Item>
                     </Breadcrumb>
                     <div style={styles.quotationContent}>
-                        <TotalPrice {...totalPriceProps}/>
+                        <TotalPrice {...totalPriceProps} offerDetail={offerDetail}/>
                         <DetailTable offerDetail={offerDetail}/>
                         {this.renderServiceSettingElem(styles)}
                         <EditTable productInfo={this.props.productInfo}/>

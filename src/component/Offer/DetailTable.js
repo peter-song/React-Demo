@@ -30,6 +30,14 @@ export default class DetailTable extends React.Component {
                 letterSpacing: 0,
             },
 
+            commonTitleBorderRight: {
+                borderRight: '1px solid #d6d6d6',
+            },
+
+            commonContentBorderRight: {
+                borderRight: '1px solid #d6d6d6',
+            },
+
             commonContent: {
                 width: '20%',
                 background: '#FFFFFF',
@@ -142,21 +150,21 @@ export default class DetailTable extends React.Component {
         return (
             <div style={styles.quotationCommon}>
                 <div>
-                    <span style={styles.commonTitle}>Vessel</span>
-                    <span style={styles.commonTitle}>ETA/Sea Trail Date</span>
-                    <span style={styles.commonTitle}>Port</span>
-                    <span style={styles.commonTitle}>Service Type</span>
-                    <span style={styles.commonTitle}>Rate</span>
-                    <div className="clear"></div>
+                    <div style={_.merge({}, styles.commonTitle, styles.commonTitleBorderRight)}>Vessel</div>
+                    <div style={_.merge({}, styles.commonTitle, styles.commonTitleBorderRight)}>ETA/Sea Trail Date</div>
+                    <div style={_.merge({}, styles.commonTitle, styles.commonTitleBorderRight)}>Port</div>
+                    <div style={_.merge({}, styles.commonTitle, styles.commonTitleBorderRight)}>Service Type</div>
+                    <div style={_.merge({}, styles.commonTitle)}>Rate</div>
+                    <div style={styles.clear}></div>
                 </div>
                 <div>
-                    <span style={styles.commonContent}>{common.vessel}</span>
-                    <span style={styles.commonContent}>{common.date}</span>
-                    <span style={styles.commonContent}>{common.port}</span>
-                    <span style={styles.commonContent}>{common.serviceType}</span>
-                    <span style={styles.commonContent}>{common.rate}</span>
+                    <div style={_.merge({}, styles.commonContent)}>{common.vessel}</div>
+                    <div style={_.merge({}, styles.commonContent)}>{common.date}</div>
+                    <div style={_.merge({}, styles.commonContent)}>{common.port}</div>
+                    <div style={_.merge({}, styles.commonContent)}>{common.serviceType}</div>
+                    <div style={_.merge({}, styles.commonContent)}>{common.rate}</div>
+                    <div style={styles.clear}></div>
                 </div>
-                <div style={styles.clear}></div>
             </div>
         )
     }
@@ -271,7 +279,7 @@ export default class DetailTable extends React.Component {
 
         return (
             <div>
-                {this.renderCommonElem(styles,common)}
+                {this.renderCommonElem(styles, common)}
                 <div style={styles.detail}>
                     {this.renderTitleElem(styles)}
                     {this.renderContentElem(styles, detail)}

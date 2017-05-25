@@ -1,24 +1,28 @@
 /**
  * Created by songzhongkun on 2017/5/16.
  */
+
 import React from 'react';
+import {Form} from 'antd';
 
-import BasicForm from'./basic-form';
+import BasicForm from './basic-form';
+import SettingForm from './SettingForm';
 
-export default class Other extends React.Component {
+class Other extends React.Component {
 
     static propTypes = {
-        info: React.PropTypes.object
+        edit: React.PropTypes.bool,
+        form: React.PropTypes.object,
+        formData: React.PropTypes.object,
+        onSubmit: React.PropTypes.func,
     };
 
-    constructor(props) {
-        super(props);
+    componentDidMount(){
+        console.log('admini')
     }
 
     render() {
-
-        const info = this.props.info;
-
+        const formData = this.props.formData;
         const components = [{
             name: 'Input',
             props: {
@@ -31,17 +35,36 @@ export default class Other extends React.Component {
                     required: true,
                     message: 'no requiry',
                 }],
-                initialValue: info.requires,
+                initialValue: formData.requires,
             },
             label: 'Requires'
         }];
 
         return (
-            <BasicForm
-                components={components}
-                {...this.props}
-            />
+            <SettingForm {...this.props}
+                         onSubmit={this.handleSubmit.bind(this)}
+            >
+                <BasicForm
+                    components={components}
+                    {...this.props}
+                />
+            </SettingForm>
         );
     }
 
-};
+    //保存
+    handleSubmit() {
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                if (this.props.onSubmit) {
+                    this.props.onSubmit(values);
+                }
+            } else {
+                console.log('err', err)
+            }
+        });
+    }
+
+}
+
+export default Form.create()(Other);

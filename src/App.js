@@ -56,19 +56,19 @@ class App extends React.Component {
                             title={<span><Icon type="user"/><span className="nav-text">User</span></span>}
                         >
                             <Menu.Item key="1"><Link to="/basic">Basic</Link></Menu.Item>
-                            <Menu.Item key="2"><Link to="/portal">Portal</Link></Menu.Item>
+                            {/*<Menu.Item key="2"><Link to="/portal">Portal</Link></Menu.Item>*/}
                             <Menu.Item key="3"><Link to="/published">Published</Link></Menu.Item>
                             <Menu.Item key="4"><Link to="/quotation">Quotation</Link></Menu.Item>
-                            <Menu.Item key="5"><Link to="/quotation2">Quotation2</Link></Menu.Item>
+                            {/*<Menu.Item key="5"><Link to="/quotation2">Quotation2</Link></Menu.Item>*/}
                             <Menu.Item key="setting"><Link to="/setting">Setting</Link></Menu.Item>
                         </SubMenu>
-                        <SubMenu
+                        {/*<SubMenu
                             key="sub2"
                             title={<span><Icon type="team"/><span className="nav-text">Team</span></span>}
                         >
                             <Menu.Item key="44">Team 1</Menu.Item>
                             <Menu.Item key="545">Team 2</Menu.Item>
-                        </SubMenu>
+                        </SubMenu>*/}
                     </Menu>
                 </Sider>
                 <div style={{width: '100%', minHeight: 800, background: '#fff'}}>

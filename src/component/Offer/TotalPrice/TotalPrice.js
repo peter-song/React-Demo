@@ -3,10 +3,13 @@
  */
 
 import React from 'react';
+import _ from 'lodash';
 import {Button} from 'antd';
 
 import ResolveModal from './ResolveModal';
 import RejectModal from './RejectModal';
+
+import makePDF from '../../../pdf/makePDF';
 
 class TotalPrice extends React.Component {
 
@@ -93,6 +96,11 @@ class TotalPrice extends React.Component {
             <div style={styles.contentLeft}>
                 <span style={styles.title}>Quotation: </span>
                 <span style={styles.price}>{this.props.price}</span>
+                <span style={_.merge({}, styles.title, {marginLeft: 15, cursor: 'pointer'})}
+                      onClick={() => this.handlerDownloadPDF()}
+                >
+                    Pdf导出
+                </span>
             </div>
         )
     }
@@ -115,7 +123,6 @@ class TotalPrice extends React.Component {
     }
 
     render() {
-        console.log(this.props.rule)
         const styles = this.getStyles();
 
         return (
@@ -149,6 +156,11 @@ class TotalPrice extends React.Component {
     handlerRejectOk(reason) {
         this.handlerOpenRejectModal(false);
         console.log(reason)
+    }
+
+    handlerDownloadPDF() {
+        console.log(this.props.offerDetail)
+        makePDF(this.props.offerDetail);
     }
 }
 

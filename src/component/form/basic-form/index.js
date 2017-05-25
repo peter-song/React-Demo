@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {componentMap} from '../../../../src/constants';
 import {Form, Button} from 'antd';
-// import invariant from 'fbjs/lib/invariant';
 import _ from 'lodash';
 
 // import './basic-form.css';
@@ -18,7 +17,7 @@ class BasicForm extends Component {
     };
 
     static defaultProps = {
-        edit: true,
+        edit: false,
         components: []
     };
 
@@ -41,9 +40,15 @@ class BasicForm extends Component {
     renderComponent(component) {
         const {getFieldDecorator} = this.props.form;
         let child = null;
-        let formItemLayout = {
-            labelCol: {span: 6},
-            wrapperCol: {span: 14},
+        const formItemLayout = {
+            labelCol: {
+                xs: {span: 24},
+                sm: {span: 6},
+            },
+            wrapperCol: {
+                xs: {span: 24},
+                sm: {span: 14},
+            },
         };
         let element = componentMap[component.name];
         // invariant(!!element, `Check if ${component.name} exist in implemented components`);
@@ -60,7 +65,6 @@ class BasicForm extends Component {
                     </element.Group>
                 ) : <div>{ this.getDefaultLabel(component) }</div>;
         } else {
-            console.log('props', component.props);
             child = !this.props.edit && !component.isCheckbox ?
                 <div>{component.options.initialValue || ''}</div> :
                 React.createElement(element, component.props, component.isCheckbox ? component.label : null);
@@ -78,15 +82,9 @@ class BasicForm extends Component {
     }
 
     render() {
-        const tailFormItemLayout = {
-            wrapperCol: {span: 14, offset: 6},
-        };
         return (
             <Form onSubmit={this.handleSubmit}>
                 {_.map(this.props.components, component => this.renderComponent(component))}
-                <FormItem {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit" size="large">Register</Button>
-                </FormItem>
             </Form>
         )
     }
