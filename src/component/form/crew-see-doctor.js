@@ -8,7 +8,7 @@ import {Form} from 'antd';
 import BasicForm from './basic-form';
 import SettingForm from './SettingForm';
 
-class Other extends React.Component {
+class CrewSeeDoctor extends React.Component {
 
     static propTypes = {
         edit: React.PropTypes.bool,
@@ -23,7 +23,6 @@ class Other extends React.Component {
 
     render() {
         const formData = this.props.formData;
-        console.log('formData', formData)
         const components = [{
             name: 'InputNumber',
             props: {
@@ -83,4 +82,4 @@ class Other extends React.Component {
 
 }
 
-export default Form.create()(Other);
+export default Form.create()(CrewSeeDoctor);

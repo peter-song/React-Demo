@@ -141,6 +141,15 @@ export default class EditTable extends React.Component {
                 letterSpacing: 0,
             },
 
+            horizontalCenter: {
+                textAlign: 'center',
+            },
+
+            verticalCenter: {
+                display: 'flex',
+                alignItems: 'Center',
+            },
+
             clear: {
                 clear: 'both'
             }
@@ -348,12 +357,12 @@ export default class EditTable extends React.Component {
 
         if (item.validateTitle && item.validateRMB && item.validateUSD) {
             console.log(detail.items[i])
-        } else {
-            detail.items[i] = item;
-            this.setState({
-                detail
-            })
         }
+
+        detail.items[i] = item;
+        this.setState({
+            detail
+        })
 
     }
 

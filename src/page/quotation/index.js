@@ -209,8 +209,8 @@ export default class Portal extends React.Component {
                     <div style={styles.quotationContent}>
                         <TotalPrice {...totalPriceProps} offerDetail={offerDetail}/>
                         <DetailTable offerDetail={offerDetail}/>
-                        {this.renderServiceSettingElem(styles)}
                         <EditTable productInfo={this.props.productInfo}/>
+                        {this.renderServiceSettingElem(styles)}
                     </div>
                 </Content>
             </Layout>

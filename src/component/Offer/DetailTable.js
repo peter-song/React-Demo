@@ -40,14 +40,18 @@ export default class DetailTable extends React.Component {
 
             commonContent: {
                 width: '20%',
-                background: '#FFFFFF',
                 padding: '12px 0',
-                float: 'left',
+                letterSpacing: 0,
                 textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+            },
+
+            commonContent2: {
+                width: '100%',
                 fontWeight: '400',
                 fontSize: 14,
                 color: 'rgba(0, 0, 0, 0.65)',
-                letterSpacing: 0,
             },
 
             detail: {
@@ -95,6 +99,11 @@ export default class DetailTable extends React.Component {
                 letterSpacing: 0,
             },
 
+            stretch: {
+                display: 'flex',
+                alignItems: 'stretch',
+            },
+
             detailLeft: {
                 paddingLeft: 10,
                 display: 'inline-block',
@@ -128,12 +137,21 @@ export default class DetailTable extends React.Component {
             },
 
             line: {
-                borderTop: '1px solid #e2e2e2',
+                borderTop: '1px solid #e9e9e9',
             },
 
             clear: {
                 clear: 'both'
-            }
+            },
+
+            horizontalCenter: {
+                textAlign: 'center',
+            },
+
+            verticalCenter: {
+                display: 'flex',
+                alignItems: 'Center',
+            },
         };
 
         return styles;
@@ -157,12 +175,22 @@ export default class DetailTable extends React.Component {
                     <div style={_.merge({}, styles.commonTitle)}>Rate</div>
                     <div style={styles.clear}></div>
                 </div>
-                <div>
-                    <div style={_.merge({}, styles.commonContent)}>{common.vessel}</div>
-                    <div style={_.merge({}, styles.commonContent)}>{common.date}</div>
-                    <div style={_.merge({}, styles.commonContent)}>{common.port}</div>
-                    <div style={_.merge({}, styles.commonContent)}>{common.serviceType}</div>
-                    <div style={_.merge({}, styles.commonContent)}>{common.rate}</div>
+                <div style={styles.stretch}>
+                    <div style={_.merge({}, styles.commonContent, styles.commonTitleBorderRight)}>
+                        <div style={styles.commonContent2}>{common.vessel}</div>
+                    </div>
+                    <div style={_.merge({}, styles.commonContent, styles.commonTitleBorderRight)}>
+                        <div style={styles.commonContent2}>{common.date}</div>
+                    </div>
+                    <div style={_.merge({}, styles.commonContent, styles.commonTitleBorderRight)}>
+                        <div style={styles.commonContent2}>{common.port}</div>
+                    </div>
+                    <div style={_.merge({}, styles.commonContent, styles.commonTitleBorderRight)}>
+                        <div style={styles.commonContent2}>{common.serviceType}</div>
+                    </div>
+                    <div style={_.merge({}, styles.commonContent, styles.commonTitleBorderRight)}>
+                        <div style={styles.commonContent2}>{common.rate}</div>
+                    </div>
                     <div style={styles.clear}></div>
                 </div>
             </div>
@@ -212,7 +240,7 @@ export default class DetailTable extends React.Component {
                     <div style={_.merge({}, styles.col4, styles.detailContent)}>
                         <span style={styles.detailRight}>{item.USD}</span>
                     </div>
-                    <div style={_.merge({}, styles.col5, styles.detailContent, {textAlign: 'center'})}>
+                    <div style={_.merge({}, styles.col5, styles.detailContent, styles.horizontalCenter)}>
                         <img src={isOpen ? up : down} style={{cursor: 'pointer', height: 15, width: 15}}
                              onClick={this.handlerToggle.bind(this, i, !isOpen)}/>
                     </div>
@@ -223,7 +251,8 @@ export default class DetailTable extends React.Component {
             if (isOpen) {
                 item.subDetail.map((subItem, j) => {
                     contentElem.push(
-                        <div key={`content_${i + 1}_${j + 1}`} style={_.merge({}, j > 0 ? styles.line : '')}>
+                        <div key={`content_${i + 1}_${j + 1}`}
+                             style={_.merge({}, j > 0 ? styles.line : '', styles.stretch)}>
                             <div style={_.merge({}, styles.col1, styles.detailSubContent)}>
                                 <span style={ _.merge({}, styles.detailLeft, {paddingLeft: 25})}>
                                     {`${i + 1}-${j + 1}. ${subItem.title}`}
