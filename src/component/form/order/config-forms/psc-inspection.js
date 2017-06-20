@@ -53,18 +53,17 @@ class PSCInspection extends React.Component {
 
         return (
             <SettingForm {...this.props}
-                         onSubmit={this.handleSubmit.bind(this)}
+                onSubmit={this.handleSubmit.bind(this)}
             >
-                <div>
+                <div style={{display: 'flex'}}>
                     <div style={_.merge({}, styles.left, styles.require)}>Requires:</div>
-                    <div style={_.merge({}, styles.left, styles.require, {width: '85%', marginLeft: 15})}>
+                    <div style={_.merge({}, styles.left, styles.require, {flex: '1', marginLeft: 15})}>
                         {
                             edit ? <Input type="textarea" rows={6} placeholder="Please write your requirements"
                                           value={this.state.requires} onChange={this.handlerChangeRequires.bind(this)}/>
                                 : <span>{this.state.requires}</span>
                         }
                     </div>
-                    <div style={styles.clear}></div>
                 </div>
             </SettingForm>
         );

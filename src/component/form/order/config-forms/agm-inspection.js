@@ -22,15 +22,28 @@ class AGMInspection extends React.Component {
                 color: 'rgba(0,0,0,0.75)',
             },
 
-            require: {
+            common: {
                 fontWeight: 400,
                 fontSize: 14,
                 color: 'rgba(0,0,0,0.65)',
             },
 
-            verticalCenter: {
+            nextPortContent: {
+                padding: 20,
                 display: 'flex',
-                alignItems: 'Center',
+                alignItems: 'center',
+            },
+
+            downloadContent: {
+                padding: 20,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+            },
+
+            requireContent:{
+                padding: 20,
+                display: 'flex',
             },
 
             line: {
@@ -78,40 +91,30 @@ class AGMInspection extends React.Component {
 
         return (
             <SettingForm {...this.props} {...props}
-                         onSubmit={this.handleSubmit.bind(this)}
+                onSubmit={this.handleSubmit.bind(this)}
             >
-                <div style={_.merge({}, {padding: 20})}>
-                    <div style={_.merge({}, styles.left, styles.require)}>Next Port:</div>
-                    <div style={_.merge({}, styles.left, styles.require, {marginLeft: 15})}>
+                <div style={_.merge({}, styles.nextPortContent)}>
+                    <div style={_.merge({}, styles.common)}>Next Port:</div>
+                    <div style={_.merge({}, styles.common, {marginLeft: 15})}>
                         {
                             edit ? <Input value={this.state.nextPort} onChange={this.handlerChangeNextPort.bind(this)}/>
                                 : <span>{this.state.nextPort}</span>
                         }
                     </div>
-                    <div style={styles.clear}></div>
                 </div>
-                <div style={_.merge({}, styles.line, {padding: 20})}>
-                    <div style={styles.verticalCenter}>
-                        <div style={_.merge({}, styles.left, styles.documents)}>Required Documents</div>
-                        <div style={_.merge({}, styles.left, {width: '75%', marginLeft: 15})}>
-                            <div style={styles.right}>
-                                <Button><Icon type="upload" />Upload</Button>
-                            </div>
-                            <div style={styles.clear}></div>
-                        </div>
-                        <div style={styles.clear}></div>
-                    </div>
+                <div style={_.merge({}, styles.line, styles.downloadContent)}>
+                    <div style={_.merge({}, styles.documents)}>Required Documents</div>
+                    <Button><Icon type="upload"/>Upload</Button>
                 </div>
-                <div style={_.merge({}, styles.line, {padding: 20})}>
-                    <div style={_.merge({}, styles.left, styles.require)}>Requires:</div>
-                    <div style={_.merge({}, styles.left, styles.require, {width: '85%', marginLeft: 15})}>
+                <div style={_.merge({}, styles.line, styles.requireContent)}>
+                    <div style={_.merge({}, styles.common)}>Requires:</div>
+                    <div style={_.merge({}, styles.common, {flex: '1', marginLeft: 15})}>
                         {
                             edit ? <Input type="textarea" rows={6} placeholder="Please write your requirements"
                                           value={this.state.requires} onChange={this.handlerChangeRequires.bind(this)}/>
                                 : <span>{this.state.requires}</span>
                         }
                     </div>
-                    <div style={styles.clear}></div>
                 </div>
             </SettingForm>
         );

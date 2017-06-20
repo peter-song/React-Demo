@@ -170,39 +170,33 @@ class PortCaptainOutlay extends React.Component {
             <div>
                 <div style={styles.table}>
                     <div style={_.merge({}, {display: 'flex'})}>
-                        <div style={_.merge({}, styles.left, styles.tableKey)}>Agency</div>
-                        <div style={_.merge({}, styles.left, styles.tableValue)}>{formData.agency}</div>
-                        <div style={styles.clear}></div>
+                        <div style={_.merge({}, styles.tableKey)}>Agency</div>
+                        <div style={_.merge({}, styles.tableValue)}>{formData.agency}</div>
                     </div>
                     <div style={_.merge({}, styles.line, {display: 'flex'})}>
-                        <div style={_.merge({}, styles.left, styles.tableKey)}>Address</div>
-                        <div style={_.merge({}, styles.left, styles.tableValue)}>{formData.address}</div>
-                        <div style={styles.clear}></div>
+                        <div style={_.merge({}, styles.tableKey)}>Address</div>
+                        <div style={_.merge({}, styles.tableValue)}>{formData.address}</div>
                     </div>
                     <div style={_.merge({}, styles.line, {display: 'flex'})}>
-                        <div style={_.merge({}, styles.left, styles.tableKey)}>Contact Person</div>
-                        <div style={_.merge({}, styles.left, styles.tableValue)}>{formData.contactPerson}</div>
-                        <div style={styles.clear}></div>
+                        <div style={_.merge({}, styles.tableKey)}>Contact Person</div>
+                        <div style={_.merge({}, styles.tableValue)}>{formData.contactPerson}</div>
                     </div>
                     <div style={_.merge({}, styles.line, {display: 'flex'})}>
-                        <div style={_.merge({}, styles.left, styles.tableKey)}>Tel.</div>
-                        <div style={_.merge({}, styles.left, styles.tableValue)}>{formData.tel}</div>
-                        <div style={styles.clear}></div>
+                        <div style={_.merge({}, styles.tableKey)}>Tel.</div>
+                        <div style={_.merge({}, styles.tableValue)}>{formData.tel}</div>
                     </div>
                     <div style={_.merge({}, styles.line, {display: 'flex'})}>
-                        <div style={_.merge({}, styles.left, styles.tableKey)}>Email</div>
-                        <div style={_.merge({}, styles.left, styles.tableValue)}>{formData.email}</div>
-                        <div style={styles.clear}></div>
+                        <div style={_.merge({}, styles.tableKey)}>Email</div>
+                        <div style={_.merge({}, styles.tableValue)}>{formData.email}</div>
                     </div>
                 </div>
 
-                <div style={{marginTop: 26}}>
-                    <div style={_.merge({}, styles.left, styles.require)}>Requires:</div>
-                    <div style={_.merge({}, styles.left, styles.require, {
-                        width: '85%',
+                <div style={{display: 'flex', marginTop: 26}}>
+                    <div style={_.merge({}, styles.require)}>Requires:</div>
+                    <div style={_.merge({}, styles.require, {
+                        flex: '1',
                         marginLeft: 15
                     })}>{formData.requires}</div>
-                    <div style={styles.clear}></div>
                 </div>
             </div>
         )
