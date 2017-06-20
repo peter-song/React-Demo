@@ -80,33 +80,36 @@ export default class Detail extends React.Component {
                     email: 'shanghai@seasky.com',
                     requires: `I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content `
                 }
-            }
-            ,
+            },
             {
                 _id: '566549f75c57786239cb3241',
                 code: 'PTAGMINPECN',
-                name: 'AGM Inspection'
-            }
-            ,
+                name: 'AGM Inspection',
+                data: {
+                    requires: '',
+                    nextPort: ''
+                }
+            },
             {
                 _id: '56976c43d4c6a79a4e016f3d',
                 code: 'PTPSCIA',
-                name: 'PSC Inspection'
-            }
-            ,
+                name: 'PSC Inspection',
+                data: {
+                    requires: ''
+                }
+            },
             {
                 _id: '567a29c4c8d751d30fa59936',
                 code: 'PTCVD',
                 name: 'Medical Service'
             }
         ]
-    }
-        ;
+    };
 
     constructor(props) {
         super(props);
         this.state = {
-            isEdit: false,
+            edit: false,
             product: undefined
         }
     }
@@ -135,9 +138,9 @@ export default class Detail extends React.Component {
                 <div style={styles.serviceLeft}>
                     <div style={{padding: 20}}>
                         {
-                            this.props.products.map(item => {
+                            this.props.products.map((item, i) => {
                                 return (
-                                    <div style={styles.serviceName}
+                                    <div key={`product${i + 1}`} style={styles.serviceName}
                                          onClick={this.handlerServerItem.bind(this, item)}>{item.name}</div>
                                 )
                             })
@@ -181,8 +184,7 @@ export default class Detail extends React.Component {
      * @param product
      */
     handlerServerItem(product) {
-        console.log(product)
-        this.setState({product})
+        this.setState({product, edit: false})
     }
 
     /**
@@ -194,6 +196,7 @@ export default class Detail extends React.Component {
     }
 
     handleSubmit(values) {
+        console.log('values', values);
         const {product} = this.state;
         product.data = values;
 

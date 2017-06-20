@@ -197,8 +197,11 @@ class PortCaptainOutlay extends React.Component {
                 </div>
 
                 <div style={{marginTop: 26}}>
-                    <div style={_.merge({}, styles.left, styles.require, {width: '10%'})}>Requires:</div>
-                    <div style={_.merge({}, styles.left, styles.require, {width: '90%'})}>{formData.requires}</div>
+                    <div style={_.merge({}, styles.left, styles.require)}>Requires:</div>
+                    <div style={_.merge({}, styles.left, styles.require, {
+                        width: '85%',
+                        marginLeft: 15
+                    })}>{formData.requires}</div>
                     <div style={styles.clear}></div>
                 </div>
             </div>
@@ -222,7 +225,9 @@ class PortCaptainOutlay extends React.Component {
         );
     }
 
-    //保存
+    /**
+     * 保存
+     */
     handleSubmit() {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {

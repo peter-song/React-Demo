@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import _ from 'lodash';
 import {Form} from 'antd';
 
 class SettingForm extends React.Component {
@@ -48,12 +49,14 @@ class SettingForm extends React.Component {
         form: React.PropTypes.object,
         formData: React.PropTypes.object,
         onSubmit: React.PropTypes.func,
+        isPadding: React.PropTypes.bool
     };
 
     static defaultProps = {
         showBtn: false,
         title: 'Default',
-        edit: false
+        edit: false,
+        isPadding: true
     };
 
     render() {
@@ -88,7 +91,7 @@ class SettingForm extends React.Component {
                     {this.props.showBtn ? operationElem : ''}
                     <div style={styles.clear}></div>
                 </div>
-                <div style={{padding: 17}}>
+                <div style={_.merge({}, this.props.isPadding ? {padding: 20} : {})}>
                     {this.props.children}
                 </div>
             </div>

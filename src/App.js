@@ -73,7 +73,7 @@ class App extends React.Component {
                         </SubMenu>*/}
                     </Menu>
                 </Sider>
-                <div style={{width: '100%', minHeight: 800, background: '#fff'}}>
+                <div style={{width: '100%', minWidth: 900, background: '#fff'}}>
                     <Route exact path="/" component={Portal}/>
                     <Route path="/basic" component={Profile}/>
                     <Route path="/portal" component={Portal}/>
