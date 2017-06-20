@@ -281,7 +281,7 @@ export default class DetailTable extends React.Component {
 
     renderTotalPriceElem(styles, detail) {
         return (
-            <div>
+            <div style={_.merge({}, styles.line)}>
                 <div style={_.merge({}, styles.col1, styles.detailTotalPrice)}>
                     <span style={ _.merge({}, styles.detailLeft, {paddingLeft: 25})}>
                         Total
