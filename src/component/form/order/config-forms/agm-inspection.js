@@ -6,8 +6,6 @@ import React from 'react';
 import _ from 'lodash';
 import {Form, Input, Button, Upload, Icon} from 'antd';
 
-const FormItem = Form.Item;
-
 import SettingForm from '../../SettingForm';
 
 class AGMInspection extends React.Component {
@@ -29,20 +27,23 @@ class AGMInspection extends React.Component {
             },
 
             nextPortContent: {
-                padding: 20,
+                padding: '16px 20px',
                 display: 'flex',
                 alignItems: 'center',
             },
 
             downloadContent: {
-                padding: 20,
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
             },
 
-            requireContent:{
-                padding: 20,
+            uploadContent: {
+                display: 'flex',
+            },
+
+            requireContent: {
+                padding: 24,
                 display: 'flex',
             },
 
@@ -77,8 +78,44 @@ class AGMInspection extends React.Component {
         super(props);
         this.state = {
             nextPort: '',
-            requires: ''
+            requires: '',
+            fileList: [{
+                uid: -1,
+                name: 'xxx.png',
+                status: 'done',
+                url: 'http://www.baidu.com/xxx.png',
+            }]
         }
+    }
+
+    renderFileElem(styles) {
+
+        const props = {
+            action: '//jsonplaceholder.typicode.com/posts/',
+            onChange: this.handleChange.bind(this),
+        };
+
+        return (
+            <div style={_.merge({}, styles.line)}>
+                <div style={_.merge({}, {padding: '16px 20px'})}>
+                    <div style={_.merge({}, styles.downloadContent)}>
+                        <div style={_.merge({}, styles.documents)}>Required Documents</div>
+                        <Button disabled={!this.props.edit}><Icon type="download"/>Download All</Button>
+                    </div>
+                    <div style={_.merge({}, styles.common, {marginTop: 10})}>
+                        Last 20 Ports of Call/Ship Particular
+                    </div>
+                    <div style={_.merge({}, styles.uploadContent, {marginTop: 10})}>
+                        <Upload {...props} fileList={this.state.fileList}>
+                            <Button><Icon type="upload"/>Upload</Button>
+                        </Upload>
+                        <div style={_.merge({}, {marginLeft: 10, marginTop: 10})}>
+                            Allowed file：.rar .zip .doc .docx .pdf .jpg...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
     }
 
     render() {
@@ -91,7 +128,7 @@ class AGMInspection extends React.Component {
 
         return (
             <SettingForm {...this.props} {...props}
-                onSubmit={this.handleSubmit.bind(this)}
+                         onSubmit={this.handleSubmit.bind(this)}
             >
                 <div style={_.merge({}, styles.nextPortContent)}>
                     <div style={_.merge({}, styles.common)}>Next Port:</div>
@@ -102,10 +139,7 @@ class AGMInspection extends React.Component {
                         }
                     </div>
                 </div>
-                <div style={_.merge({}, styles.line, styles.downloadContent)}>
-                    <div style={_.merge({}, styles.documents)}>Required Documents</div>
-                    <Button><Icon type="upload"/>Upload</Button>
-                </div>
+                {this.renderFileElem(styles)}
                 <div style={_.merge({}, styles.line, styles.requireContent)}>
                     <div style={_.merge({}, styles.common)}>Requires:</div>
                     <div style={_.merge({}, styles.common, {flex: '1', marginLeft: 15})}>
@@ -147,12 +181,40 @@ class AGMInspection extends React.Component {
     }
 
     /**
+     * 选择上传文件
+     * @param info
+     */
+    handleChange(info) {
+        console.log(info);
+        let fileList = info.fileList;
+
+        fileList = fileList.map((file) => {
+            if (file.response) {
+                file.url = file.response.url;
+            } else {
+                file.url = `http://www.baidu.com/${file.name}`
+            }
+            return file;
+        });
+
+        fileList = fileList.filter((file) => {
+            if (file.response) {
+                return file.response.status === 'success';
+            }
+            return true;
+        });
+
+        this.setState({fileList});
+    }
+
+    /**
      * 保存
      */
     handleSubmit() {
         const {formData} = this.props;
-        formData.requires = this.state.requires;
-        formData.nextPort = this.state.nextPort;
+        const {requires, nextPort, fileList} = this.state;
+        const files = fileList.map(item => item.url);
+        [formData.requires, formData.nextPort, formData.fileList] = [requires, nextPort, files];
 
         if (this.props.onSubmit) {
             this.props.onSubmit(formData);

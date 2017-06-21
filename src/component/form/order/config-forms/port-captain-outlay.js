@@ -14,6 +14,7 @@ class PortCaptainOutlay extends React.Component {
     getStyles() {
 
         const styles = {
+
             title: {
                 fontStyle: 'italic',
                 fontWeight: 500,
@@ -23,6 +24,7 @@ class PortCaptainOutlay extends React.Component {
 
             table: {
                 border: '1px solid #D9D9D9',
+                borderRadius: 4,
             },
 
             tableKey: {

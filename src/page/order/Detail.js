@@ -7,6 +7,7 @@ import {Layout, Breadcrumb} from 'antd';
 const {Header, Content, Footer} = Layout;
 
 import ConfigForm from '../../component/form/order/config-forms';
+const defaultIndex = 3;
 
 export default class Detail extends React.Component {
 
@@ -101,7 +102,12 @@ export default class Detail extends React.Component {
             {
                 _id: '567a29c4c8d751d30fa59936',
                 code: 'PTCVD',
-                name: 'Medical Service'
+                name: 'Medical Service',
+                data: {
+                    requires: '',
+                    files: [],
+                    persons: []
+                }
             }
         ]
     };
@@ -119,7 +125,7 @@ export default class Detail extends React.Component {
         const products = this.props.products;
         let product = this.state.product;
         if (!product && products && products.length) {
-            product = products[0];
+            product = products[defaultIndex];
         }
 
         const ProductForm = ConfigForm[product.code];
@@ -196,10 +202,15 @@ export default class Detail extends React.Component {
     }
 
     handleSubmit(values) {
-        console.log('values', values);
-        const {product} = this.state;
+        console.log('values22', values);
+        const products = this.props.products;
+        let product = this.state.product;
+        if (!product && products && products.length) {
+            product = products[defaultIndex];
+        }
+        console.log('product', product);
         product.data = values;
 
-        this.setState({edit: false, product});
+        this.setState({edit: false});
     }
 }
