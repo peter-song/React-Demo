@@ -202,7 +202,6 @@ export default class Detail extends React.Component {
     }
 
     handleSubmit(values) {
-        console.log('values22', values);
         const products = this.props.products;
         let product = this.state.product;
         if (!product && products && products.length) {

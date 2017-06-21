@@ -97,8 +97,25 @@ class MedicalService extends React.Component {
     }
 
     renderPersonElem() {
+        const {edit, formData} = this.props;
         const props = {
-            edit: this.props.edit,
+            edit,
+            columns: [
+                {
+                    title: 'Full Name',
+                    width: 130
+                },
+                {
+                    title: 'Rank',
+                    width: 100
+                },
+                {
+                    title: 'Symptom',
+                    fill: true,
+                    noRightBorder: true
+                }
+            ],
+            dataSource: formData.persons,
             savePerson: this.handlerSavePersons.bind(this)
         };
 

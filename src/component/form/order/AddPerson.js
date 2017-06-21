@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import {Icon} from 'antd';
+import {Input, Icon} from 'antd';
 import _ from 'lodash';
 
 class AddPerson extends React.Component {
@@ -74,28 +74,15 @@ class AddPerson extends React.Component {
 
     static propTypes = {
         edit: React.PropTypes.bool,
-        columns: React.PropTypes.array,
         dataSource: React.PropTypes.array,
+        columns: React.PropTypes.array,
         savePerson: React.PropTypes.func,
     };
 
     static defaultProps = {
         edit: true,
-        columns: [
-            {
-                flex: '1',
-                name: 'Full Name',
-            },
-            {
-                flex: '1',
-                name: 'Rank',
-            },
-            {
-                flex: '1',
-                name: 'Symptom',
-            },
-        ],
         dataSource: [],
+        columns: [],
         savePerson: () => {
         }
     };
@@ -108,27 +95,36 @@ class AddPerson extends React.Component {
         }
     }
 
-    renderShowElem(styles, common) {
+    renderShowElem(styles, columns) {
         return (
             <div>
                 <div style={_.merge({}, styles.tableHead)}>
-                    <div style={_.merge({}, styles.title, styles.borderRight, {width: 130})}>Full Name</div>
-                    <div style={_.merge({}, styles.title, styles.borderRight, {width: 100})}>Rank</div>
-                    <div style={_.merge({}, styles.title, {flex: '1'})}>Symptom</div>
+                    {
+                        columns.map((item, i) => {
+                            return (
+                                <div key={`column${i + 1}`}
+                                     style={_.merge({}, styles.title, item.noRightBorder ? {} : styles.borderRight, item.fill ? {flex: '1'} : {width: item.width})}>
+                                    {item.title}
+                                </div>
+                            )
+                        })
+                    }
                 </div>
                 {
-                    this.state.dataSource.map((item, i) => {
+                    this.state.dataSource.map((person, i) => {
                         return (
                             <div key={`person${i + 1}`} style={_.merge({}, styles.tableBody, styles.line)}>
-                                <div style={_.merge({}, styles.common, styles.borderRight, {width: 130})}>
-                                    {item.fullName}
-                                </div>
-                                <div style={_.merge({}, styles.common, styles.borderRight, {width: 100})}>
-                                    {item.rank}
-                                </div>
-                                <div style={_.merge({}, styles.common, {flex: '1'})}>
-                                    {item.symptom}
-                                </div>
+                                {
+                                    columns.map((column, j) => {
+                                        const key = _.camelCase(column.title);
+                                        return (
+                                            <div key={`column${i + 1}_${j + 1}`}
+                                                 style={_.merge({}, styles.common, column.noRightBorder ? {} : styles.borderRight, column.fill ? {flex: '1'} : {width: column.width})}>
+                                                { person[key] }
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
                         )
                     })
@@ -137,14 +133,21 @@ class AddPerson extends React.Component {
         )
     }
 
-    renderEditElem(styles, common) {
+    renderEditElem(styles, columns) {
         const {dataSource, isEdits} = this.state;
         return (
             <div>
                 <div style={_.merge({}, styles.tableHead)}>
-                    <div style={_.merge({}, styles.title, {width: 130})}>Full Name</div>
-                    <div style={_.merge({}, styles.title, {width: 100})}>Rank</div>
-                    <div style={_.merge({}, styles.title, {flex: '1'})}>Symptom</div>
+                    {
+                        columns.map((item, i) => {
+                            return (
+                                <div key={`column${i + 1}`}
+                                     style={_.merge({}, styles.title, item.fill ? {flex: '1'} : {width: item.width})}>
+                                    {item.title}
+                                </div>
+                            )
+                        })
+                    }
                     <div style={_.merge({}, styles.title, {width: 90, textAlign: 'right', paddingRight: 10})}>
                         <Icon type="save" style={_.merge({}, styles.icon)}
                               onClick={this.handlerSavePerson.bind(this)}
@@ -152,12 +155,25 @@ class AddPerson extends React.Component {
                     </div>
                 </div>
                 {
-                    dataSource.map((item, i) => {
+                    dataSource.map((person, i) => {
+                        const isEdit = isEdits[i];
                         return (
                             <div key={`person${i + 1}`} style={_.merge({}, styles.tableBody, styles.line)}>
-                                <div style={_.merge({}, styles.common, {width: 130})}>{item.fullName}</div>
-                                <div style={_.merge({}, styles.common, {width: 100})}>{item.rank}</div>
-                                <div style={_.merge({}, styles.common, {flex: '1'})}>{item.symptom}</div>
+                                {
+                                    columns.map((column, j) => {
+                                        const key = _.camelCase(column.title);
+                                        return (
+                                            <div key={`column${i + 1}_${j + 1}`}
+                                                 style={_.merge({}, styles.common, column.fill ? {flex: '1'} : {width: column.width})}>
+                                                {
+                                                    isEdit ? <Input value={person[key]} placeholder="click to edit"
+                                                                    onChange={this.handlerChangeValue.bind(this, i, key)}/>
+                                                        : person[key]
+                                                }
+                                            </div>
+                                        )
+                                    })
+                                }
                                 <div style={_.merge({}, styles.common, {
                                     width: 90,
                                     textAlign: 'right',
@@ -168,7 +184,7 @@ class AddPerson extends React.Component {
                                           onClick={this.handlerDeletePerson.bind(this, i)}
                                     />
                                     {
-                                        isEdits[i] ? '' :
+                                        isEdit ? '' :
                                             <Icon type="edit" style={_.merge({}, styles.icon, {marginLeft: 10})}
                                                   onClick={this.handlerEditPerson.bind(this, i)}/>
                                     }
@@ -189,11 +205,11 @@ class AddPerson extends React.Component {
 
     render() {
         const styles = this.getStyles();
-        const {edit, common} = this.props;
+        const {edit, columns} = this.props;
 
         return (
             <div style={_.merge({}, styles.table)}>
-                {edit ? this.renderEditElem(styles, common) : this.renderShowElem(styles, common)}
+                {edit ? this.renderEditElem(styles, columns) : this.renderShowElem(styles, columns)}
             </div>
         )
     }
@@ -201,9 +217,8 @@ class AddPerson extends React.Component {
     componentWillReceiveProps(nextProps) {
         const dataSource = nextProps.dataSource;
         if (this.props.dataSource !== dataSource || !nextProps.edit) {
-            this.setState({
-                dataSource: dataSource
-            })
+            const isEdits = dataSource.map(item => false);
+            this.setState({dataSource, isEdits})
         }
     }
 
@@ -220,11 +235,14 @@ class AddPerson extends React.Component {
      */
     handlerAddPerson() {
         const {dataSource, isEdits} = this.state;
-        const person = {
-            fullName: 'name',
-            rank: 'rank',
-            symptom: 'symptom'
-        };
+        const {columns} = this.props;
+
+        const person = {};
+        columns.forEach(item => {
+            const name = _.camelCase(item.title);
+            person[name] = '';
+        });
+
         dataSource.push(person);
         isEdits.push(true);
         this.setState({dataSource});
@@ -249,6 +267,18 @@ class AddPerson extends React.Component {
         const {isEdits} = this.state;
         isEdits[i] = true;
         this.setState({isEdits});
+    }
+
+    /**
+     * 编辑fullName
+     * @param e
+     */
+    handlerChangeValue(i, key, e) {
+        const {dataSource} = this.state;
+        const person = dataSource[i];
+        person[key] = e.target.value;
+        dataSource[i] = person;
+        this.setState({dataSource})
     }
 
     /**
