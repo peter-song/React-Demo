@@ -9,6 +9,8 @@ import {Form, Input, Button, Upload, Icon} from 'antd';
 import SettingForm from '../../SettingForm';
 import AddPerson from '../AddPerson';
 
+let persons = [];
+
 class MedicalService extends React.Component {
 
     getStyles() {
@@ -92,7 +94,7 @@ class MedicalService extends React.Component {
                 name: 'xxx.png',
                 status: 'done',
                 url: 'http://www.baidu.com/xxx.png',
-            }]
+            }],
         }
     }
 
@@ -107,7 +109,7 @@ class MedicalService extends React.Component {
                 },
                 {
                     title: 'Rank',
-                    width: 100
+                    width: 130
                 },
                 {
                     title: 'Symptom',
@@ -116,7 +118,8 @@ class MedicalService extends React.Component {
                 }
             ],
             dataSource: formData.persons,
-            savePerson: this.handlerSavePersons.bind(this)
+            savePerson: this.handlerSavePersons.bind(this),
+            products: this.props.products
         };
 
         return (
@@ -168,7 +171,6 @@ class MedicalService extends React.Component {
             <SettingForm {...this.props} {...props}
                          onSubmit={this.handleSubmit.bind(this)}
             >
-                <div style={styles.title}>Personal Information</div>
                 {this.renderPersonElem()}
                 {this.renderFileElem(styles)}
                 <div style={_.merge({}, styles.line, styles.requireContent)}>
@@ -186,12 +188,12 @@ class MedicalService extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const formData = nextProps.formData;
+        const formData = _.cloneDeep(nextProps.formData);
         if (this.props.formData !== formData || !nextProps.edit) {
+            persons = formData.persons;
             this.setState({
                 requires: formData.requires,
                 fileList: formData.files,
-                persons: formData.persons
             })
         }
     }
@@ -244,13 +246,14 @@ class MedicalService extends React.Component {
      * 保存
      */
     handleSubmit() {
-        const {requires, fileList, persons} = this.state;
+        const {requires, fileList} = this.state;
         const files = fileList.map(item => item.url);
         const formData = {
             requires,
             files,
             persons
         };
+        persons = [];
 
         if (this.props.onSubmit) {
             this.props.onSubmit(formData);
@@ -261,8 +264,8 @@ class MedicalService extends React.Component {
      * 保存人员回调
      * @param _persons
      */
-    handlerSavePersons(persons) {
-        this.setState({persons})
+    handlerSavePersons(_persons) {
+        persons = _persons;
     }
 }
 

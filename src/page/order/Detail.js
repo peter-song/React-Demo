@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import _ from 'lodash';
 import {Layout, Breadcrumb} from 'antd';
 const {Header, Content, Footer} = Layout;
 
@@ -105,7 +106,12 @@ export default class Detail extends React.Component {
                 name: 'Medical Service',
                 data: {
                     requires: '',
-                    files: [],
+                    files: [{
+                        uid: -1,
+                        name: 'xxx.png',
+                        status: 'done',
+                        url: 'http://www.baidu.com/xxx.png',
+                    }],
                     persons: []
                 }
             }
@@ -125,7 +131,7 @@ export default class Detail extends React.Component {
         const products = this.props.products;
         let product = this.state.product;
         if (!product && products && products.length) {
-            product = products[defaultIndex];
+            product = _.cloneDeep(products[defaultIndex]);
         }
 
         const ProductForm = ConfigForm[product.code];
@@ -136,7 +142,8 @@ export default class Detail extends React.Component {
             title: product.name,
             formData: product.data,
             onSubmit: this.handleSubmit.bind(this),
-            onEditCancel: this.handlerEditCancel.bind(this)
+            onEditCancel: this.handlerEditCancel.bind(this),
+            products
         };
 
         return (
@@ -190,7 +197,7 @@ export default class Detail extends React.Component {
      * @param product
      */
     handlerServerItem(product) {
-        this.setState({product, edit: false})
+        this.setState({product: _.cloneDeep(product), edit: false})
     }
 
     /**
@@ -201,15 +208,19 @@ export default class Detail extends React.Component {
         this.setState({edit})
     }
 
+    /**
+     * 保存
+     * @param values
+     */
     handleSubmit(values) {
         const products = this.props.products;
         let product = this.state.product;
         if (!product && products && products.length) {
-            product = products[defaultIndex];
+            product = _.cloneDeep(products[defaultIndex]);
         }
-        console.log('product', product);
         product.data = values;
+        product.date = new Date();
 
-        this.setState({edit: false});
+        this.setState({edit: false, product});
     }
 }

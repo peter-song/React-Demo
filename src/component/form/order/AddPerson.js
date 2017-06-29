@@ -11,9 +11,23 @@ class AddPerson extends React.Component {
     getStyles() {
         const styles = {
 
+            titleInfoShow: {
+                fontStyle: 'italic',
+                fontWeight: 500,
+                fontSize: 14,
+                color: 'rgba(0,0,0,0.65)',
+            },
+
+            titleInfoEdit: {
+                fontWeight: 400,
+                fontSize: 14,
+                color: 'rgba(0,0,0,0.65)',
+            },
+
             table: {
                 border: '1px solid #D9D9D9',
                 borderRadius: 4,
+                marginTop: 16,
             },
 
             tableHead: {
@@ -66,7 +80,13 @@ class AddPerson extends React.Component {
                 fontSize: 12,
                 color: '#4990E2',
                 marginLeft: 12
-            }
+            },
+
+            validatePrompt: {
+                color: '#f04134',
+                fontWeight: 400,
+                fontSize: 12,
+            },
         };
 
         return styles;
@@ -84,6 +104,7 @@ class AddPerson extends React.Component {
         dataSource: [],
         columns: [],
         savePerson: () => {
+            console.log('click save person')
         }
     };
 
@@ -161,15 +182,26 @@ class AddPerson extends React.Component {
                             <div key={`person${i + 1}`} style={_.merge({}, styles.tableBody, styles.line)}>
                                 {
                                     columns.map((column, j) => {
-                                        const key = _.camelCase(column.title);
+                                        const name = _.camelCase(column.title);
+                                        const validateName = `validate${name.charAt(0).toUpperCase()}${name.substring(1)}`
                                         return (
                                             <div key={`column${i + 1}_${j + 1}`}
                                                  style={_.merge({}, styles.common, column.fill ? {flex: '1'} : {width: column.width})}>
-                                                {
-                                                    isEdit ? <Input value={person[key]} placeholder="click to edit"
-                                                                    onChange={this.handlerChangeValue.bind(this, i, key)}/>
-                                                        : person[key]
-                                                }
+                                                <div
+                                                    style={_.merge({}, column.fill ? {flex: '1'} : {width: column.width})}>
+                                                    {
+                                                        isEdit ? <Input value={person[name]} placeholder="click to edit"
+                                                                        onChange={this.handlerChangeValue.bind(this, i, name)}/>
+                                                            : person[name]
+                                                    }
+                                                    {
+                                                        !isEdit || person[validateName] ? '' :
+                                                            <div
+                                                                style={_.merge({}, styles.validatePrompt, {marginRight: 10})}>
+                                                                {`cannot be empty`}
+                                                            </div>
+                                                    }
+                                                </div>
                                             </div>
                                         )
                                     })
@@ -208,17 +240,23 @@ class AddPerson extends React.Component {
         const {edit, columns} = this.props;
 
         return (
-            <div style={_.merge({}, styles.table)}>
-                {edit ? this.renderEditElem(styles, columns) : this.renderShowElem(styles, columns)}
+            <div>
+                <div style={_.merge({}, edit ? styles.titleInfoEdit : styles.titleInfoShow)}>Personal Information</div>
+                <div style={_.merge({}, styles.table)}>
+                    {edit ? this.renderEditElem(styles, columns) : this.renderShowElem(styles, columns)}
+                </div>
             </div>
         )
     }
 
     componentWillReceiveProps(nextProps) {
-        const dataSource = nextProps.dataSource;
-        if (this.props.dataSource !== dataSource || !nextProps.edit) {
-            const isEdits = dataSource.map(item => false);
-            this.setState({dataSource, isEdits})
+        const dataSource = _.cloneDeep(nextProps.dataSource);
+        if ((this.props.dataSource !== dataSource && this.props.dataSource === this.state.dataSource)
+            || !nextProps.edit) {
+            this.setState({
+                dataSource,
+                isEdits: dataSource.map(item => false)
+            })
         }
     }
 
@@ -241,6 +279,7 @@ class AddPerson extends React.Component {
         columns.forEach(item => {
             const name = _.camelCase(item.title);
             person[name] = '';
+            person[`validate${name.charAt(0).toUpperCase()}${name.substring(1)}`] = true;
         });
 
         dataSource.push(person);
@@ -273,10 +312,15 @@ class AddPerson extends React.Component {
      * 编辑fullName
      * @param e
      */
-    handlerChangeValue(i, key, e) {
+    handlerChangeValue(i, name, e) {
+        const value = e.target.value;
         const {dataSource} = this.state;
         const person = dataSource[i];
-        person[key] = e.target.value;
+        person[name] = value;
+        if (value != '') {
+            const validateName = `validate${name.charAt(0).toUpperCase()}${name.substring(1)}`
+            person[validateName] = true;
+        }
         dataSource[i] = person;
         this.setState({dataSource})
     }
@@ -286,14 +330,37 @@ class AddPerson extends React.Component {
      */
     handlerSavePerson() {
         let {dataSource, isEdits} = this.state;
-        console.log(dataSource);
+        const {columns} = this.props;
 
-        isEdits = isEdits.map(() => false);
-        this.setState({isEdits});
+        let isValidate = true;
+        dataSource.forEach(item => {
+            columns.forEach(column => {
+                const name = _.camelCase(column.title);
+                const validateName = `validate${name.charAt(0).toUpperCase()}${name.substring(1)}`
+                if (item[name] == '') {
+                    item[validateName] = false;
+                    isValidate = false;
+                } else {
+                    item[validateName] = true;
+                }
+            })
+        });
 
-        if (this.props.savePerson) {
-            this.props.savePerson(dataSource);
+        if (isValidate && this.props.savePerson) {
+            isEdits = isEdits.map(() => false);
+            const newDataSource = [];
+            dataSource.forEach(item => {
+                const newItem = {};
+                columns.forEach(column => {
+                    const name = _.camelCase(column.title);
+                    newItem[name] = item[name];
+                });
+                newDataSource.push(newItem);
+            });
+
+            this.props.savePerson(newDataSource);
         }
+        this.setState({isEdits, dataSource});
     }
 }
 

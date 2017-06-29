@@ -84,6 +84,17 @@ class PortCaptainOutlay extends React.Component {
     };
 
     renderEditElem(formData) {
+        const layout = {
+            labelCol: {
+                xs: {span: 24},
+                sm: {span: 2},
+            },
+            wrapperCol: {
+                xs: {span: 24},
+                sm: {span: 14},
+            }
+        };
+
         const components = [{
             name: 'Input',
             options: {
@@ -95,6 +106,7 @@ class PortCaptainOutlay extends React.Component {
             },
             hasFeedback: false,
             label: 'Agency',
+            layout
         }, {
             name: 'Input',
             options: {
@@ -106,6 +118,7 @@ class PortCaptainOutlay extends React.Component {
             },
             hasFeedback: false,
             label: 'Address',
+            layout
         }, {
             name: 'Input',
             options: {
@@ -117,6 +130,7 @@ class PortCaptainOutlay extends React.Component {
             },
             hasFeedback: false,
             label: 'Contact Person',
+            layout
         }, {
             name: 'Input',
             options: {
@@ -128,6 +142,7 @@ class PortCaptainOutlay extends React.Component {
             },
             hasFeedback: false,
             label: 'Tel.',
+            layout
         }, {
             name: 'Input',
             options: {
@@ -139,6 +154,7 @@ class PortCaptainOutlay extends React.Component {
             },
             hasFeedback: false,
             label: 'Email',
+            layout
         }, {
             name: 'Input',
             props: {
@@ -154,6 +170,7 @@ class PortCaptainOutlay extends React.Component {
                 initialValue: formData.requires
             },
             label: 'Requires',
+            layout
         }];
 
         const props = {
