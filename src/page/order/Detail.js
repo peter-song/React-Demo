@@ -68,51 +68,97 @@ export default class Detail extends React.Component {
         return styles;
     }
 
+    static propTypes = {
+        orderEntries: React.PropTypes.array
+    };
+
     static defaultProps = {
-        products: [
+        orderEntries: [
             {
-                _id: '56651fc1d4c6815fc8ef7e86',
-                code: 'PTOL',
-                name: 'Port Caption Outlay',
-                data: {
-                    agency: 'Shanghai Seasky Shipping Agency Co.,Ltd.',
-                    address: 'Rm 101, Port Building, No.1 Fenghe Rd.,Pudong New Area, Shanghai 200120 PRC',
-                    contactPerson: 'Jin Chen',
-                    tel: '+86-21-88888888',
-                    email: 'shanghai@seasky.com',
-                    requires: `I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content `
+                product: {
+                    code: 'PTOL',
+                    name: 'Port Caption Outlay',
+                },
+                productConfig: {
+                    products: [
+                        {
+                            config: {
+                                agency: 'Shanghai Seasky Shipping Agency Co.,Ltd.',
+                                address: 'Rm 101, Port Building, No.1 Fenghe Rd.,Pudong New Area, Shanghai 200120 PRC',
+                                contactPerson: 'Jin Chen',
+                                tel: '+86-21-88888888',
+                                email: 'shanghai@seasky.com',
+                                requires: `I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content `
+                            }
+                        }
+                    ]
                 }
             },
             {
-                _id: '566549f75c57786239cb3241',
-                code: 'PTAGMINPECN',
-                name: 'AGM Inspection',
-                data: {
-                    requires: '',
-                    nextPort: ''
+                product: {
+                    code: 'PTAGMINPECN',
+                    name: 'AGM Inspection',
+                },
+                productConfig: {
+                    products: [
+                        {
+                            config: {
+                                visitFiles: [
+                                    {
+                                        uid: -1,
+                                        name: 'xxx.png',
+                                        status: 'done',
+                                        url: 'http://www.baidu.com/xxx.png',
+                                    }
+                                ],
+                                nextPort: 'shanghai',
+                                remark: `I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content `
+                            }
+                        }
+                    ]
                 }
             },
             {
-                _id: '56976c43d4c6a79a4e016f3d',
-                code: 'PTPSCIA',
-                name: 'PSC Inspection',
-                data: {
-                    requires: ''
+                product: {
+                    code: 'PTPSCIA',
+                    name: 'PSC Inspection',
+                },
+                productConfig: {
+                    products: [
+                        {
+                            config: {
+                                remark: `I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content `
+                            }
+                        }
+                    ]
                 }
             },
             {
-                _id: '567a29c4c8d751d30fa59936',
-                code: 'PTCVD',
-                name: 'Medical Service',
-                data: {
-                    requires: '',
-                    files: [{
-                        uid: -1,
-                        name: 'xxx.png',
-                        status: 'done',
-                        url: 'http://www.baidu.com/xxx.png',
-                    }],
-                    persons: []
+                product: {
+                    code: 'PTCVD',
+                    name: 'Medical Service',
+                },
+                productConfig: {
+                    products: [
+                        {
+                            config: {
+                                persons: [{
+                                    fullName: 'James Bond',
+                                    rank: 'United Kingdom',
+                                    symptom: 'Arrival Flight No.'
+                                }],
+                                visitFiles: [
+                                    {
+                                        uid: -1,
+                                        name: 'xxx.png',
+                                        status: 'done',
+                                        url: 'http://www.baidu.com/xxx.png',
+                                    }
+                                ],
+                                remark: `I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content `
+                            }
+                        }
+                    ]
                 }
             }
         ]
@@ -122,39 +168,33 @@ export default class Detail extends React.Component {
         super(props);
         this.state = {
             edit: false,
-            product: undefined
+            product: undefined,
+            orderEntry: undefined
         }
     }
 
     renderServiceSettingElem(styles) {
 
-        const products = this.props.products;
-        let product = this.state.product;
-        if (!product && products && products.length) {
-            product = _.cloneDeep(products[defaultIndex]);
-        }
-
-        const ProductForm = ConfigForm[product.code];
-
+        const orderEntry = this.getOrderEntry();
         const props = {
             edit: this.state.edit,
             showBtn: true,
-            title: product.name,
-            formData: product.data,
+            title: orderEntry.product.name,
+            formData: orderEntry.productConfig,
             onSubmit: this.handleSubmit.bind(this),
             onEditCancel: this.handlerEditCancel.bind(this),
-            products
         };
+        const ProductForm = ConfigForm[orderEntry.product.code];
 
         return (
             <div style={styles.service}>
                 <div style={styles.serviceLeft}>
                     <div style={{padding: 20}}>
                         {
-                            this.props.products.map((item, i) => {
+                            this.props.orderEntries.map((item, i) => {
                                 return (
                                     <div key={`product${i + 1}`} style={styles.serviceName}
-                                         onClick={this.handlerServerItem.bind(this, item)}>{item.name}</div>
+                                         onClick={this.handlerServerItem.bind(this, item.product.code)}>{item.product.name}</div>
                                 )
                             })
                         }
@@ -168,6 +208,15 @@ export default class Detail extends React.Component {
                 <div style={styles.clear}></div>
             </div>
         )
+    }
+
+    getOrderEntry() {
+        let orderEntry = this.state.orderEntry;
+        if (!orderEntry) {
+            const {orderEntries} = this.props;
+            orderEntry = _.cloneDeep(orderEntries[0]);
+        }
+        return orderEntry;
     }
 
     render() {
@@ -196,8 +245,10 @@ export default class Detail extends React.Component {
      * 选择服务项
      * @param product
      */
-    handlerServerItem(product) {
-        this.setState({product: _.cloneDeep(product), edit: false})
+    handlerServerItem(code) {
+        const {orderEntries} = this.props;
+        const orderEntry = _.find(orderEntries, item => item.product.code == code);
+        this.setState({orderEntry: _.cloneDeep(orderEntry), edit: false})
     }
 
     /**
@@ -213,13 +264,8 @@ export default class Detail extends React.Component {
      * @param values
      */
     handleSubmit(values) {
-        const products = this.props.products;
-        let product = this.state.product;
-        if (!product && products && products.length) {
-            product = _.cloneDeep(products[defaultIndex]);
-        }
-        product.data = values;
-        product.date = new Date();
+        let product = this.getOrderEntry();
+        product.productConfig = values;
 
         this.setState({edit: false, product});
     }

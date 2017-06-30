@@ -46,6 +46,22 @@ class PSCInspection extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.initState();
+    }
+
+    initState(formData = this.props.formData) {
+        const config = this.getConfig(formData);
+        this.setState({
+            requires: config.remark
+        })
+    }
+
+    getConfig(formData = this.props.formData) {
+        const product = formData.products && formData.products.length ? formData.products[0] : undefined;
+        return product ? product.config : {};
+    }
+
     render() {
 
         const styles = this.getStyles();
@@ -53,7 +69,7 @@ class PSCInspection extends React.Component {
 
         return (
             <SettingForm {...this.props}
-                onSubmit={this.handleSubmit.bind(this)}
+                         onSubmit={this.handleSubmit.bind(this)}
             >
                 <div style={{display: 'flex'}}>
                     <div style={_.merge({}, styles.left, styles.require)}>Requires:</div>
@@ -70,11 +86,9 @@ class PSCInspection extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const formData = nextProps.formData;
+        const formData = _.cloneDeep(nextProps.formData);
         if (this.props.formData !== formData || !nextProps.edit) {
-            this.setState({
-                requires: formData.requires
-            })
+            this.initState(formData);
         }
     }
 
@@ -92,10 +106,13 @@ class PSCInspection extends React.Component {
      * 保存
      */
     handleSubmit() {
-        const {formData} = this.props;
-        formData.requires = this.state.requires;
-
+        const config = {
+            remark: this.state.requires
+        };
+        console.log('values', config);
         if (this.props.onSubmit) {
+            const {formData} = this.props;
+            formData.products[0].config = config;
             this.props.onSubmit(formData);
         }
     }

@@ -89,17 +89,26 @@ class MedicalService extends React.Component {
         super(props);
         this.state = {
             requires: '',
-            fileList: [{
-                uid: -1,
-                name: 'xxx.png',
-                status: 'done',
-                url: 'http://www.baidu.com/xxx.png',
-            }],
+            fileList: [],
         }
     }
 
+    componentDidMount() {
+        console.log('MedicalService');
+        this.initState();
+    }
+
+    initState(formData = this.props.formData) {
+        const config = this.getConfig(formData);
+        this.setState({
+            requires: config.remark,
+            fileList: config.visitFiles
+        });
+        persons = config.persons;
+    }
+
     renderPersonElem() {
-        const {edit, formData} = this.props;
+        const {edit} = this.props;
         const props = {
             edit,
             columns: [
@@ -117,9 +126,8 @@ class MedicalService extends React.Component {
                     noRightBorder: true
                 }
             ],
-            dataSource: formData.persons,
+            dataSource: persons,
             savePerson: this.handlerSavePersons.bind(this),
-            products: this.props.products
         };
 
         return (
@@ -159,6 +167,11 @@ class MedicalService extends React.Component {
         )
     }
 
+    getConfig(formData = this.props.formData) {
+        const product = formData.products && formData.products.length ? formData.products[0] : undefined;
+        return product ? product.config : {};
+    }
+
     render() {
 
         const styles = this.getStyles();
@@ -190,11 +203,7 @@ class MedicalService extends React.Component {
     componentWillReceiveProps(nextProps) {
         const formData = _.cloneDeep(nextProps.formData);
         if (this.props.formData !== formData || !nextProps.edit) {
-            persons = formData.persons;
-            this.setState({
-                requires: formData.requires,
-                fileList: formData.files,
-            })
+            this.initState(formData);
         }
     }
 
@@ -247,15 +256,17 @@ class MedicalService extends React.Component {
      */
     handleSubmit() {
         const {requires, fileList} = this.state;
-        const files = fileList.map(item => item.url);
-        const formData = {
-            requires,
-            files,
+        const config = {
+            remark: requires,
+            visitFiles: fileList,
             persons
         };
         persons = [];
+        console.log('values', config);
 
         if (this.props.onSubmit) {
+            const {formData} = this.props;
+            formData.products[0].config = config;
             this.props.onSubmit(formData);
         }
     }

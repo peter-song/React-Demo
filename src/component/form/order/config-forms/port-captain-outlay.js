@@ -6,8 +6,8 @@ import React from 'react';
 import _ from 'lodash';
 import {Form} from 'antd';
 
-import BasicForm from './../../basic-form';
 import SettingForm from '../../SettingForm';
+import BasicForm from './../../basic-form';
 
 class PortCaptainOutlay extends React.Component {
 
@@ -83,15 +83,20 @@ class PortCaptainOutlay extends React.Component {
         onSubmit: React.PropTypes.func,
     };
 
-    renderEditElem(formData) {
+    componentDidMount(){
+        console.log('PortCaptainOutlay');
+    }
+
+    renderEditElem() {
+        const config = this.getConfig();
         const layout = {
             labelCol: {
                 xs: {span: 24},
-                sm: {span: 2},
+                sm: {span: 3},
             },
             wrapperCol: {
                 xs: {span: 24},
-                sm: {span: 14},
+                sm: {span: 16},
             }
         };
 
@@ -102,7 +107,7 @@ class PortCaptainOutlay extends React.Component {
                     // required: true,
                     message: 'Please input your amount!',
                 }],
-                initialValue: formData.agency
+                initialValue: config.agency
             },
             hasFeedback: false,
             label: 'Agency',
@@ -114,7 +119,7 @@ class PortCaptainOutlay extends React.Component {
                     // required: true,
                     message: 'Please input your amount!',
                 }],
-                initialValue: formData.address
+                initialValue: config.address
             },
             hasFeedback: false,
             label: 'Address',
@@ -126,7 +131,7 @@ class PortCaptainOutlay extends React.Component {
                     // required: true,
                     message: 'Please input your amount!',
                 }],
-                initialValue: formData.contactPerson
+                initialValue: config.contactPerson
             },
             hasFeedback: false,
             label: 'Contact Person',
@@ -138,7 +143,7 @@ class PortCaptainOutlay extends React.Component {
                     // required: true,
                     message: 'Please input your amount!',
                 }],
-                initialValue: formData.tel
+                initialValue: config.tel
             },
             hasFeedback: false,
             label: 'Tel.',
@@ -150,7 +155,7 @@ class PortCaptainOutlay extends React.Component {
                     // required: true,
                     message: 'Please input your amount!',
                 }],
-                initialValue: formData.email
+                initialValue: config.email
             },
             hasFeedback: false,
             label: 'Email',
@@ -167,7 +172,7 @@ class PortCaptainOutlay extends React.Component {
                     // required: true,
                     message: 'Please input requires!',
                 }],
-                initialValue: formData.requires
+                initialValue: config.requires
             },
             label: 'Requires',
             layout
@@ -183,30 +188,31 @@ class PortCaptainOutlay extends React.Component {
         )
     }
 
-    renderShowElem(formData) {
+    renderShowElem() {
         const styles = this.getStyles();
+        const config = this.getConfig();
         return (
             <div>
                 <div style={styles.table}>
                     <div style={_.merge({}, {display: 'flex'})}>
                         <div style={_.merge({}, styles.tableKey)}>Agency</div>
-                        <div style={_.merge({}, styles.tableValue)}>{formData.agency}</div>
+                        <div style={_.merge({}, styles.tableValue)}>{config.agency}</div>
                     </div>
                     <div style={_.merge({}, styles.line, {display: 'flex'})}>
                         <div style={_.merge({}, styles.tableKey)}>Address</div>
-                        <div style={_.merge({}, styles.tableValue)}>{formData.address}</div>
+                        <div style={_.merge({}, styles.tableValue)}>{config.address}</div>
                     </div>
                     <div style={_.merge({}, styles.line, {display: 'flex'})}>
                         <div style={_.merge({}, styles.tableKey)}>Contact Person</div>
-                        <div style={_.merge({}, styles.tableValue)}>{formData.contactPerson}</div>
+                        <div style={_.merge({}, styles.tableValue)}>{config.contactPerson}</div>
                     </div>
                     <div style={_.merge({}, styles.line, {display: 'flex'})}>
                         <div style={_.merge({}, styles.tableKey)}>Tel.</div>
-                        <div style={_.merge({}, styles.tableValue)}>{formData.tel}</div>
+                        <div style={_.merge({}, styles.tableValue)}>{config.tel}</div>
                     </div>
                     <div style={_.merge({}, styles.line, {display: 'flex'})}>
                         <div style={_.merge({}, styles.tableKey)}>Email</div>
-                        <div style={_.merge({}, styles.tableValue)}>{formData.email}</div>
+                        <div style={_.merge({}, styles.tableValue)}>{config.email}</div>
                     </div>
                 </div>
 
@@ -215,24 +221,28 @@ class PortCaptainOutlay extends React.Component {
                     <div style={_.merge({}, styles.require, {
                         flex: '1',
                         marginLeft: 15
-                    })}>{formData.requires}</div>
+                    })}>{config.requires}</div>
                 </div>
             </div>
         )
     }
 
+    getConfig(formData = this.props.formData) {
+        const product = formData.products && formData.products.length ? formData.products[0] : undefined;
+        return product ? product.config : {};
+    }
+
     render() {
         const styles = this.getStyles();
 
-        const {edit, formData} = this.props;
-        console.log('edit', this.props.edit)
+        const {edit} = this.props;
         return (
             <SettingForm {...this.props}
                          onSubmit={this.handleSubmit.bind(this)}
             >
                 <div style={styles.title}>Charterer’s Agency Details</div>
                 <div style={{marginTop: 16}}>
-                    {edit ? this.renderEditElem(formData) : this.renderShowElem(formData)}
+                    {edit ? this.renderEditElem() : this.renderShowElem()}
                 </div>
             </SettingForm>
         );
@@ -244,8 +254,11 @@ class PortCaptainOutlay extends React.Component {
     handleSubmit() {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                console.log('values', values);
                 if (this.props.onSubmit) {
-                    this.props.onSubmit(values);
+                    const {formData} = this.props;
+                    formData.products[0].config = values;
+                    this.props.onSubmit(formData);
                 }
             } else {
                 console.log('err', err)

@@ -116,6 +116,17 @@ class AddPerson extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.initState();
+    }
+
+    initState(dataSource = this.props.dataSource) {
+        this.setState({
+            dataSource,
+            isEdits: dataSource.map(item => false)
+        })
+    }
+
     renderShowElem(styles, columns) {
         return (
             <div>
@@ -251,12 +262,8 @@ class AddPerson extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const dataSource = _.cloneDeep(nextProps.dataSource);
-        if ((this.props.dataSource !== dataSource && this.props.dataSource === this.state.dataSource)
-            || !nextProps.edit) {
-            this.setState({
-                dataSource,
-                isEdits: dataSource.map(item => false)
-            })
+        if ((this.props.dataSource !== dataSource && this.props.dataSource === this.state.dataSource) || !nextProps.edit) {
+            this.initState(dataSource);
         }
     }
 
@@ -337,11 +344,11 @@ class AddPerson extends React.Component {
             columns.forEach(column => {
                 const name = _.camelCase(column.title);
                 const validateName = `validate${name.charAt(0).toUpperCase()}${name.substring(1)}`
-                if (item[name] == '') {
+                if (item[name]) {
+                    item[validateName] = true;
+                } else {
                     item[validateName] = false;
                     isValidate = false;
-                } else {
-                    item[validateName] = true;
                 }
             })
         });

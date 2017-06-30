@@ -79,13 +79,21 @@ class AGMInspection extends React.Component {
         this.state = {
             nextPort: '',
             requires: '',
-            fileList: [{
-                uid: -1,
-                name: 'xxx.png',
-                status: 'done',
-                url: 'http://www.baidu.com/xxx.png',
-            }]
+            fileList: []
         }
+    }
+
+    componentDidMount() {
+        this.initState();
+    }
+
+    initState(formData = this.props.formData) {
+        const config = this.getConfig(formData);
+        this.setState({
+            requires: config.remark,
+            fileList: config.visitFiles,
+            nextPort: config.nextPort
+        })
     }
 
     renderFileElem(styles) {
@@ -116,6 +124,11 @@ class AGMInspection extends React.Component {
                 </div>
             </div>
         )
+    }
+
+    getConfig(formData = this.props.formData) {
+        const product = formData.products && formData.products.length ? formData.products[0] : undefined;
+        return product ? product.config : {};
     }
 
     render() {
@@ -155,12 +168,9 @@ class AGMInspection extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const formData = nextProps.formData;
+        const formData = _.cloneDeep(nextProps.formData);
         if (this.props.formData !== formData || !nextProps.edit) {
-            this.setState({
-                nextPort: formData.nextPort,
-                requires: formData.requires
-            })
+            this.initState(formData);
         }
     }
 
@@ -211,12 +221,16 @@ class AGMInspection extends React.Component {
      * 保存
      */
     handleSubmit() {
-        const {formData} = this.props;
         const {requires, nextPort, fileList} = this.state;
-        const files = fileList.map(item => item.url);
-        [formData.requires, formData.nextPort, formData.fileList] = [requires, nextPort, files];
-
+        const config = {
+            remark: requires,
+            visitFiles: fileList,
+            nextPort
+        };
+        console.log('values', config);
         if (this.props.onSubmit) {
+            const {formData} = this.props;
+            formData.products[0].config = config;
             this.props.onSubmit(formData);
         }
     }
