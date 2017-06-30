@@ -206,7 +206,7 @@ class AddPerson extends React.Component {
                                                             : person[name]
                                                     }
                                                     {
-                                                        !isEdit || person[validateName] ? '' :
+                                                        !isEdit || person[validateName] == undefined || person[validateName] ? '' :
                                                             <div
                                                                 style={_.merge({}, styles.validatePrompt, {marginRight: 10})}>
                                                                 {`cannot be empty`}

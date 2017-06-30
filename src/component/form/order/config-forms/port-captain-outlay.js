@@ -103,10 +103,6 @@ class PortCaptainOutlay extends React.Component {
         const components = [{
             name: 'Input',
             options: {
-                rules: [{
-                    // required: true,
-                    message: 'Please input your amount!',
-                }],
                 initialValue: config.agency
             },
             hasFeedback: false,
@@ -115,10 +111,6 @@ class PortCaptainOutlay extends React.Component {
         }, {
             name: 'Input',
             options: {
-                rules: [{
-                    // required: true,
-                    message: 'Please input your amount!',
-                }],
                 initialValue: config.address
             },
             hasFeedback: false,
@@ -127,10 +119,6 @@ class PortCaptainOutlay extends React.Component {
         }, {
             name: 'Input',
             options: {
-                rules: [{
-                    // required: true,
-                    message: 'Please input your amount!',
-                }],
                 initialValue: config.contactPerson
             },
             hasFeedback: false,
@@ -139,10 +127,6 @@ class PortCaptainOutlay extends React.Component {
         }, {
             name: 'Input',
             options: {
-                rules: [{
-                    // required: true,
-                    message: 'Please input your amount!',
-                }],
                 initialValue: config.tel
             },
             hasFeedback: false,
@@ -152,8 +136,7 @@ class PortCaptainOutlay extends React.Component {
             name: 'Input',
             options: {
                 rules: [{
-                    // required: true,
-                    message: 'Please input your amount!',
+                    type: 'email', message: 'The input is not valid E-mail!',
                 }],
                 initialValue: config.email
             },
@@ -168,10 +151,6 @@ class PortCaptainOutlay extends React.Component {
                 placeholder: 'Please write your requirements'
             },
             options: {
-                rules: [{
-                    // required: true,
-                    message: 'Please input requires!',
-                }],
                 initialValue: config.requires
             },
             label: 'Requires',
