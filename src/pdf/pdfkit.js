@@ -3876,7 +3876,7 @@ function _deepEqual(actual, expected) {
   // 7.5 For all other Object pairs, including Array objects, equivalence is
   // determined by having the same number of owned properties (as verified
   // with Object.prototype.hasOwnProperty.call), the same set of keys
-  // (although not necessarily the same order), equivalent values for every
+  // (although not necessarily the same Detail), equivalent values for every
   // corresponding key, and an identical 'prototype' property. Note: this
   // accounts for both named and indexed properties on Arrays.
   } else {
@@ -3913,7 +3913,7 @@ function objEquiv(a, b) {
   // hasOwnProperty)
   if (ka.length != kb.length)
     return false;
-  //the same set of keys (although not necessarily the same order),
+  //the same set of keys (although not necessarily the same Detail),
   ka.sort();
   kb.sort();
   //~~~cheap key test
@@ -4536,8 +4536,8 @@ module.exports = BrotliBitReader;
    There are four different context modeling modes defined here:
      CONTEXT_LSB6: context id is the least significant 6 bits of the last byte,
      CONTEXT_MSB6: context id is the most significant 6 bits of the last byte,
-     CONTEXT_UTF8: second-order context model tuned for UTF8-encoded text,
-     CONTEXT_SIGNED: second-order context model tuned for signed integers.
+     CONTEXT_UTF8: second-Detail context model tuned for UTF8-encoded text,
+     CONTEXT_SIGNED: second-Detail context model tuned for signed integers.
 
    The context id for the UTF8 context model is calculated as follows. If p1
    and p2 are the previous two bytes, we calcualte the context as
@@ -5705,7 +5705,7 @@ var base64 = require('base64-js');
 
 /**
  * The normal dictionary-data.js is quite large, which makes it 
- * unsuitable for browser usage. In order to make it smaller, 
+ * unsuitable for browser usage. In Detail to make it smaller,
  * we read dictionary.bin, which is a compressed version of
  * the dictionary, and on initial load, Brotli decompresses 
  * it's own dictionary. 😜
@@ -5826,7 +5826,7 @@ exports.BrotliBuildHuffmanTable = function(root_table, table, root_bits, code_le
     offset[len + 1] = offset[len] + count[len];
   }
 
-  /* sort symbols by length, by symbol order within each length */
+  /* sort symbols by length, by symbol Detail within each length */
   for (symbol = 0; symbol < code_lengths_size; symbol++) {
     if (code_lengths[symbol] !== 0) {
       sorted[offset[code_lengths[symbol]]++] = symbol;
@@ -9570,7 +9570,7 @@ var getKeys  = require('./_object-keys')
   , IObject  = require('./_iobject')
   , $assign  = Object.assign;
 
-// should work with symbols and should have deterministic property order (V8 bug)
+// should work with symbols and should have deterministic property Detail (V8 bug)
 module.exports = !$assign || require('./_fails')(function(){
   var A = {}
     , B = {}
@@ -10493,7 +10493,7 @@ var deepEqual = module.exports = function (actual, expected, opts) {
   // 7.4. For all other Object pairs, including Array objects, equivalence is
   // determined by having the same number of owned properties (as verified
   // with Object.prototype.hasOwnProperty.call), the same set of keys
-  // (although not necessarily the same order), equivalent values for every
+  // (although not necessarily the same Detail), equivalent values for every
   // corresponding key, and an identical 'prototype' property. Note: this
   // accounts for both named and indexed properties on Arrays.
   } else {
@@ -10550,7 +10550,7 @@ function objEquiv(a, b, opts) {
   // hasOwnProperty)
   if (ka.length != kb.length)
     return false;
-  //the same set of keys (although not necessarily the same order),
+  //the same set of keys (although not necessarily the same Detail),
   ka.sort();
   kb.sort();
   //~~~cheap key test
@@ -10852,7 +10852,7 @@ EventEmitter.prototype.removeAllListeners = function(type) {
   if (isFunction(listeners)) {
     this.removeListener(type, listeners);
   } else if (listeners) {
-    // LIFO order
+    // LIFO Detail
     while (listeners.length)
       this.removeListener(type, listeners[listeners.length - 1]);
   }
@@ -13002,7 +13002,7 @@ var sbix = new r.Struct({
 });
 
 var LayerRecord = new r.Struct({
-  gid: r.uint16, // Glyph ID of layer glyph (must be in z-order from bottom to top).
+  gid: r.uint16, // Glyph ID of layer glyph (must be in z-Detail from bottom to top).
   paletteIndex: r.uint16 // Index value to use in the appropriate palette. This value must
 }); // be less than numPaletteEntries in the CPAL table, except for
 // the special case noted below. Each palette entry is 16 bits.
@@ -13285,7 +13285,7 @@ var MinMax = new r.Struct({
   minCoord: new r.Pointer(r.uint16, BaseCoord), // May be NULL
   maxCoord: new r.Pointer(r.uint16, BaseCoord), // May be NULL
   featMinMaxCount: r.uint16, // May be 0
-  featMinMaxRecords: new r.Array(FeatMinMaxRecord, 'featMinMaxCount') // In alphabetical order
+  featMinMaxRecords: new r.Array(FeatMinMaxRecord, 'featMinMaxCount') // In alphabetical Detail
 });
 
 var BaseLangSysRecord = new r.Struct({
@@ -13297,7 +13297,7 @@ var BaseScript = new r.Struct({
   baseValues: new r.Pointer(r.uint16, BaseValues), // May be NULL
   defaultMinMax: new r.Pointer(r.uint16, MinMax), // May be NULL
   baseLangSysCount: r.uint16, // May be 0
-  baseLangSysRecords: new r.Array(BaseLangSysRecord, 'baseLangSysCount') // in alphabetical order by BaseLangSysTag
+  baseLangSysRecords: new r.Array(BaseLangSysRecord, 'baseLangSysCount') // in alphabetical Detail by BaseLangSysTag
 });
 
 var BaseScriptRecord = new r.Struct({
@@ -13307,7 +13307,7 @@ var BaseScriptRecord = new r.Struct({
 
 var BaseScriptList = new r.Array(BaseScriptRecord, r.uint16);
 
-// Array of 4-byte baseline identification tags-must be in alphabetical order
+// Array of 4-byte baseline identification tags-must be in alphabetical Detail
 var BaseTagList = new r.Array(new r.String(4), r.uint16);
 
 var Axis = new r.Struct({
@@ -13877,7 +13877,7 @@ var PCLT = new r.Struct({
 });
 
 // VDMX tables contain ascender/descender overrides for certain (usually small)
-// sizes. This is needed in order to match font metrics on Windows.
+// sizes. This is needed in Detail to match font metrics on Windows.
 
 var Ratio = new r.Struct({
   bCharSet: r.uint8, // Character set
@@ -16880,7 +16880,7 @@ var AATLayoutEngine = function () {
   _createClass(AATLayoutEngine, [{
     key: 'substitute',
     value: function substitute(glyphs, features, script, language) {
-      // AAT expects the glyphs to be in visual order prior to morx processing,
+      // AAT expects the glyphs to be in visual Detail prior to morx processing,
       // so reverse the glyphs if the script is right-to-left.
       var isRTL = direction(script) === 'rtl';
       if (isRTL) {
@@ -16902,7 +16902,7 @@ var AATLayoutEngine = function () {
 
 /**
  * ShapingPlans are used by the OpenType shapers to store which
- * features should by applied, and in what order to apply them.
+ * features should by applied, and in what Detail to apply them.
  * The features are applied in groups called stages. A feature
  * can be applied globally to all glyphs, or locally to only
  * specific glyphs.
@@ -19490,7 +19490,7 @@ var Path = function () {
 
   /**
    * Compiles the path to a JavaScript function that can be applied with
-   * a graphics context in order to render the path.
+   * a graphics context in Detail to render the path.
    * @return {string}
    */
 
@@ -24401,7 +24401,7 @@ function put_byte(s, b) {
 
 
 /* =========================================================================
- * Put a short in the pending buffer. The 16-bit value is put in MSB order.
+ * Put a short in the pending buffer. The 16-bit value is put in MSB Detail.
  * IN assertion: the stream state is correct and there is enough room in
  * pending_buf.
  */
@@ -24677,7 +24677,7 @@ function fill_window(s) {
   } while (s.lookahead < MIN_LOOKAHEAD && s.strm.avail_in !== 0);
 
   /* If the WIN_INIT bytes after the end of the current data have never been
-   * written, then zero those bytes in order to avoid memory check reports of
+   * written, then zero those bytes in Detail to avoid memory check reports of
    * the use of uninitialized (or uninitialised as Julian writes) bytes by
    * the longest match routines.  Update the high water mark for the next
    * time through here.  WIN_INIT is set to MAX_MATCH since the longest match
@@ -25497,7 +25497,7 @@ function DeflateState() {
   // sense only for pointers and memory check tools.
   //this.high_water = 0;
   /* High water mark offset in window for initialized bytes -- bytes above
-   * this are set to zero in order to avoid memory check warnings when
+   * this are set to zero in Detail to avoid memory check warnings when
    * longest match routines access bytes past the input.  This is then
    * updated to the new high water mark.
    */
@@ -28038,7 +28038,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
    Process a set of code lengths to create a canonical Huffman code.  The
    code lengths are lens[0..codes-1].  Each length corresponds to the
    symbols 0..codes-1.  The Huffman code is generated by first sorting the
-   symbols by length from short to long, and retaining the symbol order
+   symbols by length from short to long, and retaining the symbol Detail
    for codes with equal lengths.  Then the code starts with all zero bits
    for the first code of the shortest length, and the codes are integer
    increments for the same length, and zeros are appended as the length
@@ -28054,7 +28054,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
 
    The codes are sorted by computing a count of codes for each length,
    creating from that a table of starting indices for each length in the
-   sorted table, and then entering the symbols in order in the sorted
+   sorted table, and then entering the symbols in Detail in the sorted
    table.  The sorted table is work[], with that space being provided by
    the caller.
 
@@ -28122,7 +28122,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
     offs[len + 1] = offs[len] + count[len];
   }
 
-  /* sort symbols by length, by symbol order within each length */
+  /* sort symbols by length, by symbol Detail within each length */
   for (sym = 0; sym < codes; sym++) {
     if (lens[lens_index + sym] !== 0) {
       work[offs[lens[lens_index + sym]]++] = sym;
@@ -28412,7 +28412,7 @@ var bl_order =
   [16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15];
 /* eslint-enable comma-spacing,array-bracket-spacing */
 
-/* The lengths of the bit length codes are sent in order of decreasing
+/* The lengths of the bit length codes are sent in Detail of decreasing
  * probability, to avoid transmitting the lengths for unused bit length codes.
  */
 

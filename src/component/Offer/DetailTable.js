@@ -3,26 +3,21 @@
  */
 import React from 'react';
 import _ from 'lodash';
+import {Icon, Button} from 'antd';
 
-import down from '../../../static/img/down.png';
-import up from '../../../static/img/up.png';
+class DetailTable extends React.Component {
 
-export default class DetailTable extends React.Component {
-
-    getStyles() {
+    getStyles(context) {
 
         let styles = {
 
             quotationCommon: {
-                border: '1px solid #c9ccd9',
-                marginTop: 16,
+                border: '1px solid #e9e9e9',
+                marginTop: context.props.isMarginTop ? '16px' : 0,
             },
 
             commonTitle: {
-                width: '20%',
-                background: '#E9E9E9',
                 padding: '12px 0',
-                float: 'left',
                 textAlign: 'center',
                 fontWeight: '500',
                 fontSize: 14,
@@ -30,16 +25,7 @@ export default class DetailTable extends React.Component {
                 letterSpacing: 0,
             },
 
-            commonTitleBorderRight: {
-                borderRight: '1px solid #d6d6d6',
-            },
-
-            commonContentBorderRight: {
-                borderRight: '1px solid #d6d6d6',
-            },
-
             commonContent: {
-                width: '20%',
                 padding: '12px 0',
                 letterSpacing: 0,
                 textAlign: 'center',
@@ -54,15 +40,21 @@ export default class DetailTable extends React.Component {
                 color: 'rgba(0, 0, 0, 0.65)',
             },
 
+            commonTitleBorderRight: {
+                borderRight: '1px solid #d6d6d6',
+            },
+
+            commonContentBorderRight: {
+                borderRight: '1px solid #d6d6d6',
+            },
+
             detail: {
-                border: '1px solid #c9ccd9',
+                border: '1px solid #e9e9e9',
                 marginTop: 16,
             },
 
             detailTitle: {
-                float: 'left',
                 padding: '12px 0',
-                background: '#E9E9E9',
                 fontWeight: '500',
                 fontSize: 14,
                 color: 'rgba(0, 0, 0, 0.75)',
@@ -70,9 +62,7 @@ export default class DetailTable extends React.Component {
             },
 
             detailContent: {
-                float: 'left',
                 padding: '12px 0',
-                background: '#F7F7F7',
                 fontWeight: '400',
                 fontSize: 14,
                 color: 'rgba(0, 0, 0, 0.65)',
@@ -80,7 +70,6 @@ export default class DetailTable extends React.Component {
             },
 
             detailSubContent: {
-                float: 'left',
                 padding: '12px 0',
                 background: '#FFFFFF',
                 fontWeight: '400',
@@ -90,7 +79,6 @@ export default class DetailTable extends React.Component {
             },
 
             detailTotalPrice: {
-                float: 'left',
                 padding: '12px 0',
                 background: '#FFF2DC',
                 fontWeight: '500',
@@ -99,9 +87,13 @@ export default class DetailTable extends React.Component {
                 letterSpacing: 0,
             },
 
-            stretch: {
+            horizontalCenter: {
+                textAlign: 'center',
+            },
+
+            verticalCenter: {
                 display: 'flex',
-                alignItems: 'stretch',
+                alignItems: 'Center',
             },
 
             detailLeft: {
@@ -119,43 +111,96 @@ export default class DetailTable extends React.Component {
             },
 
             col2: {
-                width: '35%',
+                // width: '40%',
+                // minWidth: 357,
+                flex: '1',
             },
 
             col3: {
-                width: '20%',
-                textAlign: 'right',
-            },
-
-            col4: {
                 width: '15%',
                 textAlign: 'right',
             },
 
+            col4: {
+                width: '14%',
+                textAlign: 'right',
+            },
+
             col5: {
-                width: '5%',
+                width: '6%',
+            },
+
+            downloadCol: {
+                width: '20%',
+            },
+
+            downloadFont: {
+                fontWeight: 400,
+                fontSize: 12,
+                color: 'rgba(0,0,0,0.43)',
+                marginRight: 8,
             },
 
             line: {
                 borderTop: '1px solid #e9e9e9',
             },
 
+            icon: {
+                height: 24,
+                width: 28,
+                cursor: 'pointer',
+            },
+
             clear: {
                 clear: 'both'
-            },
-
-            horizontalCenter: {
-                textAlign: 'center',
-            },
-
-            verticalCenter: {
-                display: 'flex',
-                alignItems: 'Center',
-            },
+            }
         };
 
         return styles;
     }
+
+    static propTypes = {
+        isMarginTop: React.PropTypes.bool,
+        common: React.PropTypes.object,
+        detail: React.PropTypes.object,
+        columns: React.PropTypes.array,
+        hasDownload: React.PropTypes.bool,
+    };
+
+    static defaultProps = {
+        isMarginTop: true,
+        hasDownload: false,
+        columns: [
+            {
+                name: 'Vessel',
+                width: '20%'
+            },
+            {
+                name: 'ETA/Sea Trail Date',
+                width: '20%'
+            },
+            {
+                name: 'Port',
+                width: '20%'
+            },
+            {
+                name: 'Service Type',
+                fill: true
+            },
+            {
+                name: 'Rate',
+                width: '20%'
+            },
+        ],
+        common: {
+            vessel: 'MV SSHSLDS DSLDKH',
+            date: '24/May/2017',
+            port: '30/May/2017',
+            serviceType: 'Shanghai',
+            rate: 'USD 1/6.9',
+        },
+        detail: {},
+    };
 
     constructor(props) {
         super(props);
@@ -164,34 +209,34 @@ export default class DetailTable extends React.Component {
         }
     }
 
-    renderCommonElem(styles, common) {
+    renderCommonElem(styles) {
+        const {common, columns} = this.props;
+        const commonArr = Object.keys(common);
         return (
-            <div style={styles.quotationCommon}>
-                <div>
-                    <div style={_.merge({}, styles.commonTitle, styles.commonTitleBorderRight)}>Vessel</div>
-                    <div style={_.merge({}, styles.commonTitle, styles.commonTitleBorderRight)}>ETA/Sea Trail Date</div>
-                    <div style={_.merge({}, styles.commonTitle, styles.commonTitleBorderRight)}>Port</div>
-                    <div style={_.merge({}, styles.commonTitle, styles.commonTitleBorderRight)}>Service Type</div>
-                    <div style={_.merge({}, styles.commonTitle)}>Rate</div>
-                    <div style={styles.clear}></div>
+            <div>
+                <div style={_.merge({}, styles.verticalCenter, {background: '#E9E9E9'})}>
+                    {
+                        columns.map((column, i) => {
+                            return (
+                                <div
+                                    style={_.merge({}, styles.commonTitle, column.fill ? {flex: '1'} : {width: column.width}, i != columns.length - 1 ? styles.commonTitleBorderRight : {})}>
+                                    {column.name}
+                                </div>
+                            )
+                        })
+                    }
                 </div>
-                <div style={styles.stretch}>
-                    <div style={_.merge({}, styles.commonContent, styles.commonTitleBorderRight)}>
-                        <div style={styles.commonContent2}>{common.vessel}</div>
-                    </div>
-                    <div style={_.merge({}, styles.commonContent, styles.commonTitleBorderRight)}>
-                        <div style={styles.commonContent2}>{common.date}</div>
-                    </div>
-                    <div style={_.merge({}, styles.commonContent, styles.commonTitleBorderRight)}>
-                        <div style={styles.commonContent2}>{common.port}</div>
-                    </div>
-                    <div style={_.merge({}, styles.commonContent, styles.commonTitleBorderRight)}>
-                        <div style={styles.commonContent2}>{common.serviceType}</div>
-                    </div>
-                    <div style={_.merge({}, styles.commonContent, styles.commonTitleBorderRight)}>
-                        <div style={styles.commonContent2}>{common.rate}</div>
-                    </div>
-                    <div style={styles.clear}></div>
+                <div style={{display: 'flex', alignItems: 'stretch'}}>
+                    {
+                        commonArr.map((key, i) => {
+                            return (
+                                <div
+                                    style={_.merge({}, styles.commonContent, columns[i].fill ? {flex: '1'} : {width: columns[i].width}, i != commonArr.length - 1 ? styles.commonTitleBorderRight : {})}>
+                                    <div style={styles.commonContent2}>{common[key]}</div>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
         )
@@ -199,35 +244,43 @@ export default class DetailTable extends React.Component {
 
     renderTitleElem(styles) {
         return (
-            <div>
+            <div style={_.merge({}, styles.verticalCenter, {background: '#E9E9E9'})}>
                 <div style={_.merge({}, styles.col1, styles.detailTitle)}>
-                    <span style={styles.detailLeft}>V/No. Cost Item</span>
+                    <span style={styles.detailLeft}>V/No. CostItem</span>
                 </div>
                 <div style={_.merge({}, styles.col2, styles.detailTitle)}>
                     <span style={styles.detailLeft}>Remarks</span>
                 </div>
                 <div style={_.merge({}, styles.col3, styles.detailTitle)}>
-                    <span style={styles.detailRight}>Amount（RMB）</span>
+                    <span style={styles.detailRight}>Amount(RMB)</span>
                 </div>
                 <div style={_.merge({}, styles.col4, styles.detailTitle)}>
-                    <span style={styles.detailRight}>=（USD）</span>
+                    <span style={styles.detailRight}>=(USD)</span>
                 </div>
+                {
+                    this.props.hasDownload ?
+                        <div style={_.merge({}, styles.downloadCol, styles.detailTitle)}>
+                            <span
+                                style={_.merge({}, styles.detailRight, {marginLeft: 10})}>Document</span>
+                        </div> : ''
+                }
                 <div style={_.merge({}, styles.col5, styles.detailTitle)}>&nbsp;</div>
-                <div style={styles.clear}></div>
             </div>
         )
     }
 
-    renderContentElem(styles, detail) {
+    renderContentElem(styles) {
+        const {detail} = this.props;
+        if (Object.keys(detail).length == 0)return;
         let contentElem = [];
-
         detail.items.map((item, i) => {
             let isOpen = this.state.isOpens[i];
-            if (i == 0 && (isOpen == undefined || isOpen == true)) {
+            if (isOpen == undefined) {
                 isOpen = true;
             }
             contentElem.push(
-                <div key={`content_${i + 1}`}>
+                <div key={`content_${i + 1}`}
+                     style={_.merge({}, styles.line, {background: '#F7F7F7'}, styles.verticalCenter)}>
                     <div style={_.merge({}, styles.col1, styles.detailContent)}>
                         <span style={styles.detailLeft}>{`${i + 1}. ${item.title}`}</span>
                     </div>
@@ -240,19 +293,41 @@ export default class DetailTable extends React.Component {
                     <div style={_.merge({}, styles.col4, styles.detailContent)}>
                         <span style={styles.detailRight}>{item.USD}</span>
                     </div>
-                    <div style={_.merge({}, styles.col5, styles.detailContent, styles.horizontalCenter)}>
-                        <img src={isOpen ? up : down} style={{cursor: 'pointer', height: 15, width: 15}}
-                             onClick={this.handlerToggle.bind(this, i, !isOpen)}/>
+                    {
+                        this.props.hasDownload ?
+                            <div style={_.merge({}, styles.downloadCol, styles.detailContent)}>
+                            </div> : ''
+                    }
+                    <div
+                        style={_.merge({}, styles.col5, styles.detailContent, styles.horizontalCenter, {padding: '5px 0 0 0'})}>
+                        {isOpen ? <Icon type="up-square-o" style={styles.icon}
+                                          onClick={this.handlerToggle.bind(this, i, false)}/>
+                            : <Icon type="down-square-o" style={styles.icon}
+                                        onClick={this.handlerToggle.bind(this, i, true)}/>}
                     </div>
-                    <div style={styles.clear}></div>
                 </div>
             );
 
             if (isOpen) {
                 item.subDetail.map((subItem, j) => {
+                    const downloadElem = [];
+                    if (this.props.hasDownload) {
+                        const invoices = subItem.invoices;
+                        downloadElem.push(
+                            <div
+                                style={_.merge({}, styles.downloadCol, styles.verticalCenter, styles.detailSubContent)}>
+                                        <span style={_.merge({}, styles.downloadFont, {marginLeft: 10})}>
+                                            {`${invoices.length} Files`}
+                                        </span>
+                                <Button disabled={!invoices.length} onClick={() => this.handlerDownloadFiles(invoices)}>
+                                    <Icon type="download"/>DownloadAll</Button>
+                            </div>
+                        )
+                    }
+
                     contentElem.push(
                         <div key={`content_${i + 1}_${j + 1}`}
-                             style={_.merge({}, j > 0 ? styles.line : '', styles.stretch)}>
+                             style={_.merge({}, styles.line, styles.verticalCenter)}>
                             <div style={_.merge({}, styles.col1, styles.detailSubContent)}>
                                 <span style={ _.merge({}, styles.detailLeft, {paddingLeft: 25})}>
                                     {`${i + 1}-${j + 1}. ${subItem.title}`}
@@ -268,8 +343,8 @@ export default class DetailTable extends React.Component {
                             <div style={_.merge({}, styles.col4, styles.detailSubContent)}>
                                 <span style={styles.detailRight}>{subItem.USD}</span>
                             </div>
+                            {downloadElem}
                             <div style={_.merge({}, styles.col5, styles.detailSubContent)}>&nbsp;</div>
-                            <div style={styles.clear}></div>
                         </div>
                     )
                 })
@@ -279,9 +354,11 @@ export default class DetailTable extends React.Component {
         return contentElem;
     }
 
-    renderTotalPriceElem(styles, detail) {
+    renderTotalPriceElem(styles) {
+        const {detail} = this.props;
+        if (Object.keys(detail).length == 0)return;
         return (
-            <div style={_.merge({}, styles.line)}>
+            <div style={_.merge({}, styles.line, styles.verticalCenter)}>
                 <div style={_.merge({}, styles.col1, styles.detailTotalPrice)}>
                     <span style={ _.merge({}, styles.detailLeft, {paddingLeft: 25})}>
                         Total
@@ -296,30 +373,36 @@ export default class DetailTable extends React.Component {
                 <div style={_.merge({}, styles.col4, styles.detailTotalPrice)}>
                     <span style={styles.detailRight}>{detail.total.USD}</span>
                 </div>
+                {
+                    this.props.hasDownload ?
+                        <div style={_.merge({}, styles.downloadCol, styles.detailTotalPrice)}>
+                            &nbsp;
+                        </div> : ''
+                }
                 <div style={_.merge({}, styles.col5, styles.detailTotalPrice)}>&nbsp;</div>
-                <div style={styles.clear}></div>
             </div>
         )
     }
 
     render() {
-        let styles = this.getStyles();
-        let {common, detail} = this.props.offerDetail;
+        let styles = this.getStyles(this);
 
         return (
             <div>
-                {this.renderCommonElem(styles, common)}
+                <div style={styles.quotationCommon}>
+                    {this.renderCommonElem(styles)}
+                </div>
                 <div style={styles.detail}>
                     {this.renderTitleElem(styles)}
-                    {this.renderContentElem(styles, detail)}
-                    {this.renderTotalPriceElem(styles, detail)}
+                    {this.renderContentElem(styles)}
+                    {this.renderTotalPriceElem(styles)}
                 </div>
             </div>
         )
     }
 
     handlerToggle(index, isOpen) {
-        let items = this.props.offerDetail.detail.items;
+        let items = this.props.detail.items;
         let isOpens = this.state.isOpens;
         if (!isOpens) {
             isOpens = new Array(items.length);
@@ -330,4 +413,10 @@ export default class DetailTable extends React.Component {
         })
     }
 
+    handlerDownloadFiles(invoices) {
+        console.log('handlerDownloadFiles', invoices);
+    }
+
 }
+
+export default DetailTable;

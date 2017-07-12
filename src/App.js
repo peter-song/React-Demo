@@ -7,13 +7,9 @@ import ApiClient from './helper/ApiClient';
 import configureStore from './redux/createStore';
 
 import Welcome from './component/Welcome';
-import Profile from './component/profile/index';
-import Portal from './component/portal/index';
-import Published from './page/published/index';
-import Quotation from './page/quotation/index';
-import Quotation2 from './page/quotation2/index';
-import Setting from './page/setting/index';
-import OrderDetail from './page/order/Detail';
+import Profile from './page/profile/index';
+import Detail from './page/Detail';
+import Bill from './page/Bill';
 import DevTools from "./component/DevTools/DevTools";
 
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
@@ -56,32 +52,31 @@ class App extends React.Component {
                             key="sub1"
                             title={<span><Icon type="user"/><span className="nav-text">User</span></span>}
                         >
-                            <Menu.Item key="1"><Link to="/basic">Basic</Link></Menu.Item>
-                            {/*<Menu.Item key="2"><Link to="/portal">Portal</Link></Menu.Item>*/}
-                            <Menu.Item key="3"><Link to="/published">Published</Link></Menu.Item>
-                            <Menu.Item key="4"><Link to="/quotation">Quotation</Link></Menu.Item>
-                            {/*<Menu.Item key="5"><Link to="/quotation2">Quotation2</Link></Menu.Item>*/}
-                            <Menu.Item key="setting"><Link to="/setting">Setting</Link></Menu.Item>
-                            <Menu.Item key="orderDetail"><Link to="/orderDetail">OrderDetail</Link></Menu.Item>
+                            <Menu.Item key="basic"><Link to="/basic">Basic</Link></Menu.Item>
+                            <Menu.Item key="detail"><Link to="/detail">Detail</Link></Menu.Item>
+                            <Menu.Item key="bill"><Link to="/bill">Bill</Link></Menu.Item>
                         </SubMenu>
-                        {/*<SubMenu
-                            key="sub2"
-                            title={<span><Icon type="team"/><span className="nav-text">Team</span></span>}
-                        >
-                            <Menu.Item key="44">Team 1</Menu.Item>
-                            <Menu.Item key="545">Team 2</Menu.Item>
-                        </SubMenu>*/}
                     </Menu>
                 </Sider>
                 <div style={{width: '100%', minWidth: 800, background: '#fff'}}>
-                    <Route exact path="/" component={Portal}/>
-                    <Route path="/basic" component={Profile}/>
-                    <Route path="/portal" component={Portal}/>
-                    <Route path="/published" component={Published}/>
-                    <Route path="/quotation" component={Quotation}/>
-                    <Route path="/quotation2" component={Quotation2}/>
-                    <Route path="/setting" component={Setting}/>
-                    <Route path="/orderDetail" component={OrderDetail}/>
+                    <Layout>
+                        <Header style={{background: '#fff'}}>
+                            title
+                        </Header>
+                        <Content>
+                            <Breadcrumb style={{margin: '12px 16px'}}>
+                                <Breadcrumb.Item>Price Inquiry</Breadcrumb.Item>
+                                <Breadcrumb.Item>Inquiry Result</Breadcrumb.Item>
+                                <Breadcrumb.Item>Quotation statement</Breadcrumb.Item>
+                            </Breadcrumb>
+                        </Content>
+                        <div style={{height: '100%', overflowY: 'auto', background: '#fff'}}>
+                            <Route exact path="/" component={Profile}/>
+                            <Route path="/basic" component={Profile}/>
+                            <Route path="/detail" component={Detail}/>
+                            <Route path="/bill" component={Bill}/>
+                        </div>
+                    </Layout>
                 </div>
             </Layout>
         );

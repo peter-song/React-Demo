@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import {Input, Icon} from 'antd';
+import {Input, Icon, Popconfirm} from 'antd';
 import _ from 'lodash';
 
 class AddPerson extends React.Component {
@@ -223,9 +223,14 @@ class AddPerson extends React.Component {
                                     justifyContent: 'flex-end',
                                     paddingRight: 10
                                 })}>
-                                    <Icon type="delete" style={_.merge({}, styles.icon)}
-                                          onClick={this.handlerDeletePerson.bind(this, i)}
-                                    />
+                                    <Popconfirm placement="topLeft"
+                                                title={`Are you sure delete this item?`}
+                                                onConfirm={this.handlerDeletePerson.bind(this, i)}
+                                                okText="Yes"
+                                                cancelText="No"
+                                    >
+                                        <Icon type="delete" style={_.merge({}, styles.icon)}/>
+                                    </Popconfirm>
                                     {
                                         isEdit ? '' :
                                             <Icon type="edit" style={_.merge({}, styles.icon, {marginLeft: 10})}

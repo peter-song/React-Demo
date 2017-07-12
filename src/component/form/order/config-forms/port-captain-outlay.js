@@ -235,7 +235,7 @@ class PortCaptainOutlay extends React.Component {
             if (!err) {
                 console.log('values', values);
                 if (this.props.onSubmit) {
-                    const {formData} = this.props;
+                    const formData = _.cloneDeep(this.props.formData);
                     formData.products[0].config = values;
                     this.props.onSubmit(formData);
                 }

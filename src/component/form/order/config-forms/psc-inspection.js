@@ -111,7 +111,7 @@ class PSCInspection extends React.Component {
         };
         console.log('values', config);
         if (this.props.onSubmit) {
-            const {formData} = this.props;
+            const formData = _.cloneDeep(this.props.formData);
             formData.products[0].config = config;
             this.props.onSubmit(formData);
         }

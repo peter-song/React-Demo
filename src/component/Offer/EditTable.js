@@ -2,28 +2,62 @@
  * Created by songzhongkun on 2017/5/15.
  */
 import React from 'react';
+import {Icon, Upload} from 'antd';
 import _ from 'lodash';
 
 import {Button, Input, Menu, Dropdown, InputNumber} from 'antd';
 
-import del from '../../../static/img/delete.png';
-import save from '../../../static/img/save.png';
+class EditTable extends React.Component {
 
-export default class EditTable extends React.Component {
+    getStyles(context) {
 
-    getStyles() {
+        let quotationDetail = {
+            marginTop: context.props.isMarginTop ? 16 : 0,
+        };
+        if (context.props.isBorder) {
+            quotationDetail.border = '1px solid #e9e9e9';
+        } else {
+            if (context.props.isBorderTop) {
+                quotationDetail.borderTop = '1px solid #e9e9e9';
+            }
+            if (context.props.isBorderBottom) {
+                quotationDetail.borderBottom = '1px solid #e9e9e9';
+            }
+        }
 
         let styles = {
 
-            quotationDetail: {
-                border: '1px solid #c9ccd9',
-                marginTop: 16,
+            quotationDetail,
+
+            addCostItem: {
+                float: 'left',
+                // border: '1px dashed #4990E2',
+                borderRadius: 2,
+                padding: '10px 0px 5px 10px',
+                cursor: 'pointer',
+            },
+
+            addContent: {
+                display: 'flex',
+                padding: '12px 8px',
+                // alignItems: 'center',
+                width: 150,
+                cursor: 'pointer',
+            },
+
+            addCostText: {
+                float: 'left',
+                fontWeight: 400,
+                fontSize: 14,
+                color: '#4990E2',
+                marginLeft: 10,
+                letterSpacing: 0,
+                marginTop: 2,
             },
 
             quotationDetailTitle: {
-                float: 'left',
+                // float: 'left',
                 padding: '12px 0',
-                background: '#E9E9E9',
                 fontWeight: '500',
                 fontSize: 14,
                 color: 'rgba(0, 0, 0, 0.75)',
@@ -31,9 +65,8 @@ export default class EditTable extends React.Component {
             },
 
             quotationDetailContent: {
-                float: 'left',
+                // float: 'left',
                 padding: '12px 0',
-                background: '#F7F7F7',
                 fontWeight: '400',
                 fontSize: 14,
                 color: 'rgba(0, 0, 0, 0.65)',
@@ -41,20 +74,10 @@ export default class EditTable extends React.Component {
             },
 
             quotationDetailSubContent: {
-                float: 'left',
+                // float: 'left',
                 padding: '12px 0',
-                background: '#FFFFFF',
+                // background: '#FFFFFF',
                 fontWeight: '400',
-                fontSize: 14,
-                color: 'rgba(0, 0, 0, 0.65)',
-                letterSpacing: 0,
-            },
-
-            quotationDetailTotalPrice: {
-                float: 'left',
-                padding: '12px 0',
-                background: '#FFF2DC',
-                fontWeight: '500',
                 fontSize: 14,
                 color: 'rgba(0, 0, 0, 0.65)',
                 letterSpacing: 0,
@@ -76,64 +99,6 @@ export default class EditTable extends React.Component {
                 cursor: 'pointer',
             },
 
-            quotationDetailLeft: {
-                marginLeft: 10,
-                display: 'inline-block',
-            },
-
-            quotationDetailRight: {
-                marginRight: 10,
-                display: 'inline-block',
-            },
-
-            col1: {
-                width: '25%',
-            },
-
-            col2: {
-                width: '35%',
-            },
-
-            col3: {
-                width: '20%',
-                textAlign: 'right',
-            },
-
-            col4: {
-                width: '15%',
-                textAlign: 'right',
-            },
-
-            col5: {
-                width: '5%',
-            },
-
-            line: {
-                borderTop: '1px solid #e2e2e2',
-            },
-
-            icon: {
-                cursor: 'pointer',
-                height: 20,
-                width: 20,
-            },
-
-            addText: {
-                fontWeight: 400,
-                fontSize: 14,
-                color: '#4990E2',
-                marginLeft: 14,
-                letterSpacing: 0,
-                float: 'left',
-            },
-
-            addCost: {
-                float: 'left',
-                border: '1px solid #4990E2',
-                borderRadius: 2,
-                padding: '7px 14px'
-            },
-
             productPrompt: {
                 color: '#f04134',
                 fontWeight: 400,
@@ -141,13 +106,76 @@ export default class EditTable extends React.Component {
                 letterSpacing: 0,
             },
 
+            quotationDetailLeft: {
+                marginLeft: 10,
+                display: 'inline-block',
+                wordBreak: 'break-word',
+            },
+
+            quotationDetailRight: {
+                // marginRight: 10,
+                display: 'inline-block',
+            },
+
             horizontalCenter: {
                 textAlign: 'center',
             },
 
-            verticalCenter: {
+            titleContent: {
                 display: 'flex',
                 alignItems: 'Center',
+                background: this.props.titleBgColor,
+            },
+
+            productContent: {
+                display: 'flex',
+                alignItems: 'Center',
+            },
+
+            col1: {
+                width: '25%',
+            },
+
+            col2: {
+                // width: '38%',
+                // minWidth: 357,
+                flex: '1'
+            },
+
+            col3: {
+                width: '17%',
+                textAlign: 'right',
+            },
+
+            col4: {
+                width: '13%',
+                textAlign: 'right',
+            },
+
+            col5: {
+                width: '10%',
+            },
+
+            uploadColumn: {
+                width: '20%',
+                padding: '12px 20px'
+            },
+
+            line: {
+                borderTop: '1px solid #e9e9e9',
+            },
+
+            icon: {
+                cursor: 'pointer',
+                height: 18,
+                width: 18,
+                color: '#4990E2',
+            },
+
+            icon2: {
+                cursor: 'pointer',
+                height: 24,
+                width: 24,
             },
 
             clear: {
@@ -158,27 +186,94 @@ export default class EditTable extends React.Component {
         return styles;
     }
 
+    static propTypes = {
+        inputPrompt: React.PropTypes.string,
+        selectPrompt: React.PropTypes.string,
+        offerType: React.PropTypes.string,
+        titleBgColor: React.PropTypes.string,
+        quotationType: React.PropTypes.string,
+        orderEntry: React.PropTypes.object,
+        params: React.PropTypes.object,
+        currentExchange: React.PropTypes.number,
+        isInquiryOrder: React.PropTypes.bool,
+        isMarginTop: React.PropTypes.bool,
+        isBorder: React.PropTypes.bool,
+        isBorderTop: React.PropTypes.bool,
+        isBorderBottom: React.PropTypes.bool,
+        hasUpload: React.PropTypes.bool,
+        isCanEdit: React.PropTypes.bool,
+        updateCostItems: React.PropTypes.func,
+    };
+
     static defaultProps = {
         inputPrompt: 'Click to edit',
         selectPrompt: 'Click to select cost item',
+        titleBgColor: '#F8F8F8',
+        offerType: 'USD',
+        quotationType: 'estimated',
+        currentExchange: 6.9,
+        isInquiryOrder: true,
+        isMarginTop: true,
+        isBorder: true,
+        isBorderTop: false,
+        isBorderBottom: false,
+        hasUpload: false,
+        isCanEdit: true,
+        updateCostItems: () => {
+            console.log('There is no transfer method !')
+        }
     };
 
     constructor(props) {
         super(props);
         this.state = {
+            isCanSave: false,
             detail: {
                 total: {
-                    RMB: '0.00',
-                    USD: '0.00'
+                    totalAmountRMB: 0,
+                    totalAmountUSD: 0
                 },
-                items: []
+                items: [],
+                isEdits: [],
+                status: 0
+            }
+        }
+    }
+
+    componentDidMount() {
+        this.initData(this.props.orderEntry);
+    }
+
+    initData(orderEntry) {
+        if (orderEntry) {
+            const costItems = this.props.quotationType == 'estimated' ? orderEntry.costItemsEstimated : orderEntry.costItems;
+            const initialItems = [];
+            const initialEdits = [];
+            if (costItems && costItems.length) {
+                costItems.map(item => {
+                    const initialItem = _.pick(item, ['costType', 'description', 'amount', 'amountRMB'])
+                    initialItems.push(_.merge(initialItem, {
+                        validateTitle: true,
+                        validateRMB: true,
+                        validateUSD: true,
+                    }));
+                    initialEdits.push(false);
+                });
+
+                const {detail} = this.state;
+                detail.items = initialItems;
+                detail.isEdits = initialEdits;
+                this.calcTotalPrice(detail);
+                this.setState({detail, status: orderEntry.status})
+            } else {
+                this.resetState();
             }
         }
     }
 
     renderTitleElem(styles) {
         return (
-            <div>
+            <div style={_.merge({}, styles.titleContent)}>
                 <div style={_.merge({}, styles.col1, styles.quotationDetailTitle)}>
                     <span style={styles.quotationDetailLeft}>V/No. Cost Item</span>
                 </div>
@@ -186,239 +281,397 @@ export default class EditTable extends React.Component {
                     <span style={styles.quotationDetailLeft}>Remarks</span>
                 </div>
                 <div style={_.merge({}, styles.col3, styles.quotationDetailTitle)}>
-                    <span style={styles.quotationDetailRight}>Amount（RMB）</span>
+                    <span style={styles.quotationDetailRight}>Amount(RMB)</span>
                 </div>
                 <div style={_.merge({}, styles.col4, styles.quotationDetailTitle)}>
-                    <span style={styles.quotationDetailRight}>=（USD）</span>
+                    <span style={styles.quotationDetailRight}>=(USD)</span>
                 </div>
-                <div style={_.merge({}, styles.col5, styles.quotationDetailTitle)}>&nbsp;</div>
-                <div style={styles.clear}></div>
+                {
+                    this.props.hasUpload ?
+                        <div style={_.merge({}, styles.uploadColumn, styles.quotationDetailTitle)}>
+                            <span style={_.merge({}, {wordBreak: 'break-word', padding: '0 20px', display: 'block'})}>Invoice / Receipt / Document</span>
+                        </div> : ''
+                }
+
+                <div style={_.merge({}, styles.col5, styles.quotationDetailTitle, {
+                    padding: '5px 8px 0'
+                })}>
+                    {
+                        this.props.isCanEdit ?
+                            <Icon type="save" style={_.merge({}, styles.icon, {marginLeft: 6})}
+                                  onClick={() => this.handlerSaveCostItems()}
+                            /> : ''
+                    }
+                </div>
             </div>
         )
     }
 
     renderContentElem(styles) {
+        const orderEntry = this.getOrderEntry();
         return (
-            <div key={`content`}>
+            <div key={`content`} style={_.merge({}, styles.line, styles.productContent) }>
                 <div style={_.merge({}, styles.col1, styles.quotationDetailContent)}>
-                    <span style={styles.quotationDetailLeft}>{this.props.productInfo.title}</span>
+                    <span style={styles.quotationDetailLeft}>
+                        {orderEntry && orderEntry.product ? orderEntry.product.name : ''}
+                    </span>
                 </div>
                 <div style={_.merge({}, styles.col2, styles.quotationDetailContent)}>
                     <span style={styles.quotationDetailLeft}>&nbsp;</span>
                 </div>
                 <div style={_.merge({}, styles.col3, styles.quotationDetailContent)}>
-                    <span style={styles.quotationDetailRight}>{ this.state.detail.total.RMB}</span>
+                    <span style={styles.quotationDetailRight}>{this.state.detail.total.totalAmountRMB}</span>
                 </div>
                 <div style={_.merge({}, styles.col4, styles.quotationDetailContent)}>
-                    <span style={styles.quotationDetailRight}>{this.state.detail.total.USD}</span>
+                    <span style={styles.quotationDetailRight}>{this.state.detail.total.totalAmountUSD}</span>
                 </div>
+                {
+                    this.props.hasUpload ?
+                        <div style={_.merge({}, styles.uploadColumn, styles.quotationDetailContent)}>
+                            <span style={styles.quotationDetailLeft}>&nbsp;</span>
+                        </div> : ''
+                }
                 <div
-                    style={_.merge({}, styles.col5, styles.quotationDetailContent, {textAlign: 'center'})}>&nbsp;</div>
-                <div style={styles.clear}></div>
+                    style={_.merge({}, styles.col5, styles.quotationDetailContent, styles.horizontalCenter)}>&nbsp;</div>
             </div>
         )
     }
 
-    renderSubContentElem(styles) {
-        const {detail} = this.state;
-        const {productInfo} = this.props;
-        const subContentElem = [];
-        detail.items.map((item, i) => {
-            let changeItem = _.find(productInfo.productItems, obj_item => obj_item.id == item.title);
+    getOrderEntry() {
+        let {orderEntry, isInquiryOrder} = this.props;
+        return isInquiryOrder ? orderEntry.orderEntry : orderEntry;
+    }
 
-            const items = productInfo.productItems.map(item => {
-                let isExists = _.find(detail.items, obj_item => obj_item.title == item.id);
-                if (isExists) {
-                    return <Menu.Item disabled key={`${i}_${item.id}`}>{item.name}</Menu.Item>
-                } else {
-                    return <Menu.Item key={`${i}_${item.id}`}>{item.name}</Menu.Item>
+    getCostTypes() {
+        const orderEntry = this.getOrderEntry();
+        return orderEntry && orderEntry.productConfig ? orderEntry.productConfig.products[0].product.costTypes : [];
+    }
+
+    renderSubContentElem(styles) {
+        const {items, isEdits} = this.state.detail;
+        const {offerType} = this.props;
+        const subContentElem = [];
+        const costTypes = this.getCostTypes();
+        items.map((item, i) => {
+            const isEdit = isEdits[i];
+            const dropDownCostItems = costTypes.map(costType => {
+                // let isExists = _.find(items, obj_item => obj_item.costType == costType.costType._id);
+                // if (isExists) {
+                {/*return <Menu.Item disabled*/
                 }
+                // key={`${i}_${costType.costType._id}`}>{costType.costType.name}</Menu.Item>
+                // } else {
+                return <Menu.Item key={`${i}_${costType.costType._id}`}>{costType.costType.name}</Menu.Item>
+                // }
             });
 
-            const menu = <Menu onClick={this.handlerChangeProductItem.bind(this, i)}>{items}</Menu>;
+            const menu = <Menu onClick={this.handlerChangeProductItem.bind(this, i)}>{dropDownCostItems}</Menu>;
+            const changeCostType = _.find(costTypes, obj_item => obj_item.costType._id == item.costType);
+            const itemName = (
+                <span
+                    href="#"
+                    style={_.merge({}, changeCostType ? styles.costItemDownChanged : styles.costItemDownDefault)}
+                >
+                    {changeCostType ? changeCostType.costType.name : this.props.selectPrompt}
+                </span>
+            );
+
+            const itemNameElem = isEdit ?
+                <Dropdown overlay={menu} trigger={['click']}>{itemName}</Dropdown> : itemName;
+            const remarksElem = isEdit ?
+                <Input type="textarea" autosize
+                       onChange={this.handlerChangeRemark.bind(this, i)}
+                       style={_.merge({}, styles.quotationDetailLeft, {color: '#9B9B9B'}, {width: '95%'})}
+                       value={item.description}
+                       placeholder={this.props.inputPrompt}/> :
+                <span style={_.merge({}, styles.quotationDetailLeft, {color: '#9B9B9B'})}>{item.description}</span>;
+            const RMBElem = isEdit ?
+                <InputNumber disabled={offerType == 'RMB' ? false : true}
+                             min={0} style={_.merge({}, styles.quotationDetailRight, {width: '70%'})}
+                             onChange={this.handlerChangePrice.bind(this, i, 'rmb')}
+                             value={item.amountRMB}
+                             placeholder={'RMB'}/> :
+                <span style={_.merge({}, styles.quotationDetailRight, {color: 'rgba(0,0,0,0.65)'})}>
+                    {Number.parseFloat(item.amountRMB).toFixed(2)}
+                </span>;
+            const USDElem = isEdit ?
+                <InputNumber disabled={offerType == 'USD' ? false : true}
+                             min={0} style={_.merge({}, styles.quotationDetailRight, {width: '70%'})}
+                             onChange={this.handlerChangePrice.bind(this, i, 'usd')}
+                             value={item.amount}
+                             placeholder={""}/> :
+                <span style={_.merge({}, styles.quotationDetailRight, {color: 'rgba(0,0,0,0.65)'})}>
+                    {Number.parseFloat(item.amount).toFixed(2)}
+                </span>;
+            const uploadElem = <Upload>
+                <Button disabled={!isEdit}><Icon type="upload"/>Upload</Button>
+            </Upload>;
+            const btnElem = [
+                <Icon type="delete" style={_.merge({}, styles.icon)}
+                         onClick={() => this.handlerDeleteCostItem(i)}/>
+            ];
+            if (!isEdit) {
+                btnElem.push(
+                    <Icon type="edit" style={_.merge({}, styles.icon, {marginLeft: 6})}
+                          onClick={() => this.handlerEditCostItem(i)}/>
+                );
+            }
+
             subContentElem.push(
-                <div key={`subContent_${i}`} style={_.merge({}, i > 0 ? styles.line : '')}>
+                <div key={`subContent_${i}`} style={_.merge({}, styles.line, styles.productContent)}>
                     <div style={_.merge({}, styles.col1, styles.quotationDetailSubContent, {paddingLeft: 10})}>
-                        <Dropdown overlay={menu} trigger={['click']}>
-                            <span
-                                style={_.merge({}, changeItem ? styles.costItemDownChanged : styles.costItemDownDefault)}
-                                href="#">
-                                {changeItem ? changeItem.name : this.props.selectPrompt}
-                            </span>
-                        </Dropdown>
-                        {item.validateTitle ? '' : <div style={styles.productPrompt}>请选择产品</div>}
+                        {itemNameElem}
+                        {item.validateTitle ? '' :
+                            <div style={styles.productPrompt}>{'not empty'}</div>}
                     </div>
                     <div style={_.merge({}, styles.col2, styles.quotationDetailSubContent)}>
-                        <Input type="textarea" autosize
-                               onChange={this.handlerChangeRemark.bind(this, i)}
-                               style={_.merge({}, styles.quotationDetailLeft, {color: '#9B9B9B'}, {width: '80%'})}
-                               value={item.remark}
-                               placeholder={this.props.inputPrompt}/>
+                        {remarksElem}
                     </div>
                     <div style={_.merge({}, styles.col3, styles.quotationDetailSubContent)}>
-                        <InputNumber disabled={productInfo.offerType == 'RMB' ? false : true} min={0}
-                                     style={_.merge({}, styles.quotationDetailRight, {width: '80%'})}
-                                     onChange={this.handlerChangePrice.bind(this, i, 'RMB')}
-                                     value={item.RMB}
-                                     placeholder={this.props.inputPrompt}/>
+                        {RMBElem}
                         {item.validateRMB ? '' :
-                            <div style={_.merge({}, styles.productPrompt, {marginRight: 10})}>请填写金额</div>}
+                            <div
+                                style={_.merge({}, styles.productPrompt)}>{`no empty`}</div>}
                     </div>
                     <div style={_.merge({}, styles.col4, styles.quotationDetailSubContent)}>
-                        <InputNumber disabled={productInfo.offerType == 'USD' ? false : true} min={0}
-                                     style={_.merge({}, styles.quotationDetailRight, {width: '80%'})}
-                                     onChange={this.handlerChangePrice.bind(this, i, 'USD')}
-                                     value={item.USD}
-                                     placeholder={this.props.inputPrompt}/>
+                        {USDElem}
                         {item.validateUSD ? '' :
-                            <div style={_.merge({}, styles.productPrompt, {marginRight: 10})}>请填写金额</div>}
+                            <div
+                                style={_.merge({}, styles.productPrompt)}>{`no empty`}</div>}
                     </div>
-                    <div style={_.merge({}, styles.col5, styles.quotationDetailSubContent)}>
-                        <img src={del} style={_.merge({}, styles.icon, {})}
-                             onClick={() => this.handlerDeleteCostItem(i)}/>
-                        <img src={save} style={_.merge({}, styles.icon, {marginLeft: 10})}
-                             onClick={() => this.handlerSaveCostItem(i)}/>
+                    {
+                        this.props.hasUpload ?
+                            <div style={_.merge({}, styles.uploadColumn)}>
+                                {uploadElem}
+                            </div> : ''
+                    }
+                    <div style={_.merge({}, styles.col5, styles.quotationDetailSubContent, {
+                        padding: '5px 8px 0'
+                    })}>
+                        {this.props.isCanEdit ? btnElem : ''}
                     </div>
-                    <div style={styles.clear}></div>
                 </div>
             )
         });
         return subContentElem;
     }
 
-
-    render() {
-        let styles = this.getStyles();
-
+    renderAddButtonElem(styles) {
         return (
-            <div>
-                <div style={{marginTop: 20}}>
-                    <Button onClick={() => this.handlerAddCostItem()}> + Add Cost</Button>
-                </div>
-                <div style={styles.quotationDetail}>
-                    {this.renderTitleElem(styles)}
-                    {this.renderContentElem(styles)}
-                    {this.renderSubContentElem(styles)}
+            <div style={_.merge({}, styles.line)}>
+                <div style={styles.addContent} onClick={() => this.handlerAddCostItem()}>
+                    <div style={styles.addCostText}>
+                        <Icon type="plus" style={_.merge({}, styles.icon2)}/> Add Cost
+                    </div>
                 </div>
             </div>
         )
     }
 
+    render() {
+        let styles = this.getStyles(this);
+
+        return (
+            <div>
+                <div></div>
+                <div style={styles.quotationDetail}>
+                    {this.renderTitleElem(styles)}
+                    {this.renderContentElem(styles)}
+                    {this.renderSubContentElem(styles)}
+                    {this.props.isCanEdit ? this.renderAddButtonElem(styles) : ''}
+                </div>
+            </div>
+        )
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let {orderEntry} = this.props;
+        if (orderEntry !== nextProps.orderEntry) {
+            this.initData(nextProps.orderEntry);
+        }
+    }
+
+    componentWillUnmount() {
+        this.resetState();
+    }
+
+    resetState() {
+        this.setState({
+            isCanSave: false,
+            detail: {
+                total: {
+                    totalAmountRMB: 0,
+                    totalAmountUSD: 0
+                },
+                items: [],
+                isEdits: [],
+                status: 0
+            }
+        })
+    }
+
     handlerAddCostItem() {
         const detail = this.state.detail;
+        // if (detail.items.length < this.getCostTypes().length) {
+        let defaultItem = {
+            costType: '',
+            validateTitle: true,
+            description: '',
+            amountRMB: '',
+            validateRMB: true,
+            amount: '',
+            validateUSD: true,
+        };
+        detail.items.push(defaultItem);
+        detail.isEdits.push(true);
 
-        if (detail.items.length < this.props.productInfo.productItems.length) {
-            let defaultItem = {
-                title: '',
-                validateTitle: true,
-                remark: '',
-                RMB: '',
-                validateRMB: true,
-                USD: '',
-                validateUSD: true
-            };
-            detail.items.push(defaultItem);
-
-            this.setState({
-                detail
-            })
-        }
+        this.setState({detail, isCanSave: true})
+        // }
     }
 
     handlerDeleteCostItem(i) {
         const detail = this.state.detail;
         detail.items.splice(i, 1);
 
-        this.setState({
-            detail
-        })
+        this.calcTotalPrice(detail);
+        this.setState({detail, isCanSave: true})
     }
 
-    handlerSaveCostItem(i) {
+    handlerEditCostItem(i) {
         const detail = this.state.detail;
-        const item = detail.items[i];
+        detail.isEdits[i] = true;
+        this.setState({detail, isCanSave: true})
+    }
 
-        if (item.title == '') {
-            item.validateTitle = false;
-        } else {
-            item.validateTitle = true;
+    handlerSaveCostItems() {
+        let {detail, isCanSave} = this.state;
+        if (!isCanSave) return;
+
+        let isValidate = true;
+        detail.items.map(item => {
+
+            if (item.costType == '') {
+                item.validateTitle = false;
+            } else {
+                item.validateTitle = true;
+            }
+
+            if (item.amountRMB == '' || item.amountRMB == '0.00') {
+                item.validateRMB = false;
+            } else {
+                item.validateRMB = true;
+            }
+
+            if (item.amount == '' || item.amount == '0.00') {
+                item.validateUSD = false;
+            } else {
+                item.validateUSD = true;
+            }
+
+            if ((!item.validateTitle || !item.validateRMB || !item.validateUSD) && isValidate) {
+                isValidate = false;
+            }
+        });
+
+        if (isValidate && (this.props.updateCostItems)) {
+
+            const {quotationType, orderEntry} = this.props;
+            const costItems = quotationType == 'estimated' ? orderEntry.costItemsEstimated : orderEntry.costItems;
+
+            let newCostItems = [];
+            detail.items.map((item, i) => {
+                const costItem = costItems[i] ? costItems[i] : {};
+                newCostItems.push(
+                    _.merge(costItem, _.pick(item, ['amount', 'amountRMB', 'description', 'costType']))
+                )
+            });
+
+            const amountName = quotationType == 'estimated' ? 'amountEstimated' : 'amountConfirmed';
+            const costItemsName = quotationType == 'estimated' ? 'costItemsEstimated' : 'costItems';
+
+            const params = {
+                id: this.props.params && this.props.params.id,
+                orderEntryId: this.props.orderEntry._id,
+                [amountName]: Number.parseFloat(String(detail.total.totalAmountUSD)),
+                [costItemsName]: newCostItems
+            };
+
+            detail.isEdits = _.fill(detail.isEdits, false);
+            isCanSave = false;
+
+            this.props.updateCostItems(params);
         }
-
-        if (item.RMB == '' || item.RMB == '0.00') {
-            item.validateRMB = false;
-        } else {
-            item.validateRMB = true;
-        }
-        if (item.USD == '' || item.USD == '0.00') {
-            item.validateUSD = false;
-        } else {
-            item.validateUSD = true;
-        }
-
-        if (item.validateTitle && item.validateRMB && item.validateUSD) {
-            console.log(detail.items[i])
-        }
-
-        detail.items[i] = item;
-        this.setState({
-            detail
-        })
-
+        this.setState({detail, isCanSave});
     }
 
     handlerChangeProductItem(i, {key}) {
         const detail = this.state.detail;
-        detail.items[i].title = key.split('_')[1];
-        detail.items[i].validateTitle = true;
+        const item = detail.items[i];
 
-        this.setState({
-            detail
-        })
+        item.costType = key.split('_')[1];
+        item.validateTitle = true;
+
+        /*if (item.validateTitle && item.validateRMB && item.validateUSD) {
+         item.delColor = '#4990E2';
+         } else {
+         item.delColor = '#9B9B9B';
+         }*/
+
+        detail.items[i] = item;
+        this.setState({detail})
     }
 
     handlerChangeRemark(i, e) {
         const detail = this.state.detail;
-        detail.items[i].remark = e.target.value;
+        detail.items[i].description = e.target.value;
 
-        this.setState({
-            detail
-        })
+        this.setState({detail})
     }
 
     handlerChangePrice(i, type, value) {
         if (value == '') value = 0;
         const detail = this.state.detail;
+        const item = detail.items[i];
+
         if (value == 0) {
-            detail.items[i].validateRMB = false;
-            detail.items[i].validateUSD = false;
-        }else{
-            detail.items[i].validateRMB = true;
-            detail.items[i].validateUSD = true;
-        }
-
-        const productInfo = this.props.productInfo;
-        if (type == 'RMB') {
-            detail.items[i].RMB = Number.parseFloat(value).toFixed(2);
-            const USD = Number.parseFloat(value) * Number.parseFloat(productInfo.rate);
-            detail.items[i].USD = USD.toFixed(2);
+            item.validateRMB = false;
+            item.validateUSD = false;
         } else {
-            const RMB = Number.parseFloat(value) / Number.parseFloat(productInfo.rate);
-            detail.items[i].RMB = RMB.toFixed(2);
-            detail.items[i].USD = Number.parseFloat(value).toFixed(2);
+            item.validateRMB = true;
+            item.validateUSD = true;
         }
 
-        let totalRMB = 0, totalUSD = 0;
-        detail.items.forEach(item => {
-            totalRMB += Number.parseFloat(item.RMB);
-            totalUSD += Number.parseFloat(item.USD);
-        });
+        /*if (item.validateTitle && item.validateRMB && item.validateUSD) {
+         item.delColor = '#4990E2';
+         } else {
+         item.delColor = '#9B9B9B';
+         }*/
 
-        detail.total.RMB = totalRMB.toFixed(2);
-        detail.total.USD = totalUSD.toFixed(2);
+        const currentExchange = this.props.currentExchange;
+        if (type == 'RMB') {
+            item.amountRMB = value;
+            const USD = Number.parseFloat(value) / currentExchange;
+            item.amount = USD.toFixed(2);
+        } else {
+            const RMB = Number.parseFloat(value) * currentExchange;
+            item.amountRMB = RMB.toFixed(2);
+            item.amount = value;
+        }
+        detail.items[i] = item;
 
-        this.setState({
-            detail
-        })
+        this.calcTotalPrice(detail);
+        this.setState({detail})
     }
 
+    calcTotalPrice(detail) {
+        let totalRMB = 0, totalUSD = 0;
+        detail.items.forEach(item => {
+            if (item.amountRMB) totalRMB += Number.parseFloat(item.amountRMB);
+            if (item.amount) totalUSD += Number.parseFloat(item.amount);
+        });
+        detail.total.totalAmountRMB = totalRMB.toFixed(2);
+        detail.total.totalAmountUSD = totalUSD.toFixed(2);
+    }
 }
+
+export default EditTable;
