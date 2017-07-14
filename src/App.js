@@ -83,7 +83,7 @@ class App extends React.Component {
                 </div>
                 <Layout style={styles.rightContent}>
                     <Layout>
-                        <Header style={{background: '#fff', padding: 0}}/>
+                        {/*<Header style={{background: '#fff', padding: 0}}/>*/}
                         <Content style={{margin: '0 16px'}}>
                             <Breadcrumb style={{margin: '12px 0'}}>
                                 <Breadcrumb.Item>User</Breadcrumb.Item>

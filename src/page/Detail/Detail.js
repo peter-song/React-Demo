@@ -36,14 +36,31 @@ class Detail extends React.Component {
                 background: '#FFFFFF',
                 border: '1px solid #D9D9D9',
                 minHeight: 150,
-                padding: '20px 15px',
+                padding: '10px 5px',
             },
 
             cardItem: {
                 flex: '1',
                 border: '1px solid #D9D9D9',
                 margin: '0 10px',
-                padding: 10,
+                padding: 5,
+            },
+
+            cardLeftContent: {
+                display: 'flex',
+                alignItems: 'baseline',
+            },
+
+            cardShipName: {
+                fontWeight: 500,
+                fontSize: 14,
+                color: 'rgba(0,0,0,0.75)',
+            },
+
+            cardIMO: {
+                fontWeight: 400,
+                fontSize: 12,
+                color: 'rgba(0,0,0,0.43)',
             },
 
             service: {
@@ -116,9 +133,6 @@ class Detail extends React.Component {
                 borderBottom: '1px solid #E9E9E9',
             },
 
-            clear: {
-                clear: 'both'
-            }
         };
 
         return styles;
@@ -540,7 +554,15 @@ class Detail extends React.Component {
     renderCardElem(styles) {
         return (
             <div style={styles.cardContent}>
-                <div style={styles.cardItem}>left</div>
+                <div style={styles.cardItem}>
+                    <div style={styles.cardLeftContent}>
+                        <Icon type="android" style={{marginLeft: 5}}/>
+                        <div style={{marginLeft: 15}}>
+                            <div style={styles.cardShipName}>ANGELO DELLA GATTA UNO</div>
+                            <div style={styles.cardIMO}>IMO: 9310630</div>
+                        </div>
+                    </div>
+                </div>
                 <div style={styles.cardItem}>middle</div>
                 <div style={styles.cardItem}>right</div>
             </div>
