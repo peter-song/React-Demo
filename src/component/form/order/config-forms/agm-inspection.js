@@ -4,7 +4,8 @@
 
 import React from 'react';
 import _ from 'lodash';
-import {Form, Input, Button, Upload, Icon} from 'antd';
+import {Form, Input, Button, Upload, Icon, Select} from 'antd';
+const Option = Select.Option;
 
 import SettingForm from '../../SettingForm';
 
@@ -71,7 +72,29 @@ class AGMInspection extends React.Component {
         edit: React.PropTypes.bool,
         form: React.PropTypes.object,
         formData: React.PropTypes.object,
+        ports: React.PropTypes.array,
         onSubmit: React.PropTypes.func,
+    };
+
+    static defaultProps = {
+        ports: [
+            {
+                _id: '11111',
+                name: 'SHANGHAI'
+            },
+            {
+                _id: '22222',
+                name: 'QINGDAO'
+            },
+            {
+                _id: '33333',
+                name: 'BEIHAI'
+            },
+            {
+                _id: '44444',
+                name: 'ZHOUSHAN'
+            }
+        ],
     };
 
     constructor(props) {
@@ -126,6 +149,29 @@ class AGMInspection extends React.Component {
         )
     }
 
+    handlerChangePort(nextPort) {
+        this.setState({nextPort})
+    }
+
+    renderPortElem(ports) {
+
+        return (
+            <Select
+                showSearch
+                defaultValue={this.state.nextPort}
+                style={{width: 200}}
+                placeholder="Select a port"
+                optionFilterProp="children"
+                onChange={this.handlerChangePort.bind(this)}
+                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+            >
+                {
+                    ports.map(item => <Option value={item._id} key={item._id}>{item.name}</Option>)
+                }
+            </Select>
+        )
+    }
+
     getConfig(formData = this.props.formData) {
         const product = formData.products && formData.products.length ? formData.products[0] : undefined;
         return product ? product.config : {};
@@ -134,10 +180,11 @@ class AGMInspection extends React.Component {
     render() {
 
         const styles = this.getStyles();
-        const {edit} = this.props;
+        const {edit, ports} = this.props;
         const props = {
             isPadding: false
         };
+        const nextPortObj = _.find(ports, item => item._id == this.state.nextPort);
 
         return (
             <SettingForm {...this.props} {...props}
@@ -147,8 +194,7 @@ class AGMInspection extends React.Component {
                     <div style={_.merge({}, styles.common)}>Next Port:</div>
                     <div style={_.merge({}, styles.common, {marginLeft: 15})}>
                         {
-                            edit ? <Input value={this.state.nextPort} onChange={this.handlerChangeNextPort.bind(this)}/>
-                                : <span>{this.state.nextPort}</span>
+                            edit ? this.renderPortElem(ports) : <span>{nextPortObj ? nextPortObj.name : ''}</span>
                         }
                     </div>
                 </div>
@@ -172,12 +218,6 @@ class AGMInspection extends React.Component {
         if (this.props.formData !== formData || !nextProps.edit) {
             this.initState(formData);
         }
-    }
-
-    handlerChangeNextPort(e) {
-        this.setState({
-            nextPort: e.target.value
-        })
     }
 
     /**
