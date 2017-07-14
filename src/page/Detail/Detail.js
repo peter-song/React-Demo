@@ -25,16 +25,30 @@ class Detail extends React.Component {
                 padding: 20,
             },
 
+            progressContent: {
+                border: '1px solid #D9D9D9',
+                minHeight: 50,
+                padding: 10,
+            },
+
             cardContent: {
+                display: 'flex',
                 background: '#FFFFFF',
                 border: '1px solid #D9D9D9',
                 minHeight: 150,
+                padding: '20px 15px',
+            },
+
+            cardItem: {
+                flex: '1',
+                border: '1px solid #D9D9D9',
+                margin: '0 10px',
                 padding: 10,
             },
 
             service: {
                 marginTop: 16,
-                display: 'flex'
+                display: 'flex',
             },
 
             serviceLeft: {
@@ -526,7 +540,9 @@ class Detail extends React.Component {
     renderCardElem(styles) {
         return (
             <div style={styles.cardContent}>
-                card
+                <div style={styles.cardItem}>left</div>
+                <div style={styles.cardItem}>middle</div>
+                <div style={styles.cardItem}>right</div>
             </div>
         )
     }
@@ -657,7 +673,8 @@ class Detail extends React.Component {
             <div style={styles.service}>
                 {this.renderServiceItems(styles)}
                 <div id="order_detail_tab" style={styles.serviceRight}>
-                    <Tabs type="card" style={{marginBottom: 0}}>
+                    <div style={styles.progressContent}>progress</div>
+                    <Tabs type="card" style={{marginBottom: 0, marginTop: 10}}>
                         <TabPane tab={`Setting`} key="tab1">{this.renderSettingElem(styles)}</TabPane>
                         <TabPane tab={`Actual Cost`} key="tab2">{this.renderActualCostElem(styles)}</TabPane>
                     </Tabs>
@@ -696,12 +713,20 @@ class Detail extends React.Component {
         this.setState({orderEntry: _.cloneDeep(orderEntry), edit: false})
     }
 
+    /**
+     * 取消服务项
+     * @param index
+     */
     handlerCancelServiceItem(index) {
         const {orderEntries} = this.state;
         orderEntries[index].selected = false;
         this.setState({orderEntries})
     }
 
+    /**
+     * 恢复服务项
+     * @param index
+     */
     handlerRestoreServiceItem(index) {
         const {orderEntries} = this.state;
         orderEntries[index].selected = true;

@@ -89,7 +89,7 @@ class App extends React.Component {
                                 <Breadcrumb.Item>User</Breadcrumb.Item>
                                 <Breadcrumb.Item>Bill</Breadcrumb.Item>
                             </Breadcrumb>
-                            <div style={{padding: 24, background: '#fff', minHeight: 360}}>
+                            <div style={{background: '#fff', minHeight: 360}}>
                                 <Route exact path="/" component={Profile}/>
                                 <Route path="/basic" component={Profile}/>
                                 <Route path="/detail" component={Detail}/>
