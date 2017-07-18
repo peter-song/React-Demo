@@ -36,7 +36,9 @@ class Detail extends React.Component {
                 background: '#FFFFFF',
                 border: '1px solid #D9D9D9',
                 minHeight: 150,
-                padding: '10px 5px',
+                padding: '20px 10px',
+                position: 'relative',
+                overflow: 'hidden',
             },
 
             cardItem: {
@@ -132,6 +134,20 @@ class Detail extends React.Component {
                 padding: 13,
                 borderBottom: '1px solid #E9E9E9',
             },
+
+            new: {
+                background: 'red',
+                position: 'absolute',
+                alignItems: 'flex-end',
+                display: 'flex',
+                justifyContent: 'center',
+                transform: 'rotate(45deg)',
+                right: -25,
+                top: -25,
+                width: 50,
+                height: 50,
+                color: '#fff',
+            }
 
         };
 
@@ -565,6 +581,7 @@ class Detail extends React.Component {
                 </div>
                 <div style={styles.cardItem}>middle</div>
                 <div style={styles.cardItem}>right</div>
+                <div style={styles.new}>New</div>
             </div>
         )
     }

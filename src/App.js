@@ -10,6 +10,7 @@ import Welcome from './component/Welcome';
 import Profile from './page/profile/index';
 import Detail from './page/Detail';
 import Bill from './page/Bill';
+import Notice from './page/Notice';
 import DevTools from "./component/DevTools/DevTools";
 
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
@@ -77,6 +78,7 @@ class App extends React.Component {
                                 <Menu.Item key="basic"><Link to="/basic">Basic</Link></Menu.Item>
                                 <Menu.Item key="detail"><Link to="/detail">Detail</Link></Menu.Item>
                                 <Menu.Item key="bill"><Link to="/bill">Bill</Link></Menu.Item>
+                                <Menu.Item key="notice"><Link to="/notice">Notice</Link></Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>
@@ -89,15 +91,16 @@ class App extends React.Component {
                                 <Breadcrumb.Item>User</Breadcrumb.Item>
                                 <Breadcrumb.Item>Bill</Breadcrumb.Item>
                             </Breadcrumb>
-                            <div style={{background: '#fff', minHeight: 360}}>
+                            <div style={{background: '#fff', minHeight: 600}}>
                                 <Route exact path="/" component={Profile}/>
                                 <Route path="/basic" component={Profile}/>
                                 <Route path="/detail" component={Detail}/>
                                 <Route path="/bill" component={Bill}/>
+                                <Route path="/notice" component={Notice}/>
                             </div>
                         </Content>
                         <Footer style={{textAlign: 'center'}}>
-                            Ant Design ©2016 Created by Ant UED
+                            {/*Ant Design ©2016 Created by Ant UED*/}
                         </Footer>
                     </Layout>
                 </Layout>
