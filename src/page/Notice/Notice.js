@@ -211,10 +211,10 @@ class Welcome extends React.Component {
                                 watched: true
                             },
                             {
-                                content: 'TestOwner has appointed you as the agency',
+                                content: 'TestAgency submited Bill submitted the quotationsubmitted the quotationsubmitted the quotationsubmitted the quotationsubmitted the quotation the quotationsubmitted the quotation',
                                 date: '30/JUN/2017 08:20',
                                 watched: true
-                            },
+                            }
                         ]
                     }
                 ]
@@ -319,7 +319,7 @@ class Welcome extends React.Component {
                                             return (
                                                 <div {...props2}>
                                                     <div style={style}>{msg.content}</div>
-                                                    <div style={style}>{msg.date}</div>
+                                                    <div style={style}><div style={{textAlign: 'right', width: 150}}>{msg.date}</div></div>
                                                 </div>
                                             )
                                         }) : ''

@@ -6,7 +6,6 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import ApiClient from './helper/ApiClient';
 import configureStore from './redux/createStore';
 
-import Welcome from './component/Welcome';
 import Profile from './page/profile/index';
 import Detail from './page/Detail';
 import Bill from './page/Bill';
