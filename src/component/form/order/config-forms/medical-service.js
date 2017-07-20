@@ -114,11 +114,11 @@ class MedicalService extends React.Component {
             columns: [
                 {
                     title: 'Full Name',
-                    width: 130
+                    width: 150
                 },
                 {
                     title: 'Rank',
-                    width: 130
+                    width: 150
                 },
                 {
                     title: 'Symptom',

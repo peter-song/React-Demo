@@ -128,6 +128,7 @@ class AddPerson extends React.Component {
     }
 
     renderShowElem(styles, columns) {
+        const {dataSource} = this.state;
         return (
             <div>
                 <div style={_.merge({}, styles.tableHead)}>
@@ -143,23 +144,24 @@ class AddPerson extends React.Component {
                     }
                 </div>
                 {
-                    this.state.dataSource.map((person, i) => {
-                        return (
-                            <div key={`person${i + 1}`} style={_.merge({}, styles.tableBody, styles.line)}>
-                                {
-                                    columns.map((column, j) => {
-                                        const key = _.camelCase(column.title);
-                                        return (
-                                            <div key={`column${i + 1}_${j + 1}`}
-                                                 style={_.merge({}, styles.common, column.noRightBorder ? {} : styles.borderRight, column.fill ? {flex: '1'} : {width: column.width})}>
-                                                { person[key] }
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
-                        )
-                    })
+                    dataSource.length ? dataSource.map((person, i) => {
+                            return (
+                                <div key={`person${i + 1}`} style={_.merge({}, styles.tableBody, styles.line)}>
+                                    {
+                                        columns.map((column, j) => {
+                                            const key = _.camelCase(column.title);
+                                            return (
+                                                <div key={`column${i + 1}_${j + 1}`}
+                                                     style={_.merge({}, styles.common, column.noRightBorder ? {} : styles.borderRight, column.fill ? {flex: '1'} : {width: column.width})}>
+                                                    { person[key] }
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            )
+                        }) :
+                        <div style={_.merge({}, styles.common, styles.line, {justifyContent: 'center'})}>no data</div>
                 }
             </div>
         )
