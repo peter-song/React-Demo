@@ -58,6 +58,7 @@ class App extends React.Component {
     };
 
     render() {
+
         const styles = this.getStyles(this);
         return (
             <div>

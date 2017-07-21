@@ -6254,7 +6254,7 @@ exports.INFLATERAW = 6;
 exports.UNZIP = 7;
 
 /**
- * Emulate Node's zlib C++ layer for use by the JS layer in index.js
+ * Emulate Node's zlib C++ layer for use by the JS layer in Profile.js
  */
 function Zlib(mode) {
   if (mode < exports.DEFLATE || mode > exports.UNZIP)
@@ -10469,7 +10469,7 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 
-}).call(this,{"isBuffer":require("../../is-buffer/index.js")})
+}).call(this,{"isBuffer":require("../../is-buffer/Profile.js")})
 
 },{"../../is-buffer/index.js":168}],161:[function(require,module,exports){
 var pSlice = Array.prototype.slice;
@@ -11188,7 +11188,7 @@ var hmtx = new r.Struct({
   })
 });
 
-// maxiumum profile
+// maxiumum Profile
 var maxp = new r.Struct({
   version: r.int32,
   numGlyphs: r.uint16, // The number of glyphs in the font

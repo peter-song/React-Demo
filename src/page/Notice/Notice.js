@@ -79,12 +79,17 @@ class Welcome extends React.Component {
                 justifyContent: 'space-between',
                 borderTop: '1px solid #E9E9E9',
                 cursor: 'pointer',
-            }
+            },
+
+            verticalCenter: {
+                display: 'flex',
+                alignItems: 'center',
+            },
+
         };
 
         return styles;
     }
-
 
     static propTypes = {
         dataSource: PropTypes.array
@@ -283,7 +288,7 @@ class Welcome extends React.Component {
                         return (
                             <div {...props}>
                                 <div style={styles.orderTitle}>
-                                    <div style={_.merge({}, {display: 'flex'}, styles.regularFont)}>
+                                    <div style={_.merge({}, styles.verticalCenter, styles.regularFont)}>
                                         <div style={_.merge({}, {width: 200})}>
                                             Port: {item.port}
                                         </div>
@@ -292,7 +297,7 @@ class Welcome extends React.Component {
                                         </div>
                                         {!ship.watched ? <div style={styles.dot}></div> : ''}
                                     </div>
-                                    <div style={{display: 'flex', marginTop: 10}}>
+                                    <div style={_.merge({}, styles.verticalCenter, {marginTop: 10})}>
                                         <div style={_.merge({}, styles.boldFont, {width: 200})}>
                                             ETA: {item.ETA}
                                         </div>
@@ -320,7 +325,9 @@ class Welcome extends React.Component {
                                             return (
                                                 <div {...props2}>
                                                     <div>{msg.content}</div>
-                                                    <div><div style={{textAlign: 'right', width: 150}}>{msg.date}</div></div>
+                                                    <div>
+                                                        <div style={{textAlign: 'right', width: 150}}>{msg.date}</div>
+                                                    </div>
                                                 </div>
                                             )
                                         }) : ''
