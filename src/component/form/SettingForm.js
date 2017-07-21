@@ -4,7 +4,7 @@
 
 import React from 'react';
 import _ from 'lodash';
-import {Form} from 'antd';
+import {Form, Popconfirm} from 'antd';
 
 class SettingForm extends React.Component {
 
@@ -49,14 +49,16 @@ class SettingForm extends React.Component {
         form: React.PropTypes.object,
         formData: React.PropTypes.object,
         onSubmit: React.PropTypes.func,
-        isPadding: React.PropTypes.bool
+        isPadding: React.PropTypes.bool,
+        isUpdate: React.PropTypes.bool,
     };
 
     static defaultProps = {
         showBtn: false,
         title: 'Default',
         edit: false,
-        isPadding: true
+        isPadding: true,
+        isUpdate: true,
     };
 
     render() {
@@ -68,8 +70,15 @@ class SettingForm extends React.Component {
         let operationElem;
         if (edit) {
             operationElem = <div>
-                <span style={styles.serviceOperation}
-                      onClick={() => this.props.onSubmit()}>Save</span>
+                {
+                    this.props.isUpdate ? <span style={styles.serviceOperation}
+                                                onClick={() => this.props.onSubmit()}>Save</span>
+                        : <Popconfirm title={`There are also projects that have not been saved and whether to give up?`}
+                                      onConfirm={() => this.props.onSubmit()}
+                        >
+                            <span style={styles.serviceOperation}>Save</span>
+                        </Popconfirm>
+                }
                 <span style={styles.serviceOperation}
                       onClick={() => this.props.onEditCancel(false)}>Cancel</span>
 

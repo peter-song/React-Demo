@@ -97,6 +97,7 @@ class AddPerson extends React.Component {
         dataSource: React.PropTypes.array,
         columns: React.PropTypes.array,
         savePerson: React.PropTypes.func,
+        saveUpdate: React.PropTypes.func,
     };
 
     static defaultProps = {
@@ -105,6 +106,9 @@ class AddPerson extends React.Component {
         columns: [],
         savePerson: () => {
             console.log('click save person')
+        },
+        saveUpdate: () => {
+            console.log('click save update')
         }
     };
 
@@ -299,6 +303,7 @@ class AddPerson extends React.Component {
         dataSource.push(person);
         isEdits.push(true);
         this.setState({dataSource});
+        this.props.saveUpdate(false);
     }
 
     /**
@@ -310,6 +315,7 @@ class AddPerson extends React.Component {
         dataSource.splice(i, 1);
         isEdits.splice(i, 1);
         this.setState({dataSource, isEdits});
+        this.props.saveUpdate(false);
     }
 
     /**
@@ -320,6 +326,7 @@ class AddPerson extends React.Component {
         const {isEdits} = this.state;
         isEdits[i] = true;
         this.setState({isEdits});
+        this.props.saveUpdate(false);
     }
 
     /**
@@ -373,6 +380,7 @@ class AddPerson extends React.Component {
             });
 
             this.props.savePerson(newDataSource);
+            this.props.saveUpdate(true);
         }
         this.setState({isEdits, dataSource});
     }

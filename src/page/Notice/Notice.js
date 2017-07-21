@@ -283,11 +283,11 @@ class Welcome extends React.Component {
                         return (
                             <div {...props}>
                                 <div style={styles.orderTitle}>
-                                    <div style={{display: 'flex'}}>
-                                        <div style={_.merge({}, styles.regularFont, {width: 200})}>
+                                    <div style={_.merge({}, {display: 'flex'}, styles.regularFont)}>
+                                        <div style={_.merge({}, {width: 200})}>
                                             Port: {item.port}
                                         </div>
-                                        <div style={_.merge({}, styles.regularFont, {flex: '1'})}>
+                                        <div style={_.merge({}, {flex: '1'})}>
                                             Principal: {item.principal}
                                         </div>
                                         {!ship.watched ? <div style={styles.dot}></div> : ''}
@@ -310,16 +310,17 @@ class Welcome extends React.Component {
                                 </div>
                                 {
                                     isOpen ? item.msgs.map((msg, j) => {
+                                            const style = msg.watched ? styles.regularFont : styles.boldFont;
                                             const props2 = {
                                                 key: 'msg' + (i + 1) + '-' + (j + 1),
-                                                style: _.merge({}, styles.orderContent),
+                                                style: _.merge({}, styles.orderContent, style),
                                                 onClick: this.handlerMsg.bind(this, ship._id)
                                             };
-                                            const style = msg.watched ? styles.regularFont : styles.boldFont;
+
                                             return (
                                                 <div {...props2}>
-                                                    <div style={style}>{msg.content}</div>
-                                                    <div style={style}><div style={{textAlign: 'right', width: 150}}>{msg.date}</div></div>
+                                                    <div>{msg.content}</div>
+                                                    <div><div style={{textAlign: 'right', width: 150}}>{msg.date}</div></div>
                                                 </div>
                                             )
                                         }) : ''

@@ -676,12 +676,12 @@ class Detail extends React.Component {
     }
 
     renderActualCostElem(styles) {
+        let orderEntry = this.getOrderEntry();
+
         const props = {
-            title: 'Actual Cost',
+            title: orderEntry.product.name,
             isPadding: false,
         };
-
-        let orderEntry = this.getOrderEntry();
         const props2 = {
             isInquiryOrder: false,
             isMarginTop: false,
@@ -692,9 +692,7 @@ class Detail extends React.Component {
             titleBgColor: '#fff',
             quotationType: 'actual',
             params: this.props.params,
-            // currentExchange: orderDetail.currentExchange ? orderDetail.currentExchange : 0,
             updateCostItems: this.handlerUpdateActualCost.bind(this),
-            // isCanEdit: orderDetail.status !== ORDER_STATUS.CLOSED,
             orderEntry
         };
 

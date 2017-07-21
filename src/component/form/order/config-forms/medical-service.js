@@ -90,6 +90,7 @@ class MedicalService extends React.Component {
         this.state = {
             requires: '',
             fileList: [],
+            isUpdate: true
         }
     }
 
@@ -128,6 +129,7 @@ class MedicalService extends React.Component {
             ],
             dataSource: persons,
             savePerson: this.handlerSavePersons.bind(this),
+            saveUpdate: this.saveUpdate.bind(this),
         };
 
         return (
@@ -177,7 +179,8 @@ class MedicalService extends React.Component {
         const styles = this.getStyles();
         const {edit} = this.props;
         const props = {
-            isPadding: false
+            isPadding: false,
+            isUpdate: this.state.isUpdate
         };
 
         return (
@@ -277,6 +280,14 @@ class MedicalService extends React.Component {
      */
     handlerSavePersons(_persons) {
         persons = _persons;
+    }
+
+    /**
+     * 保存更改
+     * @param isUpdate
+     */
+    saveUpdate(isUpdate) {
+        this.setState({isUpdate})
     }
 }
 
