@@ -15,7 +15,6 @@
     "react-router-dom": "^4.0.0",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
-    "svg-url-loader": "^2.0.2",
     "webpack": "^2.3.3",
     "webpack-dev-server": "^2.4.2"
   },
@@ -56,6 +55,7 @@
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.8",
+    "svg-url-loader": "^2.0.2",
     "warning": "^3.0.0",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.18.0"

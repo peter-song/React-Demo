@@ -40,7 +40,6 @@ export default class Profile extends React.Component {
 
             infoContent: {
                 display: 'flex',
-                // justifyContent: 'space-between',
             },
 
             img: {
@@ -83,7 +82,7 @@ export default class Profile extends React.Component {
         hobbies = hobbies == undefined ? [] : hobbies;
 
         return (
-            <div id="content" style={styles.content}>
+            <div style={styles.content}>
                 <div style={_.merge({}, styles.headContent)}>
                     <div className="basicInfo">BasicInfo</div>
                 </div>
@@ -114,7 +113,7 @@ export default class Profile extends React.Component {
                         <img src={headImg} style={styles.img}/>
                     </div>
                 </div>
-                <div id="book" className="book">
+                <div className="book">
                     <p>飞狐外传</p>
                     <p>雪山飞狐</p>
                     <p>连城诀</p>

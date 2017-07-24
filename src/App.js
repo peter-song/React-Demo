@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import ApiClient from './helper/ApiClient';
 import configureStore from './redux/createStore';
 
+import Template from './Template';
 import Profile from './page/profile/index';
 import Detail from './page/Detail';
 import Bill from './page/Bill';
@@ -16,7 +17,7 @@ import {Layout, Menu, Breadcrumb, Icon} from 'antd';
 const {Header, Content, Footer, Sider} = Layout;
 const SubMenu = Menu.SubMenu;
 
-require('../static/js/html2canvas.js');
+// require('../static/js/html2canvas.js');
 
 import './main.css';
 const client = new ApiClient();
@@ -97,6 +98,7 @@ class App extends React.Component {
                                 <Route path="/detail" component={Detail}/>
                                 <Route path="/bill" component={Bill}/>
                                 <Route path="/notice" component={Notice}/>
+                                <Route path="/template" component={Template}/>
                             </div>
                         </Content>
                         <Footer style={{textAlign: 'center'}}>
@@ -104,6 +106,7 @@ class App extends React.Component {
                         </Footer>
                     </Layout>
                 </Layout>
+                {/*<DevTools />*/}
             </div>
         );
     }
@@ -111,12 +114,9 @@ class App extends React.Component {
 
 ReactDOM.render(
     <Provider store={store}>
-        <div>
-            <Router>
-                <App />
-            </Router>
-            {/*<DevTools />*/}
-        </div>
+        <Router>
+            <App />
+        </Router>
     </Provider>,
     document.getElementById('root')
 );

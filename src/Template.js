@@ -6,10 +6,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-class Welcome extends React.Component {
+class Template extends React.Component {
 
     getStyles() {
-        const styles = {};
+        const styles = {
+            content: {
+                padding: 20,
+            }
+        };
 
         return styles;
     }
@@ -27,11 +31,11 @@ class Welcome extends React.Component {
     render() {
         const styles = this.getStyles();
         return (
-            <div>
+            <div style={styles.content}>
                 <h1>Welcome to ...</h1>
             </div>
         )
     }
 }
 
-export default Welcome;
+export default Template;

@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {Icon} from 'antd';
@@ -109,49 +110,25 @@ class Welcome extends React.Component {
                         orderNo: 'EP092017032308851422',
                         msgs: [
                             {
+                                _id: 'aaaaa',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: false
                             },
                             {
+                                _id: 'bbbbb',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: false
                             },
                             {
+                                _id: 'ccccc',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: true
                             },
                             {
-                                content: 'TestOwner has appointed you as the agency',
-                                date: '30/JUN/2017 08:20',
-                                watched: true
-                            },
-                        ]
-                    },
-                    {
-                        port: 'Shanghai Waigaoqiao',
-                        principal: 'Scorpio Shipping Agency Management',
-                        ETA: '24/AUG/2017',
-                        orderNo: 'EP092017032308851422',
-                        msgs: [
-                            {
-                                content: 'TestOwner has appointed you as the agency',
-                                date: '30/JUN/2017 08:20',
-                                watched: false
-                            },
-                            {
-                                content: 'TestOwner has appointed you as the agency',
-                                date: '30/JUN/2017 08:20',
-                                watched: false
-                            },
-                            {
-                                content: 'TestOwner has appointed you as the agency',
-                                date: '30/JUN/2017 08:20',
-                                watched: true
-                            },
-                            {
+                                _id: 'ddddd',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: true
@@ -165,21 +142,57 @@ class Welcome extends React.Component {
                         orderNo: 'EP092017032308851422',
                         msgs: [
                             {
+                                _id: 'eeeee',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: false
                             },
                             {
+                                _id: 'fffff',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: false
                             },
                             {
+                                _id: 'ggggg',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: true
                             },
                             {
+                                _id: 'hhhhh',
+                                content: 'TestOwner has appointed you as the agency',
+                                date: '30/JUN/2017 08:20',
+                                watched: true
+                            },
+                        ]
+                    },
+                    {
+                        port: 'Shanghai Waigaoqiao',
+                        principal: 'Scorpio Shipping Agency Management',
+                        ETA: '24/AUG/2017',
+                        orderNo: 'EP092017032308851422',
+                        msgs: [
+                            {
+                                _id: 'iiiii',
+                                content: 'TestOwner has appointed you as the agency',
+                                date: '30/JUN/2017 08:20',
+                                watched: false
+                            },
+                            {
+                                _id: 'jjjjj',
+                                content: 'TestOwner has appointed you as the agency',
+                                date: '30/JUN/2017 08:20',
+                                watched: false
+                            },
+                            {
+                                _id: 'kkkkk',
+                                content: 'TestOwner has appointed you as the agency',
+                                date: '30/JUN/2017 08:20',
+                                watched: true
+                            },
+                            {
+                                _id: 'lllll',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: true
@@ -201,21 +214,25 @@ class Welcome extends React.Component {
                         orderNo: 'EP092017032308851422',
                         msgs: [
                             {
+                                _id: 'mmmmm',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: true
                             },
                             {
+                                _id: 'nnnnn',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: true
                             },
                             {
+                                _id: 'ooooo',
                                 content: 'TestOwner has appointed you as the agency',
                                 date: '30/JUN/2017 08:20',
                                 watched: true
                             },
                             {
+                                _id: 'ppppp',
                                 content: 'TestAgency submited Bill submitted the quotationsubmitted the quotationsubmitted the quotationsubmitted the quotationsubmitted the quotation the quotationsubmitted the quotation',
                                 date: '30/JUN/2017 08:20',
                                 watched: true
@@ -280,7 +297,7 @@ class Welcome extends React.Component {
             <div>
                 {
                     orders.map((item, i) => {
-                        const isOpen = isOpens[i] == undefined || isOpens[i];
+                        const isOpen = (isOpens[i] == undefined && i == 0) || isOpens[i];
                         const props = {
                             key: 'order' + (i + 1),
                             style: _.merge({}, styles.orderItem, i > 0 ? {marginTop: 8} : {})
@@ -319,16 +336,20 @@ class Welcome extends React.Component {
                                             const props2 = {
                                                 key: 'msg' + (i + 1) + '-' + (j + 1),
                                                 style: _.merge({}, styles.orderContent, style),
-                                                onClick: this.handlerMsg.bind(this, ship._id)
                                             };
 
                                             return (
-                                                <div {...props2}>
-                                                    <div>{msg.content}</div>
-                                                    <div>
-                                                        <div style={{textAlign: 'right', width: 150}}>{msg.date}</div>
+                                                <Link to={`/bill`}>
+                                                    <div {...props2}>
+                                                        <div>{msg.content}</div>
+                                                        <div>
+                                                            <div style={{
+                                                                textAlign: 'right',
+                                                                width: 150
+                                                            }}>{msg.date}</div>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </Link>
                                             )
                                         }) : ''
                                 }
@@ -364,16 +385,12 @@ class Welcome extends React.Component {
         const ship = this.getShip();
         if (!isOpens.length) {
             isOpens = new Array(ship.orders.length);
-            isOpens = _.fill(isOpens, true);
         }
+        isOpens = _.fill(isOpens, false);
         isOpens[i] = isOpen;
         this.setState({isOpens})
     }
 
-
-    handlerMsg(_id) {
-        console.log('_id', _id)
-    }
 }
 
 export default Welcome;
