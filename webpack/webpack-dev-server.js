@@ -1,11 +1,15 @@
-/* eslint-disable */
+/**
+ * Created by songzhongkun on 2017/7/24.
+ */
+
+let Express = require('express');
 let webpack = require('webpack');
 let webpackDevMiddleware = require('webpack-dev-middleware');
 let webpackHotMiddleware = require('webpack-hot-middleware');
-let config = require('../webpack/webpack.config.js');
+let config = require('./dev.config.js');
 
-let app = new (require('express'))();
-let port = 3000;
+let app = new Express();
+let port = require('../src/config').port + 1;
 
 let compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, {
@@ -13,10 +17,6 @@ app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath
 }));
 app.use(webpackHotMiddleware(compiler));
-
-app.get("/", function (req, res) {
-    res.sendFile(__dirname + '/index.html')
-});
 
 app.listen(port, function (error) {
     if (error) {

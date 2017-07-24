@@ -4,12 +4,15 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');//生成html
 let ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打包
 
 //常用路径
-const ROOT_PATH = path.resolve(__dirname);
+const ROOT_PATH = path.resolve(__dirname, '../');
 const APP_PATH = path.resolve(ROOT_PATH, './src');
-const BUILD_PATH = path.resolve(ROOT_PATH, './dist');
+const ASSETS_PATH = path.resolve(ROOT_PATH, './static/dist');
+
+const config = require('../src/config');
 
 module.exports = {
     devtool: 'eval-source-map',
+    context: ROOT_PATH,
 
     // 文件入口
     entry: {
@@ -21,10 +24,10 @@ module.exports = {
 
     // 打包文件出口
     output: {
-        // publicPath: "/dist/", //编译好的文件，在服务器的路径,这是静态资源引用路径
-        path: BUILD_PATH, //打包后文件存放位置
-        filename: "[name].js", //打包后文件名（'name'为entry定义的key值，本例为main）
+        path: ASSETS_PATH, //打包后文件存放位置
+        filename: '[name]-[hash].js', //打包后文件名（'name'为entry定义的key值，本例为main）
         chunkFilename: '[name].[chunkhash:5].min.js',
+        // publicPath: 'http://' + config.host + ':' + (config.port + 1) + '/dist/'//编译好的文件，在服务器的路径,这是静态资源引用路径
     },
 
     // 模块
@@ -52,12 +55,12 @@ module.exports = {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: ['css-loader', 'sass-loader'],
+                    use: ['css-loader', 'sass-loader', 'postcss-loader'],
                     publicPath: "../"
                 })
             },
             {
-                test: /\.(png)|(jpg)$/,
+                test: /\.(jpeg|jpg|png|gif)$/,
                 loader: "url-loader?limit=10240&name=images/[hash:8].[name].[ext]"
             },
             {
@@ -80,7 +83,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'ReactDemo', //w文件标题
             //fileName: 'index.html', //文件名称，默认index.html
-            template: __dirname + "/index.tmpl.html", //模板文件，会根据此文件生成加入了引用打包文件的html文件
+            template: path.resolve(__dirname, "../index.tmpl.html"), //模板文件，会根据此文件生成加入了引用打包文件的html文件
             hash: true
         }),
         new ExtractTextPlugin({

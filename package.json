@@ -62,8 +62,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --progress --colors",
-    "start": "node src/server.js"
+    "dev": "webpack-dev-server --progress --colors --config webpack/dev.config.js",
+    "start": "node webpack/webpack-dev-server.js"
   },
   "repository": {
     "type": "git",
