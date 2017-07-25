@@ -10,7 +10,7 @@ import {Input, Button} from 'antd';
 
 import './profile.css';
 let person = require('../../../static/config/person');
-let headImg = require('../../../static/img/head-portrait.jpg');
+import headImg from '../../../static/img/head-portrait.jpg';
 
 import Hobby from './Hobby';
 
