@@ -98,6 +98,7 @@ module.exports = {
     devServer: {
         historyApiFallback: true, //依赖于HTML5 history API，设置为true，所有的跳转将指向
         // contentBase: "./public", //本地服务器所加载的页面所在的目录 ？？
+        // port: 8080, //监听端口，默认为8080，省略后如果8080被占用，会替换别的端口，控制台会打印
         inline: true, //当源文件改变时会自动刷新页面
         hot: true, //允许在修改组件代码后，自动刷新实时预览修改后的结果
     }

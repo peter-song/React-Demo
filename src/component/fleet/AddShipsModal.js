@@ -1,0 +1,175 @@
+/**
+ * Created by songzhongkun on 2017/5/18.
+ */
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import {Modal, Select} from 'antd';
+const Option = Select.Option;
+
+let ships = [];
+class DeleteFleetModal extends React.Component {
+
+    getStyles() {
+        const styles = {
+
+            title: {
+                fontWeight: 400,
+                fontSize: 18,
+                color: 'rgba(0,0,0,0.75)',
+            },
+
+            content: {
+                display: 'flex',
+                alignItems: 'flex-start',
+                padding: 20,
+                fontWeight: 400,
+                fontSize: 14,
+                color: 'rgba(0,0,0,0.65)',
+            },
+
+            productPrompt: {
+                color: '#f04134',
+                fontWeight: 400,
+                fontSize: 12,
+                letterSpacing: 0,
+            },
+        };
+
+        return styles;
+    }
+
+    static propTypes = {
+        fleet: PropTypes.object,
+        modal: PropTypes.string,
+        openModal: PropTypes.func,
+        saveShips: PropTypes.func,
+        shipList: PropTypes.array,
+    };
+
+    static defaultProps = {
+        shipList: [
+            {
+                "_id": "59717deddebe89ca0803c278",
+                "imo": "1601122",
+                "name": ""
+            }, {"_id": "59705364969b04f652fc843c", "imo": "1233456", "name": "qweqwe"}, {
+                "_id": "59705315969b04f652fc843b",
+                "imo": "4323456",
+                "name": "123123"
+            }, {
+                "_id": "596efbac969b04f652fc843a",
+                "imo": "1161112",
+                "name": "testtest"
+            }, {
+                "_id": "57c3c5393fa4f708006f8f6c",
+                "imo": "1111112",
+                "name": "test0829"
+            }, {"_id": "582c03ade03d5cf170c3e281", "imo": "1111123", "name": "xddd5"}, {
+                "_id": "595cb903b92ec335b60c8266",
+                "imo": "1025212",
+                "name": "star"
+            }, {"_id": "597079c20ff8fe79f59f1a41", "imo": "1038103", "name": "name"}, {
+                "_id": "58410f1c0e90a787ba578ec4",
+                "imo": "1100092",
+                "name": "222222"
+            }, {"_id": "5837913c866dbac10f46b6f2", "imo": "1010101", "name": "vx1010"}, {
+                "_id": "57c4e4bc3fa4f708006f8fda",
+                "imo": "1111111",
+                "name": "11111"
+            }, {
+                "_id": "593a2c26da63d0c01dc7406f",
+                "imo": "1100090",
+                "name": "testname"
+            }, {"_id": "5841208f8cc3d5a8d580e876", "imo": "1100102", "name": "11111"}, {
+                "_id": "595345762b76c6614ea7faa3",
+                "imo": "3123435",
+                "name": "test"
+            }, {
+                "_id": "58fef1c967a2297e2fb54b8c",
+                "imo": "1601127",
+                "name": "jinyonghao"
+            }, {"_id": "5941f7adee72f342afa54b1d", "imo": "1025216", "name": "develop"}, {
+                "_id": "58525c7fcd096e6e269a3251",
+                "imo": "1121212",
+                "name": "fakeship1121"
+            }, {"_id": "584124e9219f9299dd9a82fc", "imo": "1100112", "name": "11111"}, {
+                "_id": "5941037c0124a71e80caa402",
+                "imo": "1010102",
+                "name": "www"
+            }
+        ]
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            validate: true
+        }
+    }
+
+    handlerChange(_ships) {
+        ships = _ships;
+    }
+
+    render() {
+        const styles = this.getStyles();
+        const {shipList, fleet}  = this.props;
+        ships = fleet.ships ? fleet.ships : [];
+
+        return (
+            <Modal
+                title={'Add Ship'}
+                style={styles.title}
+                visible={true}
+                okText={'save'}
+                cancelText={'cancel'}
+                onOk={this.handlerOK.bind(this)}
+                onCancel={() => this.props.openModal(this.props.modal, false)}
+            >
+                <div style={styles.content}>
+                    <div>IMO:</div>
+                    <div style={{marginLeft: 10}}>
+                        <Select
+                            mode="multiple"
+                            style={{width: 300}}
+                            defaultValue={ships}
+                            placeholder="click to change"
+                            onChange={this.handlerChange.bind(this)}
+                        >
+                            {
+                                shipList.map(ship => {
+                                    return (
+                                        <Option key={ship._id}>{`${ship.name} - ${ship.imo}`}</Option>
+                                    )
+                                })
+                            }
+                        </Select>
+                        {
+                            this.state.validate ? '' : <div style={styles.productPrompt}>{'ship is not null'}</div>
+                        }
+                    </div>
+                </div>
+
+            </Modal>
+        )
+    }
+
+    handlerOK() {
+        if (ships && ships.length) {
+            if (this.props.saveShips) {
+                const {modal} = this.props;
+                const fleet = _.cloneDeep(this.props.fleet);
+                fleet.ships = ships;
+                this.props.saveShips(modal, fleet);
+                ships = [];
+                this.setState({validate: true})
+            }
+        } else {
+            this.setState({validate: false})
+        }
+    }
+}
+
+export default DeleteFleetModal;
