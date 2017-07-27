@@ -124,7 +124,6 @@ class MedicalService extends React.Component {
                 {
                     title: 'Symptom',
                     fill: true,
-                    noRightBorder: true
                 }
             ],
             dataSource: persons,

@@ -93,7 +93,7 @@ class Fleet extends React.Component {
 
     static propTypes = {
         columns: PropTypes.array,
-        dataSource: PropTypes.array,
+        fleetList: PropTypes.array,
     };
 
     static defaultProps = {

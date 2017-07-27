@@ -5,14 +5,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {Modal, Select} from 'antd';
+import {Modal, Select, Icon} from 'antd';
 const Option = Select.Option;
 
-let ships = [];
 class DeleteFleetModal extends React.Component {
 
     getStyles() {
         const styles = {
+
+            regularFont: {
+                fontWeight: 400,
+                fontSize: 12,
+                color: 'rgba(0,0,0,0.65)',
+            },
 
             title: {
                 fontWeight: 400,
@@ -22,8 +27,7 @@ class DeleteFleetModal extends React.Component {
 
             content: {
                 display: 'flex',
-                alignItems: 'flex-start',
-                padding: 20,
+                alignItems: 'center',
                 fontWeight: 400,
                 fontSize: 14,
                 color: 'rgba(0,0,0,0.65)',
@@ -33,8 +37,26 @@ class DeleteFleetModal extends React.Component {
                 color: '#f04134',
                 fontWeight: 400,
                 fontSize: 12,
-                letterSpacing: 0,
+                marginLeft: 40,
             },
+
+            tagContent: {
+                display: 'flex',
+                flexWrap: 'wrap',
+                padding: '10px 0',
+            },
+
+            tag: {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '45%',
+                background: '#F7F7F7',
+                border: '1px solid #D9D9D9',
+                borderRadius: 4,
+                padding: 5,
+                marginTop: 10,
+            }
         };
 
         return styles;
@@ -53,16 +75,24 @@ class DeleteFleetModal extends React.Component {
             {
                 "_id": "59717deddebe89ca0803c278",
                 "imo": "1601122",
-                "name": ""
-            }, {"_id": "59705364969b04f652fc843c", "imo": "1233456", "name": "qweqwe"}, {
+                "name": "xiaoxin"
+            },
+            {
+                "_id": "59705364969b04f652fc843c",
+                "imo": "1233456",
+                "name": "qweqwe"
+            },
+            {
                 "_id": "59705315969b04f652fc843b",
                 "imo": "4323456",
                 "name": "123123"
-            }, {
+            },
+            {
                 "_id": "596efbac969b04f652fc843a",
                 "imo": "1161112",
                 "name": "testtest"
-            }, {
+            },
+            {
                 "_id": "57c3c5393fa4f708006f8f6c",
                 "imo": "1111112",
                 "name": "test0829"
@@ -105,18 +135,25 @@ class DeleteFleetModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            validate: true
+            validate: true,
+            changedShips: []
         }
     }
 
-    handlerChange(_ships) {
-        ships = _ships;
+    renderChangedTagElem(styles, ship, i) {
+        return (
+            <div key={'tag_' + ship} style={_.merge({}, styles.tag, i % 2 == 0 ? {} : {marginLeft: 10})}>
+                <div style={styles.regularFont}>1001535-MOON LADY SHIP</div>
+                <Icon type="close" style={{cursor: 'pointer'}} onClick={this.handlerDelete.bind(this, i)}/>
+            </div>
+        )
     }
 
     render() {
         const styles = this.getStyles();
-        const {shipList, fleet}  = this.props;
-        ships = fleet.ships ? fleet.ships : [];
+        const {shipList}  = this.props;
+        const {changedShips} = this.state;
+        console.log('changedShips', changedShips);
 
         return (
             <Modal
@@ -128,26 +165,31 @@ class DeleteFleetModal extends React.Component {
                 onOk={this.handlerOK.bind(this)}
                 onCancel={() => this.props.openModal(this.props.modal, false)}
             >
-                <div style={styles.content}>
-                    <div>IMO:</div>
-                    <div style={{marginLeft: 10}}>
-                        <Select
-                            mode="multiple"
-                            style={{width: 300}}
-                            defaultValue={ships}
-                            placeholder="click to change"
-                            onChange={this.handlerChange.bind(this)}
-                        >
-                            {
-                                shipList.map(ship => {
-                                    return (
-                                        <Option key={ship._id}>{`${ship.name} - ${ship.imo}`}</Option>
-                                    )
-                                })
-                            }
-                        </Select>
+                <div style={{padding: 20}}>
+                    <div style={styles.content}>
+                        <div>IMO:</div>
+                        <div style={{marginLeft: 10}}>
+                            <Select
+                                style={{width: 300}}
+                                placeholder="click to change"
+                                onChange={this.handlerChange.bind(this)}
+                            >
+                                {
+                                    shipList.map(ship => {
+                                        return (
+                                            <Option key={ship._id}>{`${ship.name} - ${ship.imo}`}</Option>
+                                        )
+                                    })
+                                }
+                            </Select>
+                        </div>
+                    </div>
+                    {
+                        this.state.validate ? '' : <div style={styles.productPrompt}>{'ship is not null'}</div>
+                    }
+                    <div style={styles.tagContent}>
                         {
-                            this.state.validate ? '' : <div style={styles.productPrompt}>{'ship is not null'}</div>
+                            changedShips.map((ship, i) => this.renderChangedTagElem(styles, ship, i))
                         }
                     </div>
                 </div>
@@ -156,14 +198,29 @@ class DeleteFleetModal extends React.Component {
         )
     }
 
+    handlerChange(_ship) {
+        const {changedShips} = this.state;
+        const index = _.findIndex(changedShips, ship => ship == _ship);
+        if (index == -1) {
+            changedShips.push(_ship);
+            this.setState({changedShips})
+        }
+    }
+
+    handlerDelete(i) {
+        const {changedShips} = this.state;
+        changedShips.splice(i, 1);
+        this.setState({changedShips})
+    }
+
     handlerOK() {
-        if (ships && ships.length) {
+        const {changedShips} = this.state;
+        if (changedShips.length) {
             if (this.props.saveShips) {
                 const {modal} = this.props;
                 const fleet = _.cloneDeep(this.props.fleet);
-                fleet.ships = ships;
+                fleet.ships = changedShips;
                 this.props.saveShips(modal, fleet);
-                ships = [];
                 this.setState({validate: true})
             }
         } else {

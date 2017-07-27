@@ -140,7 +140,7 @@ class AddPerson extends React.Component {
                         columns.map((item, i) => {
                             return (
                                 <div key={`column${i + 1}`}
-                                     style={_.merge({}, styles.title, item.noRightBorder ? {} : styles.borderRight, item.fill ? {flex: '1'} : {width: item.width})}>
+                                     style={_.merge({}, styles.title, i == columns.length - 1 ? {} : styles.borderRight, item.fill ? {flex: '1'} : {width: item.width})}>
                                     {item.title}
                                 </div>
                             )
@@ -156,7 +156,7 @@ class AddPerson extends React.Component {
                                             const key = _.camelCase(column.title);
                                             return (
                                                 <div key={`column${i + 1}_${j + 1}`}
-                                                     style={_.merge({}, styles.common, column.noRightBorder ? {} : styles.borderRight, column.fill ? {flex: '1'} : {width: column.width})}>
+                                                     style={_.merge({}, styles.common, j == columns.length - 1? {} : styles.borderRight, column.fill ? {flex: '1'} : {width: column.width})}>
                                                     { person[key] }
                                                 </div>
                                             )
