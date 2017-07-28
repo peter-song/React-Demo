@@ -12,6 +12,7 @@ import Detail from './page/Detail';
 import Bill from './page/Bill';
 import Notice from './page/Notice';
 import Fleet from './page/Fleet';
+import Ship from './page/Ship';
 import DevTools from "./component/DevTools/DevTools";
 
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
@@ -82,6 +83,7 @@ class App extends React.Component {
                                 <Menu.Item key="bill"><Link to="/bill">Bill</Link></Menu.Item>
                                 <Menu.Item key="notice"><Link to="/notice">Notice</Link></Menu.Item>
                                 <Menu.Item key="fleet"><Link to="/fleet">Fleet</Link></Menu.Item>
+                                <Menu.Item key="ship"><Link to="/ship">Ship</Link></Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>
@@ -102,6 +104,7 @@ class App extends React.Component {
                                 <Route path="/notice" component={Notice}/>
                                 <Route path="/template" component={Template}/>
                                 <Route path="/fleet" component={Fleet}/>
+                                <Route path="/ship" component={Ship}/>
                             </div>
                         </Content>
                         <Footer style={{textAlign: 'center'}}>

@@ -399,7 +399,7 @@ class EditTable extends React.Component {
                              min={0} style={_.merge({}, styles.quotationDetailRight, {width: '70%'})}
                              onChange={this.handlerChangePrice.bind(this, i, 'usd')}
                              value={item.amount}
-                             placeholder={""}/> :
+                             placeholder={"USD"}/> :
                 <span style={_.merge({}, styles.quotationDetailRight, {color: 'rgba(0,0,0,0.65)'})}>
                     {Number.parseFloat(item.amount).toFixed(2)}
                 </span>;
@@ -408,7 +408,7 @@ class EditTable extends React.Component {
             </Upload>;
             const btnElem = [
                 <Icon type="delete" style={_.merge({}, styles.icon)}
-                         onClick={() => this.handlerDeleteCostItem(i)}/>
+                      onClick={() => this.handlerDeleteCostItem(i)}/>
             ];
             if (!isEdit) {
                 btnElem.push(
@@ -517,9 +517,9 @@ class EditTable extends React.Component {
             costType: '',
             validateTitle: true,
             description: '',
-            amountRMB: '',
+            amountRMB: 0,
             validateRMB: true,
-            amount: '',
+            amount: 0,
             validateUSD: true,
         };
         detail.items.push(defaultItem);
@@ -631,35 +631,33 @@ class EditTable extends React.Component {
     handlerChangePrice(i, type, value) {
         if (value == '') value = 0;
         const detail = this.state.detail;
-        const item = detail.items[i];
 
-        if (value == 0) {
-            item.validateRMB = false;
-            item.validateUSD = false;
-        } else {
-            item.validateRMB = true;
-            item.validateUSD = true;
+        if (_.isNumber(value) || _.endsWith(value, '.')) {
+
+            const item = detail.items[i];
+
+            if (value == 0) {
+                item.validateRMB = false;
+                item.validateUSD = false;
+            } else {
+                item.validateRMB = true;
+                item.validateUSD = true;
+            }
+
+            const currentExchange = this.props.currentExchange;
+            if (type == 'RMB') {
+                item.amountRMB = value;
+                const USD = Number.parseFloat(value) / currentExchange;
+                item.amount = USD.toFixed(2);
+            } else {
+                const RMB = Number.parseFloat(value) * currentExchange;
+                item.amountRMB = RMB.toFixed(2);
+                item.amount = value;
+            }
+            detail.items[i] = item;
+
+            this.calcTotalPrice(detail);
         }
-
-        /*if (item.validateTitle && item.validateRMB && item.validateUSD) {
-         item.delColor = '#4990E2';
-         } else {
-         item.delColor = '#9B9B9B';
-         }*/
-
-        const currentExchange = this.props.currentExchange;
-        if (type == 'RMB') {
-            item.amountRMB = value;
-            const USD = Number.parseFloat(value) / currentExchange;
-            item.amount = USD.toFixed(2);
-        } else {
-            const RMB = Number.parseFloat(value) * currentExchange;
-            item.amountRMB = RMB.toFixed(2);
-            item.amount = value;
-        }
-        detail.items[i] = item;
-
-        this.calcTotalPrice(detail);
         this.setState({detail})
     }
 
@@ -672,6 +670,7 @@ class EditTable extends React.Component {
         detail.total.totalAmountRMB = totalRMB.toFixed(2);
         detail.total.totalAmountUSD = totalUSD.toFixed(2);
     }
+
 }
 
 export default EditTable;
