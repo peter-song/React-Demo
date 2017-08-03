@@ -5,9 +5,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {Icon} from 'antd';
 
 import UploadParticular from '../../component/ship/UploadParticular';
+import BasicCard from '../../component/ship/BasicCard/index';
 
 class Ship extends React.Component {
 
@@ -67,26 +67,20 @@ class Ship extends React.Component {
     }
 
 
-    static propTypes = {};
+    static propTypes = {
+    };
 
     static defaultProps = {};
 
     constructor(props) {
         super(props);
         this.state = {
-            shipBasicData: _.fill(new Array(7), false),
-            shipCompanyInformation: _.fill(new Array(6), false),
-            shipContactDetail: _.fill(new Array(5), false),
-            shipBuilderInformation: _.fill(new Array(6), false),
-            shipMainData: _.fill(new Array(5), false),
-            shipDisplacementData: _.fill(new Array(3), false),
-            shipEngineData: _.fill(new Array(4), false),
-            shipPropellerData: _.fill(new Array(1), false),
-            shipSpeedData: _.fill(new Array(2), false),
+            shipDetail: {}
         }
     }
 
     renderUploadElem() {
+
         const props = {
             hasUpload: true
         };
@@ -96,186 +90,130 @@ class Ship extends React.Component {
         )
     }
 
-    renderItemElem(title, item, star = false, width = '48%', index, maxIndex = 1, leftWidth = 100, rightWidth = 100) {
-        const styles = this.getStyles();
-        title = _.camelCase(title);
-        const isShows = this.state[title] ? this.state[title] : [];
-        return (
-            <div key={ title + '_' + (index + 1)}
-                 style={_.merge({}, styles.verticalCenter, {width}, index > maxIndex ? {marginTop: 8} : {})}
-                 onMouseOver={this.handlerMouse.bind(this, title, index, true)}
-                 onMouseLeave={this.handlerMouse.bind(this, title, index, false)}
-            >
-                <div style={_.merge({}, styles.regularFont, styles.verticalCenter)}>
-                    <div style={{width: index % 2 == 0 || maxIndex == 0 ? leftWidth : rightWidth, textAlign: 'right'}}>
-                        {star ? <Icon type='star' style={styles.icon}/> : ''}
-                        <span style={_.merge({}, star ? {marginLeft: 8} : {})}>{item.key}:</span>
-                    </div>
-                    <div style={_.merge({}, styles.verticalCenter, {marginLeft: 16})}>
-                        {`${item.value} ${item.unit ? item.unit : ''}`}
-                    </div>
-                </div>
+    renderShipBasicDataElem(shipDetail) {
+
+        const props = {
+            title: 'Ship Basic Data',
+            data: [
                 {
-                    isShows[index] ?
-                        <div style={_.merge({}, styles.blueFont, {marginLeft: 20, cursor: 'pointer'})}
-                             onClick={item => console.log(item)}
-                        >Revise</div> : ''
+                    key: 'IMO',
+                    value: shipDetail.imo ? shipDetail.imo : '-',
+                },
+                {
+                    key: 'Ship Name',
+                    value: shipDetail.name ? shipDetail.name : '-',
+                },
+                {
+                    key: 'Flag',
+                    value: 'China'
+                },
+                {
+                    key: 'Ship Type',
+                    value: 'LPG Tanker'
+                },
+                {
+                    key: 'LOA',
+                    value: '300',
+                    unit: 'M'
+                },
+                {
+                    key: 'Beam',
+                    value: '65',
+                    unit: 'M'
+                },
+                {
+                    key: 'GRT',
+                    value: '300',
+                    unit: 'MT'
+                },
+                {
+                    key: 'NRT',
+                    value: '300',
+                    unit: 'MT'
+                },
+                {
+                    key: 'DWT',
+                    value: '300',
+                    unit: 'MT'
                 }
-            </div>
-        )
+            ],
+            star: true
+        };
+
+        return <BasicCard {...props}/>
+
     }
 
-    renderTableElem(title, data, star, width, maxIndex, leftWidth, rightWidth) {
-        const styles = this.getStyles();
-        return (
-            <div style={styles.commonTable}>
-                <div style={styles.commonTableTitle}>{title}</div>
-                <div style={_.merge({}, styles.commonTableContent, styles.verticalCenter, {flexWrap: 'wrap'})}>
-                    {data.map((item, index) => this.renderItemElem(title, item, star, width, index, maxIndex, leftWidth, rightWidth))}
-                </div>
-            </div>
-        )
+    renderShipCompanyInfoElem(shipDetail) {
+        const props = {
+            title: 'Ship Company Information',
+            data: [
+                {
+                    key: 'Ship Owner',
+                    value: 'you are the apple of my eye'
+                },
+                {
+                    key: 'Ship Management',
+                    value: 'you are the apple of my eye'
+                },
+                {
+                    key: 'Ship Operation',
+                    value: 'you are the apple of my eye'
+                },
+                {
+                    key: 'DOC Company',
+                    value: 'you are the apple of my eye'
+                },
+                {
+                    key: 'Ship Registry Company',
+                    value: 'you are the apple of my eye'
+                },
+                {
+                    key: 'Ship Tech.Management',
+                    value: 'you are the apple of my eye'
+                },
+            ],
+            width: '100%',
+            maxIndex: 0,
+            leftWidth: 180
+        };
+
+        return <BasicCard {...props}/>
     }
 
-    renderShipDetailedDetailElem(title, data) {
-        const styles = this.getStyles();
-        return (
-            <div style={styles.commonTable}>
-                <div style={styles.commonTableTitle}>{title}</div>
-                <div style={styles.commonTableContent}>
-                    {
-                        data.map((item, i) => {
-                            let leftWidth = 100, rightWidth = 100;
-                            if (i == 1) {
-                                leftWidth = 170;
-                                rightWidth = 220;
-                            } else if (i == 2) {
-                                leftWidth = rightWidth = 130;
-                            } else if (i == 4) {
-                                leftWidth = 130;
-                                rightWidth = 150;
-                            }
-                            return (
-                                <div key={_.camelCase(title) + '_' + (i + 1)}
-                                     style={_.merge({}, i > 0 ? {marginTop: 40} : {})}>
-                                    <div style={styles.boldFont}>{item.title}</div>
-                                    <div
-                                        style={_.merge({}, styles.commonTableContent, styles.verticalCenter, {flexWrap: 'wrap'})}>
-                                        {item.content.map((subItem, index) => this.renderItemElem(item.title, subItem, false, '48%', index, 1, leftWidth, rightWidth))}
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </div>
-        )
+    renderShipContactDetailElem(shipDetail) {
+        const props = {
+            title: 'Ship Contact Detail',
+            data: [
+                {
+                    key: 'Inmarsat-C',
+                    value: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+                },
+                {
+                    key: 'Telephone',
+                    value: '+86 21 88888888'
+                },
+                {
+                    key: 'Email',
+                    value: 'ship2017@ship.com'
+                },
+                {
+                    key: 'Fax',
+                    value: '+86 21 66666666'
+                },
+                {
+                    key: 'TLX',
+                    value: 'LDSDDDF999'
+                },
+            ]
+        };
+
+        return <BasicCard {...props}/>
     }
 
-    handlerMouse(title, index, show) {
-        const isShows = this.state[title] ? this.state[title] : [];
-        isShows[index] = show;
-        this.setState({[title]: isShows})
-    }
-
-    render() {
-        const styles = this.getStyles();
-
-        const shipBasicData = [
-            {
-                key: 'IMO',
-                value: '1601127',
-            },
-            {
-                key: 'Ship Name',
-                value: 'jinyonghao'
-            },
-            {
-                key: 'Flag',
-                value: 'China'
-            },
-            {
-                key: 'Ship Type',
-                value: 'LPG Tanker'
-            },
-            {
-                key: 'LOA',
-                value: '300',
-                unit: 'M'
-            },
-            {
-                key: 'Beam',
-                value: '65',
-                unit: 'M'
-            },
-            {
-                key: 'GRT',
-                value: '300',
-                unit: 'MT'
-            },
-            {
-                key: 'NRT',
-                value: '300',
-                unit: 'MT'
-            },
-            {
-                key: 'DWT',
-                value: '300',
-                unit: 'MT'
-            }
-        ];
-
-        const shipCompanyInfo = [
-            {
-                key: 'Ship Owner',
-                value: 'you are the apple of my eye'
-            },
-            {
-                key: 'Ship Management',
-                value: 'you are the apple of my eye'
-            },
-            {
-                key: 'Ship Operation',
-                value: 'you are the apple of my eye'
-            },
-            {
-                key: 'DOC Company',
-                value: 'you are the apple of my eye'
-            },
-            {
-                key: 'Ship Registry Company',
-                value: 'you are the apple of my eye'
-            },
-            {
-                key: 'Ship Tech.Management',
-                value: 'you are the apple of my eye'
-            },
-        ];
-
-        const shipContactDetail = [
-            {
-                key: 'Inmarsat-C',
-                value: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-            },
-            {
-                key: 'Telephone',
-                value: '+86 21 88888888'
-            },
-            {
-                key: 'Email',
-                value: 'ship2017@ship.com'
-            },
-            {
-                key: 'Fax',
-                value: '+86 21 66666666'
-            },
-            {
-                key: 'TLX',
-                value: 'LDSDDDF999'
-            },
-        ];
-
-        const shipDetailedInfo = [
+    renderShipDetailedDetailElem(shipDetail) {
+        const title = 'Ship Detailed Information';
+        const data = [
             {
                 title: 'Ship Main Data',
                 content: [
@@ -370,42 +308,87 @@ class Ship extends React.Component {
                 ]
             },
         ];
+        const styles = this.getStyles();
+        return (
+            <div style={styles.commonTable}>
+                <div style={styles.commonTableTitle}>{title}</div>
+                <div style={styles.commonTableContent}>
+                    {
+                        data.map((item, i) => {
+                            let leftWidth = 100, rightWidth = 100;
+                            if (i == 1) {
+                                leftWidth = 170;
+                                rightWidth = 220;
+                            } else if (i == 2) {
+                                leftWidth = rightWidth = 130;
+                            } else if (i == 4) {
+                                leftWidth = 130;
+                                rightWidth = 150;
+                            }
+                            const props = {
+                                title: item.title,
+                                data: item.content,
+                                subTable: true,
+                                marginTop: 0,
+                                leftWidth,
+                                rightWidth
+                            };
+                            return <BasicCard {...props}/>
+                        })
+                    }
+                </div>
+            </div>
+        )
+    }
 
-        const shipBuilderInfo = [
-            {
-                key: 'Ship Builder',
-                value: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-            },
-            {
-                key: 'Hull No.',
-                value: '+86 21 88888888'
-            },
-            {
-                key: 'Date of Keel Laid',
-                value: '12/FEB/2017'
-            },
-            {
-                key: 'Date of Launch',
-                value: '30/JUN/2017'
-            },
-            {
-                key: 'Date of Delivery',
-                value: '26/MAY/2017'
-            },
-            {
-                key: 'Date of Main Conversion',
-                value: '30/JUN/2017'
-            },
-        ];
+    renderShipBuilderInfoElem() {
+        const props = {
+            title: 'Ship Builder Information',
+            data: [
+                {
+                    key: 'Ship Builder',
+                    value: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+                },
+                {
+                    key: 'Hull No.',
+                    value: '+86 21 88888888'
+                },
+                {
+                    key: 'Date of Keel Laid',
+                    value: '12/FEB/2017'
+                },
+                {
+                    key: 'Date of Launch',
+                    value: '30/JUN/2017'
+                },
+                {
+                    key: 'Date of Delivery',
+                    value: '26/MAY/2017'
+                },
+                {
+                    key: 'Date of Main Conversion',
+                    value: '30/JUN/2017'
+                },
+            ],
+            leftWidth: 150,
+            rightWidth: 200
+        };
 
+        return <BasicCard {...props}/>
+    }
+
+
+    render() {
+        const styles = this.getStyles();
+        const {shipDetail} = this.state;
         return (
             <div style={styles.content}>
-                {this.renderUploadElem()}
-                {this.renderTableElem('Ship Basic Data', shipBasicData, true)}
-                {this.renderTableElem('Ship Company Information', shipCompanyInfo, false, '100%', 0, 180)}
-                {this.renderTableElem('Ship Contact Detail', shipContactDetail, false)}
-                {this.renderShipDetailedDetailElem('Ship Detailed Information', shipDetailedInfo)}
-                {this.renderTableElem('Ship Builder Information', shipBuilderInfo, false, '48%', 1, 150, 200)}
+                {this.renderUploadElem(shipDetail)}
+                {this.renderShipBasicDataElem(shipDetail)}
+                {this.renderShipCompanyInfoElem(shipDetail)}
+                {this.renderShipContactDetailElem(shipDetail)}
+                {this.renderShipDetailedDetailElem(shipDetail)}
+                {this.renderShipBuilderInfoElem(shipDetail)}
             </div>
         )
     }
