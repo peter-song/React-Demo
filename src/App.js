@@ -6,8 +6,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import ApiClient from './helper/ApiClient';
 import configureStore from './redux/createStore';
 
-import Template from './Template';
-import Profile from './page/profile/index';
+import Basic from './page/Basic';
 import Detail from './page/Detail';
 import Bill from './page/Bill';
 import Notice from './page/Notice';
@@ -97,12 +96,12 @@ class App extends React.Component {
                                 <Breadcrumb.Item>Bill</Breadcrumb.Item>
                             </Breadcrumb>
                             <div style={{background: '#fff', minHeight: 600}}>
-                                <Route exact path="/" component={Profile}/>
-                                <Route path="/basic" component={Profile}/>
+                                {/*<Route  path="/" component={Profile}/>*/}
+                                <Route exact path="/" component={Basic}/>
+                                <Route path="/basic" component={Basic}/>
                                 <Route path="/detail" component={Detail}/>
                                 <Route path="/bill" component={Bill}/>
                                 <Route path="/notice" component={Notice}/>
-                                <Route path="/template" component={Template}/>
                                 <Route path="/fleet" component={Fleet}/>
                                 <Route path="/ship" component={Ship}/>
                             </div>

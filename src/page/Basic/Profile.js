@@ -1,18 +1,19 @@
 /**
- * Created by songzhongkun on 17/4/2.
+ * Created by songzhongkun on 2017/5/18.
  */
-import React from 'react';
-import _ from 'lodash';
-import {connect} from 'react-redux';
-import * as ActionsCreators from '../../redux/reducers/profile';
 
+import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {Input, Button} from 'antd';
 
-import './profile.css';
-let person = require('../../../static/config/person');
+import * as ActionsCreators from '../../redux/reducers/profile';
+const person = require('../../../static/config/person');
 import headImg from '../../../static/img/head-portrait.jpg';
-
 import Hobby from './Hobby';
+
+import '../common.scss';
 
 @connect(
     state => ({
@@ -22,10 +23,9 @@ import Hobby from './Hobby';
     ActionsCreators
 )
 
-export default class Profile extends React.Component {
+class Profile extends React.Component {
 
     getStyles() {
-
         const styles = {
 
             content: {
@@ -52,23 +52,17 @@ export default class Profile extends React.Component {
         return styles;
     }
 
-    static propTypes = {
-        name: React.PropTypes.string.isRequired,
-        age: React.PropTypes.number.isRequired,
-    };
 
-    static defaultProps = {
-        name: person.name,
-        age: person.age
-    };
+    static propTypes = {};
+
+    static defaultProps = {};
 
     constructor(props) {
         super(props);
         this.state = {
-            liked: 0
-        };
-        this.likedCallback = this.likedCallback.bind(this);
-        this.addHobbyCallback = this.addHobbyCallback.bind(this);
+            liked: 0,
+            hobby: ''
+        }
     }
 
     componentDidMount() {
@@ -93,18 +87,20 @@ export default class Profile extends React.Component {
                             <h2 className="color">我今年 {this.props.age} 岁</h2>
                         </div>
                         <div style={{display: 'flex', alignItems: 'center', marginTop: 10}}>
-                            <Button onClick={this.likedCallback}>给我点赞</Button>
+                            <Button onClick={this.likedCallback.bind(this)}>给我点赞</Button>
                             <div style={{marginLeft: 10}}>总点赞数： {this.state.liked}</div>
                         </div>
                         <div style={{marginTop: 10}}>
                             <h2>我的爱好：</h2>
                             <div>
-                                <ul id="hobby">
+                                <ul>
                                     {hobbies.map((hobby, i) => <Hobby key={i} hobby={hobby}/>)}
                                 </ul>
                                 <div style={{display: 'flex', marginTop: 10}}>
-                                    <Input type="text" defaultValue="爬山" ref="hobby"/>
-                                    <Button style={{marginLeft: 10}} onClick={this.addHobbyCallback}>添加爱好</Button>
+                                    <Input type="text" placeholder="输入爱好" value={this.state.hobby}
+                                           onChange={this.handlerChangeHobby.bind(this)}/>
+                                    <Button style={{marginLeft: 10}}
+                                            onClick={this.addHobbyCallback.bind(this)}>添加爱好</Button>
                                 </div>
                             </div>
                         </div>
@@ -139,13 +135,16 @@ export default class Profile extends React.Component {
         });
     }
 
-    addHobbyCallback() {
-        const hobbyInput = this.refs.hobby;
-        const val = hobbyInput.value;
-        if (val) {
-            this.props.addHobby({text: val});
-            // hobbyInput.value = '';
-        }
+    handlerChangeHobby(e) {
+        this.setState({hobby: e.target.value})
     }
 
+    addHobbyCallback() {
+        const hobby = this.state.hobby;
+        if (hobby) {
+            this.setState({hobby: ''}, this.props.addHobby({text: hobby}));
+        }
+    }
 }
+
+export default Profile;

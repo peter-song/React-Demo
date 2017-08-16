@@ -6,13 +6,12 @@ import React from 'react';
 import _ from 'lodash';
 import {Layout, Icon, Popconfirm, Tabs} from 'antd';
 const TabPane = Tabs.TabPane;
-const {Header, Content, Footer} = Layout;
 
 import ConfigForm from '../../component/form/order/config-forms';
 import SettingForm from '../../component/form/SettingForm';
 import EditTable from '../../component/Offer/EditTable';
 
-import '../detail.scss';
+import '../common.scss';
 
 class Detail extends React.Component {
 

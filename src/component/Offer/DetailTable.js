@@ -218,8 +218,8 @@ class DetailTable extends React.Component {
                     {
                         columns.map((column, i) => {
                             return (
-                                <div
-                                    style={_.merge({}, styles.commonTitle, column.fill ? {flex: '1'} : {width: column.width}, i != columns.length - 1 ? styles.commonTitleBorderRight : {})}>
+                                <div key={`column_${i}`}
+                                     style={_.merge({}, styles.commonTitle, column.fill ? {flex: '1'} : {width: column.width}, i != columns.length - 1 ? styles.commonTitleBorderRight : {})}>
                                     {column.name}
                                 </div>
                             )
@@ -231,6 +231,7 @@ class DetailTable extends React.Component {
                         commonArr.map((key, i) => {
                             return (
                                 <div
+                                    key={`common_${i + 1}`}
                                     style={_.merge({}, styles.commonContent, columns[i].fill ? {flex: '1'} : {width: columns[i].width}, i != commonArr.length - 1 ? styles.commonTitleBorderRight : {})}>
                                     <div style={styles.commonContent2}>{common[key]}</div>
                                 </div>
@@ -301,9 +302,9 @@ class DetailTable extends React.Component {
                     <div
                         style={_.merge({}, styles.col5, styles.detailContent, styles.horizontalCenter, {padding: '5px 0 0 0'})}>
                         {isOpen ? <Icon type="up-square-o" style={styles.icon}
-                                          onClick={this.handlerToggle.bind(this, i, false)}/>
+                                        onClick={this.handlerToggle.bind(this, i, false)}/>
                             : <Icon type="down-square-o" style={styles.icon}
-                                        onClick={this.handlerToggle.bind(this, i, true)}/>}
+                                    onClick={this.handlerToggle.bind(this, i, true)}/>}
                     </div>
                 </div>
             );
@@ -314,8 +315,8 @@ class DetailTable extends React.Component {
                     if (this.props.hasDownload) {
                         const invoices = subItem.invoices;
                         downloadElem.push(
-                            <div
-                                style={_.merge({}, styles.downloadCol, styles.verticalCenter, styles.detailSubContent)}>
+                            <div key={`subItem_${i}-${j}`}
+                                 style={_.merge({}, styles.downloadCol, styles.verticalCenter, styles.detailSubContent)}>
                                         <span style={_.merge({}, styles.downloadFont, {marginLeft: 10})}>
                                             {`${invoices.length} Files`}
                                         </span>

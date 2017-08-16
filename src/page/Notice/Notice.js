@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {Icon} from 'antd';
 
-class Welcome extends React.Component {
+class Notice extends React.Component {
 
     getStyles() {
         const styles = {
@@ -339,17 +339,15 @@ class Welcome extends React.Component {
                                             };
 
                                             return (
-                                                <Link to={`/bill`}>
-                                                    <div {...props2}>
-                                                        <div>{msg.content}</div>
-                                                        <div>
-                                                            <div style={{
-                                                                textAlign: 'right',
-                                                                width: 150
-                                                            }}>{msg.date}</div>
-                                                        </div>
+                                                <div {...props2}>
+                                                    <div>{msg.content}</div>
+                                                    <div>
+                                                        <div style={{
+                                                            textAlign: 'right',
+                                                            width: 150
+                                                        }}>{msg.date}</div>
                                                     </div>
-                                                </Link>
+                                                </div>
                                             )
                                         }) : ''
                                 }
@@ -393,4 +391,4 @@ class Welcome extends React.Component {
 
 }
 
-export default Welcome;
+export default Notice;

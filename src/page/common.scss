@@ -1,0 +1,72 @@
+
+#order_detail_tab {
+
+  .ant-tabs-bar {
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+
+}
+
+#bill_detail_tab {
+
+  margin-top: 10px;
+
+  .ant-tabs-nav {
+    margin-left: 16px;
+  }
+
+  .ant-tabs-bar {
+    margin-bottom: 0px;
+    margin-top: 10px;
+  }
+
+}
+
+.cardContent {
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  min-height: 150px;
+  padding: 10px;
+}
+
+.name {
+  color: red;
+  display: block;
+  margin-top: 5px;
+}
+
+.content {
+  width: 80%;
+}
+
+.contentRight img {
+  width: 150px;
+  height: 150px;
+}
+
+.book {
+  clear: both;
+  border: 1px solid gray;
+  margin-top: 10px;
+  padding: 10px;
+  height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto
+}
+
+.basicInfo {
+  color: rgba(0, 0, 0, 0.870588);
+  font-size: 22px;
+  font-weight: 400;
+}
+
+
+.logo2 {
+  width: 50px;
+  height: 50px;
+}
+
+.color {
+  color: gray;
+}

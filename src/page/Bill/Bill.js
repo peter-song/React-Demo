@@ -12,7 +12,7 @@ const FormItem = Form.Item;
 import Logo from '../../../static/img/logo_pdf.png';
 import DetailTable from '../../component/Offer/DetailTable';
 
-import '../detail.scss';
+import '../common.scss';
 
 class Bill extends React.Component {
 

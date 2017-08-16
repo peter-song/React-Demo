@@ -11,6 +11,7 @@ const confirm = Modal.confirm;
 import AddFleetModal from '../../component/fleet/AddFleetModal';
 import AddShipsModal from '../../component/fleet/AddShipsModal';
 import SelectFleetManager from '../../component/fleet/SelectFleetManager';
+
 const modal = {
     addFleet: 'addModalIsOpen',
     addShips: 'addShipsModalIsOpen',
