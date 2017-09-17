@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js事件测试</title>
+</head>
+<body>
+<div id="div1">
+    <a href="http://www.baidu.com/" id="link1">百度1</a>
+    <a href="http://www.baidu.com/" id="link2">百度2</a>
+    <a href="http://www.baidu.com/" id="link3">百度3</a>
+    <a href="http://www.baidu.com/" id="link4">百度4</a>
+    <p id="p1">激活</p>
+    <p id="p2">取消</p>
+</div>
+<div id="div2">
+    <p id="p3">取消</p>
+    <p id="p4">取消</p>
+</div>
+
+<!--懒加载示例-->
+<!--<img id="img1" src="preview.png" data-realsrc="abc.png">
+<script>
+    const img1 = document.getElementById('img1');
+    img1.src = img1.getAttribute('data-realsrc');
+</script>-->
+
+<script>
+    //编写一个通用的事件监听函数
+    function bindEvent(elem, type, selector, fn) {
+        if (fn == null) {
+            fn = selector;
+            selector = null;
+        }
+        elem.addEventListener(type, function (e) {
+            if (selector) {
+                //代理
+                const target = e.target;
+                if (target.matches(selector)) {
+                    fn.call(target, e);
+                }
+            } else {
+                //不是代理
+                fn(e);
+            }
+        })
+    }
+
+    const div1 = document.getElementById('div1');
+    bindEvent(div1, 'click', 'a', function (e) {
+        e.preventDefault();
+        console.log(this.innerHTML);
+    });
+
+    const p1 = document.getElementById('p1');
+    bindEvent(p1, 'click', function () {
+        console.log(p1.innerHTML);
+    })
+
+
+    //合并DOM插入示例
+    /*const listNode = document.getElementById('list');
+    const flag = document.createDocumentFragment();
+    for(let i = 0; i < 10; i++){
+        const li = document.createElement('li');
+        li.innerHTML = 'List item' + i;
+        flag.appendChild(li);
+    }
+    listNode.appendChild(flag);*/
+
+    //事件节流示例
+    /*const textarea = document.getElementById('text');
+    let timeoutId;
+    textarea.addEventListener('keyup', function () {
+        if(timeoutId){
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(function () {
+            //...
+        }, 100)
+    })*/
+
+    //尽早操作示例
+   /* window.addEventListener('load', function () {
+        //页面在全部资源加载后才会执行，包括图片、视频等
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        //DOM 渲染完即可执行，此时图片、视频可能还没加载完
+    });*/
+
+</script>
+</body>
+</html>

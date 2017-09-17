@@ -53,15 +53,21 @@ class Profile extends React.Component {
     }
 
 
-    static propTypes = {};
+    static propTypes = {
+        name: PropTypes.string,
+        age: PropTypes.number
+    };
 
-    static defaultProps = {};
+    static defaultProps = {
+        name: person.name,
+        age: person.age
+    };
 
     constructor(props) {
         super(props);
         this.state = {
             liked: 0,
-            hobby: ''
+            hobby: '爬山'
         }
     }
 

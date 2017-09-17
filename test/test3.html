@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .graph{
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .graph > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width:50px;
+            height:50px;
+            -webkit-transform-origin: 100% 100%;
+            transform-origin: 100% 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="graph">
+        <div style="transform: rotate(0deg) skew(31deg)"></div>
+        <div style="transform: rotate(60deg) skew(31deg)"></div>
+        <div style="transform: rotate(120deg) skew(31deg)"></div>
+    </div>
+
+    <div>
+        <img src="aaa.jpg" alt="alt" title="title">
+    </div>
+</body>
+</html>
