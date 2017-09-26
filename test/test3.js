@@ -284,29 +284,29 @@ Animal.prototype.eat = function (food) {
 
 //原型链继承
 /*function Cat() {
-}
-Cat.prototype = new Animal();
-Cat.prototype.name = 'cat';
-*/
+ }
+ Cat.prototype = new Animal();
+ Cat.prototype.name = 'cat';
+ */
 
 
 //构造继承
 /*function Cat(name) {
-    Animal.call(this);
-    this.name = name || 'cat2'
-}*/
+ Animal.call(this);
+ this.name = name || 'cat2'
+ }*/
 
 //实例继承
 /*function Cat(name) {
-    const instance = new Animal();
-    instance.name = name || 'cat3';
-    return instance;
-}*/
+ const instance = new Animal();
+ instance.name = name || 'cat3';
+ return instance;
+ }*/
 
 //拷贝继承
 function Cat(name) {
     const animal = new Animal();
-    for(let p in animal){
+    for (let p in animal) {
         Cat.prototype[p] = animal[p];
     }
     Cat.prototype.name = name || 'cat4';
@@ -315,6 +315,14 @@ function Cat(name) {
 const cat = new Cat();
 cat.say('hello');
 cat.eat('fish');
+
+for (let i = 1; i < 10; i++) {
+    let str = '';
+    for (let j = 1; j <= i; j++) {
+        str += j + '*' + i + '=' + (i * j) + ' ';
+    }
+    console.log(str)
+}
 
 
 

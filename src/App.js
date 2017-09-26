@@ -111,7 +111,7 @@ class App extends React.Component {
                         </Footer>
                     </Layout>
                 </Layout>
-                {/*<DevTools />*/}
+                <DevTools />
             </div>
         );
     }
