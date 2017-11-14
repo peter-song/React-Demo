@@ -51,3 +51,9 @@ open http://localhost:3000
 ```
 添加express搭建服务器
 ```
+
+## 2017.11.14
+
+```
+添加 react-router-config 控制路由
+```

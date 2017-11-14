@@ -113,7 +113,7 @@ class BasicCard extends React.Component {
                                 onMouseOver: this.handlerMouse.bind(this, index),
                                 onMouseLeave: this.handlerMouse.bind(this, index),
                             };
-                            return <BasicCardItem {...props}/>
+                            return <BasicCardItem key={index} {...props}/>
                         })
                     }
                 </div>

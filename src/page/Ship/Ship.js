@@ -333,7 +333,7 @@ class Ship extends React.Component {
                                 leftWidth,
                                 rightWidth
                             };
-                            return <BasicCard {...props}/>
+                            return <BasicCard key={i} {...props}/>
                         })
                     }
                 </div>

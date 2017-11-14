@@ -1,3 +1,5 @@
+'use strict';
+
 let webpack = require('webpack');
 let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');//生成html
