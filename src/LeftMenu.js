@@ -40,8 +40,9 @@ class LeftMenu extends React.Component {
         onCollapse={onCollapse}
         style={{height: '100%'}}
       >
-        <Menu theme="dark" mode={mode} defaultSelectedKeys={['2']}
-              defaultOpenKeys={['sub1']}>
+        <Menu
+          theme="dark" mode={mode} defaultSelectedKeys={['2']}
+          defaultOpenKeys={['sub1']}>
           <SubMenu
             key="sub1"
             title={<span><Icon type="user"/><span className="nav-text">User</span></span>}
@@ -55,7 +56,8 @@ class LeftMenu extends React.Component {
           </SubMenu>
         </Menu>
       </Sider>
-    )
+    );
+
   }
 }
 

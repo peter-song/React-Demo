@@ -12,7 +12,7 @@ import {
   Col,
   Checkbox,
   Button,
-  AutoComplete
+  AutoComplete,
 } from 'antd';
 
 module.exports = {
@@ -27,5 +27,5 @@ module.exports = {
   Col,
   Checkbox,
   Button,
-  AutoComplete
+  AutoComplete,
 };

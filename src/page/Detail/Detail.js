@@ -4,6 +4,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import {Icon, Popconfirm, Tabs} from 'antd';
@@ -148,427 +149,429 @@ class Detail extends React.Component {
         width: 50,
         height: 50,
         color: '#fff',
-      }
+      },
 
     };
 
     return styles;
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      edit: false,
-      orderEntry: undefined,
-      orderEntries: [
-        {
-          product: {
-            code: 'PTOL',
-            name: 'Port Caption Outlay',
-          },
-          costItemsEstimated: [],
-          costItems: [],
-          productConfig: {
-            products: [
-              {
-                config: {
-                  agency: 'Shanghai Seasky Shipping Agency Co.,Ltd.',
-                  address: 'Rm 101, Port Building, No.1 Fenghe Rd.,Pudong New Area, Shanghai 200120 PRC',
-                  contactPerson: 'Jin Chen',
-                  tel: '+86-21-88888888',
-                  email: 'shanghai@seasky.com',
-                  requires: `I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content `
-                },
-                product: {
-                  "code": "PTOLFVSL",
-                  "name": "Off Land",
-                  "_id": "5678aaca6c2fbe251343fc65",
-                  "costTypes": [{
-                    "index": 1,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc6b",
-                    "costType": {
-                      "code": "CTCRCG",
-                      "name": "Courier charge",
-                      "_id": "56651b9c5b4f53742b804e80"
-                    }
-                  }, {
-                    "index": 2,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5696fc57bc8002f657868961",
-                    "costType": {
-                      "code": "CTHGCGNO",
-                      "name": "Handling charge",
-                      "_id": "56947246d4c6b100045f73a0"
-                    }
-                  }, {
-                    "index": 3,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc6b",
-                    "costType": {
-                      "code": "CTTNCG",
-                      "name": "Transportation charge",
-                      "_id": "56651b9c5b4f53742b804e79"
-                    }
-                  }, {
-                    "index": 4,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc68",
-                    "costType": {
-                      "code": "CTCMCECG",
-                      "name": "Custom clearance charge",
-                      "_id": "56651b9c5b4f53742b804e82"
-                    }
-                  }, {
-                    "index": 5,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc67",
-                    "costType": {
-                      "code": "CTAFHTCG",
-                      "name": "Airfreight charge",
-                      "_id": "56651b9d5b4f53742b804e8c"
-                    }
-                  }, {
-                    "index": 6,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc66",
-                    "costType": {
-                      "code": "CTSFHTCG",
-                      "name": "Seafreight charge",
-                      "_id": "56651b9d5b4f53742b804e8d"
-                    }
-                  }, {
-                    "index": 7,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "569606f4fc32b8afd0194daf",
-                    "costType": {
-                      "code": "CTOTHERS",
-                      "name": "Others",
-                      "_id": "56651b9c5b4f53742b804e73"
-                    }
-                  }]
-                }
-              }
-            ]
-          },
-          selected: true,
+  state = {
+    edit: false,
+    orderEntry: undefined,
+    orderEntries: [
+      {
+        product: {
+          code: 'PTOL',
+          name: 'Port Caption Outlay',
         },
-        {
-          product: {
-            code: 'PTAGMINPECN',
-            name: 'AGM Inspection',
-          },
-          costItemsEstimated: [],
-          costItems: [],
-          productConfig: {
-            products: [
-              {
-                config: {
-                  visitFiles: [
-                    {
-                      uid: -1,
-                      name: 'xxx.png',
-                      status: 'done',
-                      url: 'http://www.baidu.com/xxx.png',
-                    }
-                  ],
-                  nextPort: '11111',
-                  remark: `I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content `
-                },
-                product: {
-                  "code": "PTOLFVSL",
-                  "name": "Off Land",
-                  "_id": "5678aaca6c2fbe251343fc65",
-                  "costTypes": [{
-                    "index": 1,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc6b",
-                    "costType": {
-                      "code": "CTCRCG",
-                      "name": "Courier charge",
-                      "_id": "56651b9c5b4f53742b804e80"
-                    }
-                  }, {
-                    "index": 2,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5696fc57bc8002f657868961",
-                    "costType": {
-                      "code": "CTHGCGNO",
-                      "name": "Handling charge",
-                      "_id": "56947246d4c6b100045f73a0"
-                    }
-                  }, {
-                    "index": 3,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc6b",
-                    "costType": {
-                      "code": "CTTNCG",
-                      "name": "Transportation charge",
-                      "_id": "56651b9c5b4f53742b804e79"
-                    }
-                  }, {
-                    "index": 4,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc68",
-                    "costType": {
-                      "code": "CTCMCECG",
-                      "name": "Custom clearance charge",
-                      "_id": "56651b9c5b4f53742b804e82"
-                    }
-                  }, {
-                    "index": 5,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc67",
-                    "costType": {
-                      "code": "CTAFHTCG",
-                      "name": "Airfreight charge",
-                      "_id": "56651b9d5b4f53742b804e8c"
-                    }
-                  }, {
-                    "index": 6,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc66",
-                    "costType": {
-                      "code": "CTSFHTCG",
-                      "name": "Seafreight charge",
-                      "_id": "56651b9d5b4f53742b804e8d"
-                    }
-                  }, {
-                    "index": 7,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "569606f4fc32b8afd0194daf",
-                    "costType": {
-                      "code": "CTOTHERS",
-                      "name": "Others",
-                      "_id": "56651b9c5b4f53742b804e73"
-                    }
-                  }]
-                }
-              }
-            ]
-          },
-          selected: true
+        costItemsEstimated: [],
+        costItems: [],
+        productConfig: {
+          products: [
+            {
+              config: {
+                agency: 'Shanghai Seasky Shipping Agency Co.,Ltd.',
+                address: 'Rm 101, Port Building, No.1 Fenghe Rd.,Pudong New Area, Shanghai 200120 PRC',
+                contactPerson: 'Jin Chen',
+                tel: '+86-21-88888888',
+                email: 'shanghai@seasky.com',
+                requires: 'I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content ',
+              },
+              product: {
+                'code': 'PTOLFVSL',
+                'name': 'Off Land',
+                '_id': '5678aaca6c2fbe251343fc65',
+                'costTypes': [{
+                  'index': 1,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc6b',
+                  'costType': {
+                    'code': 'CTCRCG',
+                    'name': 'Courier charge',
+                    '_id': '56651b9c5b4f53742b804e80',
+                  },
+                }, {
+                  'index': 2,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5696fc57bc8002f657868961',
+                  'costType': {
+                    'code': 'CTHGCGNO',
+                    'name': 'Handling charge',
+                    '_id': '56947246d4c6b100045f73a0',
+                  },
+                }, {
+                  'index': 3,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc6b',
+                  'costType': {
+                    'code': 'CTTNCG',
+                    'name': 'Transportation charge',
+                    '_id': '56651b9c5b4f53742b804e79',
+                  },
+                }, {
+                  'index': 4,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc68',
+                  'costType': {
+                    'code': 'CTCMCECG',
+                    'name': 'Custom clearance charge',
+                    '_id': '56651b9c5b4f53742b804e82',
+                  },
+                }, {
+                  'index': 5,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc67',
+                  'costType': {
+                    'code': 'CTAFHTCG',
+                    'name': 'Airfreight charge',
+                    '_id': '56651b9d5b4f53742b804e8c',
+                  },
+                }, {
+                  'index': 6,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc66',
+                  'costType': {
+                    'code': 'CTSFHTCG',
+                    'name': 'Seafreight charge',
+                    '_id': '56651b9d5b4f53742b804e8d',
+                  },
+                }, {
+                  'index': 7,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '569606f4fc32b8afd0194daf',
+                  'costType': {
+                    'code': 'CTOTHERS',
+                    'name': 'Others',
+                    '_id': '56651b9c5b4f53742b804e73',
+                  },
+                }],
+              },
+            },
+          ],
         },
-        {
-          product: {
-            code: 'PTPSCIA',
-            name: 'PSC Inspection',
-          },
-          costItemsEstimated: [],
-          costItems: [],
-          productConfig: {
-            products: [
-              {
-                config: {
-                  remark: `I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content `
-                },
-                product: {
-                  "code": "PTOLFVSL",
-                  "name": "Off Land",
-                  "_id": "5678aaca6c2fbe251343fc65",
-                  "costTypes": [{
-                    "index": 1,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc6b",
-                    "costType": {
-                      "code": "CTCRCG",
-                      "name": "Courier charge",
-                      "_id": "56651b9c5b4f53742b804e80"
-                    }
-                  }, {
-                    "index": 2,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5696fc57bc8002f657868961",
-                    "costType": {
-                      "code": "CTHGCGNO",
-                      "name": "Handling charge",
-                      "_id": "56947246d4c6b100045f73a0"
-                    }
-                  }, {
-                    "index": 3,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc6b",
-                    "costType": {
-                      "code": "CTTNCG",
-                      "name": "Transportation charge",
-                      "_id": "56651b9c5b4f53742b804e79"
-                    }
-                  }, {
-                    "index": 4,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc68",
-                    "costType": {
-                      "code": "CTCMCECG",
-                      "name": "Custom clearance charge",
-                      "_id": "56651b9c5b4f53742b804e82"
-                    }
-                  }, {
-                    "index": 5,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc67",
-                    "costType": {
-                      "code": "CTAFHTCG",
-                      "name": "Airfreight charge",
-                      "_id": "56651b9d5b4f53742b804e8c"
-                    }
-                  }, {
-                    "index": 6,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc66",
-                    "costType": {
-                      "code": "CTSFHTCG",
-                      "name": "Seafreight charge",
-                      "_id": "56651b9d5b4f53742b804e8d"
-                    }
-                  }, {
-                    "index": 7,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "569606f4fc32b8afd0194daf",
-                    "costType": {
-                      "code": "CTOTHERS",
-                      "name": "Others",
-                      "_id": "56651b9c5b4f53742b804e73"
-                    }
-                  }]
-                }
-              }
-            ]
-          },
-          selected: false
+        selected: true,
+      },
+      {
+        product: {
+          code: 'PTAGMINPECN',
+          name: 'AGM Inspection',
         },
-        {
-          product: {
-            code: 'PTCVD',
-            name: 'Medical Service',
-          },
-          costItemsEstimated: [],
-          costItems: [],
-          productConfig: {
-            products: [
-              {
-                config: {
-                  persons: [{
-                    fullName: 'James Bond',
-                    rank: 'United Kingdom',
-                    symptom: 'Arrival Flight No.'
-                  }],
-                  visitFiles: [
-                    {
-                      uid: -1,
-                      name: 'xxx.png',
-                      status: 'done',
-                      url: 'http://www.baidu.com/xxx.png',
-                    }
-                  ],
-                  remark: `I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content `
-                },
-                product: {
-                  "code": "PTOLFVSL",
-                  "name": "Off Land",
-                  "_id": "5678aaca6c2fbe251343fc65",
-                  "costTypes": [{
-                    "index": 1,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc6b",
-                    "costType": {
-                      "code": "CTCRCG",
-                      "name": "Courier charge",
-                      "_id": "56651b9c5b4f53742b804e80"
-                    }
-                  }, {
-                    "index": 2,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5696fc57bc8002f657868961",
-                    "costType": {
-                      "code": "CTHGCGNO",
-                      "name": "Handling charge",
-                      "_id": "56947246d4c6b100045f73a0"
-                    }
-                  }, {
-                    "index": 3,
-                    "defaultVisiable": true,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc6b",
-                    "costType": {
-                      "code": "CTTNCG",
-                      "name": "Transportation charge",
-                      "_id": "56651b9c5b4f53742b804e79"
-                    }
-                  }, {
-                    "index": 4,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc68",
-                    "costType": {
-                      "code": "CTCMCECG",
-                      "name": "Custom clearance charge",
-                      "_id": "56651b9c5b4f53742b804e82"
-                    }
-                  }, {
-                    "index": 5,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc67",
-                    "costType": {
-                      "code": "CTAFHTCG",
-                      "name": "Airfreight charge",
-                      "_id": "56651b9d5b4f53742b804e8c"
-                    }
-                  }, {
-                    "index": 6,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "5678aaca6c2fbe251343fc66",
-                    "costType": {
-                      "code": "CTSFHTCG",
-                      "name": "Seafreight charge",
-                      "_id": "56651b9d5b4f53742b804e8d"
-                    }
-                  }, {
-                    "index": 7,
-                    "defaultVisiable": false,
-                    "isEditable": true,
-                    "_id": "569606f4fc32b8afd0194daf",
-                    "costType": {
-                      "code": "CTOTHERS",
-                      "name": "Others",
-                      "_id": "56651b9c5b4f53742b804e73"
-                    }
-                  }]
-                }
-              }
-            ]
-          },
-          selected: false
-        }
-      ],
-    }
-  }
+        costItemsEstimated: [],
+        costItems: [],
+        productConfig: {
+          products: [
+            {
+              config: {
+                visitFiles: [
+                  {
+                    uid: -1,
+                    name: 'xxx.png',
+                    status: 'done',
+                    url: 'http://www.baidu.com/xxx.png',
+                  },
+                ],
+                nextPort: '11111',
+                remark: 'I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content ',
+              },
+              product: {
+                'code': 'PTOLFVSL',
+                'name': 'Off Land',
+                '_id': '5678aaca6c2fbe251343fc65',
+                'costTypes': [{
+                  'index': 1,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc6b',
+                  'costType': {
+                    'code': 'CTCRCG',
+                    'name': 'Courier charge',
+                    '_id': '56651b9c5b4f53742b804e80',
+                  },
+                }, {
+                  'index': 2,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5696fc57bc8002f657868961',
+                  'costType': {
+                    'code': 'CTHGCGNO',
+                    'name': 'Handling charge',
+                    '_id': '56947246d4c6b100045f73a0',
+                  },
+                }, {
+                  'index': 3,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc6b',
+                  'costType': {
+                    'code': 'CTTNCG',
+                    'name': 'Transportation charge',
+                    '_id': '56651b9c5b4f53742b804e79',
+                  },
+                }, {
+                  'index': 4,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc68',
+                  'costType': {
+                    'code': 'CTCMCECG',
+                    'name': 'Custom clearance charge',
+                    '_id': '56651b9c5b4f53742b804e82',
+                  },
+                }, {
+                  'index': 5,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc67',
+                  'costType': {
+                    'code': 'CTAFHTCG',
+                    'name': 'Airfreight charge',
+                    '_id': '56651b9d5b4f53742b804e8c',
+                  },
+                }, {
+                  'index': 6,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc66',
+                  'costType': {
+                    'code': 'CTSFHTCG',
+                    'name': 'Seafreight charge',
+                    '_id': '56651b9d5b4f53742b804e8d',
+                  },
+                }, {
+                  'index': 7,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '569606f4fc32b8afd0194daf',
+                  'costType': {
+                    'code': 'CTOTHERS',
+                    'name': 'Others',
+                    '_id': '56651b9c5b4f53742b804e73',
+                  },
+                }],
+              },
+            },
+          ],
+        },
+        selected: true,
+      },
+      {
+        product: {
+          code: 'PTPSCIA',
+          name: 'PSC Inspection',
+        },
+        costItemsEstimated: [],
+        costItems: [],
+        productConfig: {
+          products: [
+            {
+              config: {
+                remark: 'I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content ',
+              },
+              product: {
+                'code': 'PTOLFVSL',
+                'name': 'Off Land',
+                '_id': '5678aaca6c2fbe251343fc65',
+                'costTypes': [{
+                  'index': 1,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc6b',
+                  'costType': {
+                    'code': 'CTCRCG',
+                    'name': 'Courier charge',
+                    '_id': '56651b9c5b4f53742b804e80',
+                  },
+                }, {
+                  'index': 2,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5696fc57bc8002f657868961',
+                  'costType': {
+                    'code': 'CTHGCGNO',
+                    'name': 'Handling charge',
+                    '_id': '56947246d4c6b100045f73a0',
+                  },
+                }, {
+                  'index': 3,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc6b',
+                  'costType': {
+                    'code': 'CTTNCG',
+                    'name': 'Transportation charge',
+                    '_id': '56651b9c5b4f53742b804e79',
+                  },
+                }, {
+                  'index': 4,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc68',
+                  'costType': {
+                    'code': 'CTCMCECG',
+                    'name': 'Custom clearance charge',
+                    '_id': '56651b9c5b4f53742b804e82',
+                  },
+                }, {
+                  'index': 5,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc67',
+                  'costType': {
+                    'code': 'CTAFHTCG',
+                    'name': 'Airfreight charge',
+                    '_id': '56651b9d5b4f53742b804e8c',
+                  },
+                }, {
+                  'index': 6,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc66',
+                  'costType': {
+                    'code': 'CTSFHTCG',
+                    'name': 'Seafreight charge',
+                    '_id': '56651b9d5b4f53742b804e8d',
+                  },
+                }, {
+                  'index': 7,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '569606f4fc32b8afd0194daf',
+                  'costType': {
+                    'code': 'CTOTHERS',
+                    'name': 'Others',
+                    '_id': '56651b9c5b4f53742b804e73',
+                  },
+                }],
+              },
+            },
+          ],
+        },
+        selected: false,
+      },
+      {
+        product: {
+          code: 'PTCVD',
+          name: 'Medical Service',
+        },
+        costItemsEstimated: [],
+        costItems: [],
+        productConfig: {
+          products: [
+            {
+              config: {
+                persons: [{
+                  fullName: 'James Bond',
+                  rank: 'United Kingdom',
+                  symptom: 'Arrival Flight No.',
+                }],
+                visitFiles: [
+                  {
+                    uid: -1,
+                    name: 'xxx.png',
+                    status: 'done',
+                    url: 'http://www.baidu.com/xxx.png',
+                  },
+                ],
+                remark: 'I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content I am content ',
+              },
+              product: {
+                'code': 'PTOLFVSL',
+                'name': 'Off Land',
+                '_id': '5678aaca6c2fbe251343fc65',
+                'costTypes': [{
+                  'index': 1,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc6b',
+                  'costType': {
+                    'code': 'CTCRCG',
+                    'name': 'Courier charge',
+                    '_id': '56651b9c5b4f53742b804e80',
+                  },
+                }, {
+                  'index': 2,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5696fc57bc8002f657868961',
+                  'costType': {
+                    'code': 'CTHGCGNO',
+                    'name': 'Handling charge',
+                    '_id': '56947246d4c6b100045f73a0',
+                  },
+                }, {
+                  'index': 3,
+                  'defaultVisiable': true,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc6b',
+                  'costType': {
+                    'code': 'CTTNCG',
+                    'name': 'Transportation charge',
+                    '_id': '56651b9c5b4f53742b804e79',
+                  },
+                }, {
+                  'index': 4,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc68',
+                  'costType': {
+                    'code': 'CTCMCECG',
+                    'name': 'Custom clearance charge',
+                    '_id': '56651b9c5b4f53742b804e82',
+                  },
+                }, {
+                  'index': 5,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc67',
+                  'costType': {
+                    'code': 'CTAFHTCG',
+                    'name': 'Airfreight charge',
+                    '_id': '56651b9d5b4f53742b804e8c',
+                  },
+                }, {
+                  'index': 6,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '5678aaca6c2fbe251343fc66',
+                  'costType': {
+                    'code': 'CTSFHTCG',
+                    'name': 'Seafreight charge',
+                    '_id': '56651b9d5b4f53742b804e8d',
+                  },
+                }, {
+                  'index': 7,
+                  'defaultVisiable': false,
+                  'isEditable': true,
+                  '_id': '569606f4fc32b8afd0194daf',
+                  'costType': {
+                    'code': 'CTOTHERS',
+                    'name': 'Others',
+                    '_id': '56651b9c5b4f53742b804e73',
+                  },
+                }],
+              },
+            },
+          ],
+        },
+        selected: false,
+      },
+    ],
+  };
+
+  static propTypes = {
+    params: PropTypes.object,
+  };
 
   renderCardElem(styles) {
+
     return (
       <div style={styles.cardContent}>
         <div style={styles.cardItem}>
@@ -584,7 +587,8 @@ class Detail extends React.Component {
         <div style={styles.cardItem}>right</div>
         <div style={styles.new}>New</div>
       </div>
-    )
+    );
+
   }
 
   renderServiceItems(styles) {
@@ -599,17 +603,20 @@ class Detail extends React.Component {
       const isSelected = orderEntry.product.code == item.product.code;
       if (item.selected) {
         const serviceItem = (
-          <div key={`product${i + 1}`}
-               style={_.merge({}, styles.serviceName, isSelected ? {color: '#4990e2'} : {})}
-               onClick={this.handlerServerItem.bind(this, item.product.code)}>
+          <div
+            key={`product${i + 1}`}
+            style={_.merge({}, styles.serviceName, isSelected ? {color: '#4990e2'} : {})}
+            onClick={this.handlerServerItem.bind(this, item.product.code)}>
             {item.product.name}
             {
               isSelected ?
-                <Popconfirm placement="topLeft" title={'Are you sure cancel this item?'}
-                            onConfirm={() => this.handlerCancelServiceItem(i)} okText="Yes"
-                            cancelText="No">
-                  <Icon type="minus-circle-o"
-                        style={{color: '#4990e2', marginLeft: 10}}/>
+                <Popconfirm
+                  placement="topLeft" title={'Are you sure cancel this item?'}
+                  onConfirm={() => this.handlerCancelServiceItem(i)} okText="Yes"
+                  cancelText="No">
+                  <Icon
+                    type="minus-circle-o"
+                    style={{color: '#4990e2', marginLeft: 10}}/>
                 </Popconfirm> : ''
             }
           </div>
@@ -617,17 +624,20 @@ class Detail extends React.Component {
         selectedServices.push(serviceItem);
       } else {
         const serviceItem = (
-          <div key={`product${i + 1}`}
-               style={_.merge({}, styles.serviceName, isSelected ? {color: '#4990e2'} : {})}
-               onClick={this.handlerServerItem.bind(this, item.product.code)}>
+          <div
+            key={`product${i + 1}`}
+            style={_.merge({}, styles.serviceName, isSelected ? {color: '#4990e2'} : {})}
+            onClick={this.handlerServerItem.bind(this, item.product.code)}>
             {item.product.name}
             {
               isSelected ?
-                <Popconfirm placement="topLeft" title={'Are you sure restore this item?'}
-                            onConfirm={() => this.handlerRestoreServiceItem(i)} okText="Yes"
-                            cancelText="No">
-                  <Icon type="rollback"
-                        style={{color: '#4990e2', marginLeft: 10}}/>
+                <Popconfirm
+                  placement="topLeft" title={'Are you sure restore this item?'}
+                  onConfirm={() => this.handlerRestoreServiceItem(i)} okText="Yes"
+                  cancelText="No">
+                  <Icon
+                    type="rollback"
+                    style={{color: '#4990e2', marginLeft: 10}}/>
                 </Popconfirm> : ''
             }
           </div>
@@ -653,7 +663,8 @@ class Detail extends React.Component {
           {canceledServices}
         </div>
       </div>
-    )
+    );
+
   }
 
   renderSettingElem(styles) {
@@ -673,7 +684,7 @@ class Detail extends React.Component {
         {ProductForm ? <ProductForm {...props} /> :
           <h1 style={{padding: 10}}>There is no matching form!</h1>}
       </div>
-    )
+    );
   }
 
   renderActualCostElem(styles) {
@@ -694,7 +705,7 @@ class Detail extends React.Component {
       quotationType: 'actual',
       params: this.props.params,
       updateCostItems: this.handlerUpdateActualCost.bind(this),
-      orderEntry
+      orderEntry,
     };
 
     return (
@@ -703,22 +714,24 @@ class Detail extends React.Component {
           <EditTable {...props2}/>
         </SettingForm>
       </div>
-    )
+    );
   }
 
   renderServiceSettingElem(styles) {
+
     return (
       <div style={styles.service}>
         {this.renderServiceItems(styles)}
         <div id="order_detail_tab" style={styles.serviceRight}>
           <div style={styles.progressContent}>progress</div>
           <Tabs type="card" style={{marginBottom: 0, marginTop: 10}}>
-            <TabPane tab={`Setting`} key="tab1">{this.renderSettingElem(styles)}</TabPane>
-            <TabPane tab={`Actual Cost`} key="tab2">{this.renderActualCostElem(styles)}</TabPane>
+            <TabPane tab={'Setting'} key="tab1">{this.renderSettingElem(styles)}</TabPane>
+            <TabPane tab={'Actual Cost'} key="tab2">{this.renderActualCostElem(styles)}</TabPane>
           </Tabs>
         </div>
       </div>
-    )
+    );
+
   }
 
   getOrderEntry() {
@@ -731,6 +744,7 @@ class Detail extends React.Component {
   }
 
   render() {
+
     let styles = this.getStyles();
 
     return (
@@ -738,7 +752,7 @@ class Detail extends React.Component {
         {this.renderCardElem(styles)}
         {this.renderServiceSettingElem(styles)}
       </div>
-    )
+    );
   }
 
   /**
@@ -748,7 +762,7 @@ class Detail extends React.Component {
   handlerServerItem(code) {
     const {orderEntries} = this.state;
     const orderEntry = _.find(orderEntries, item => item.product.code == code);
-    this.setState({orderEntry: _.cloneDeep(orderEntry), edit: false})
+    this.setState({orderEntry: _.cloneDeep(orderEntry), edit: false});
   }
 
   /**
@@ -758,7 +772,7 @@ class Detail extends React.Component {
   handlerCancelServiceItem(index) {
     const {orderEntries} = this.state;
     orderEntries[index].selected = false;
-    this.setState({orderEntries})
+    this.setState({orderEntries});
   }
 
   /**
@@ -768,7 +782,7 @@ class Detail extends React.Component {
   handlerRestoreServiceItem(index) {
     const {orderEntries} = this.state;
     orderEntries[index].selected = true;
-    this.setState({orderEntries})
+    this.setState({orderEntries});
   }
 
   /**
@@ -776,7 +790,7 @@ class Detail extends React.Component {
    * @param edit
    */
   handlerEditCancel(edit) {
-    this.setState({edit})
+    this.setState({edit});
   }
 
   /**

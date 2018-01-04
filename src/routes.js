@@ -21,7 +21,7 @@ export default [
     routes: [
       {
         path: '/login',
-        exact : true,
+        exact: true,
         component: Login,
       },
       {
@@ -29,7 +29,7 @@ export default [
         routes: [
           {
             path: '/',
-            exact : true,
+            exact: true,
             component: Basic,
           },
           {
@@ -56,8 +56,8 @@ export default [
             path: '/ship',
             component: Ship,
           },
-        ]
+        ],
       },
-    ]
-  }
+    ],
+  },
 ];

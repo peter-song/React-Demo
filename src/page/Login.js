@@ -4,39 +4,31 @@
 'use strict';
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 class Login extends React.Component {
 
-    getStyles() {
-        const styles = {
-            content: {
-                padding: 20,
-            }
-        };
+  getStyles() {
 
-        return styles;
-    }
+    const styles = {
+      content: {
+        padding: 20,
+      },
+    };
 
+    return styles;
+  }
 
-    static propTypes = {};
+  render() {
 
-    static defaultProps = {};
+    const styles = this.getStyles();
 
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
+    return (
+      <div style={styles.content}>
+        <h1>Login</h1>
+      </div>
+    );
 
-    render() {
-        const styles = this.getStyles();
-        return (
-            <div style={styles.content}>
-                <h1>Login</h1>
-            </div>
-        )
-    }
+  }
 }
 
 export default Login;

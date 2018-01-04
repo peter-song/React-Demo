@@ -141,9 +141,7 @@ class EditTable extends React.Component {
       },
 
       col2: {
-        // width: '38%',
-        // minWidth: 357,
-        flex: '1'
+        flex: '1',
       },
 
       col3: {
@@ -162,7 +160,7 @@ class EditTable extends React.Component {
 
       uploadColumn: {
         width: '20%',
-        padding: '12px 20px'
+        padding: '12px 20px',
       },
 
       line: {
@@ -183,8 +181,8 @@ class EditTable extends React.Component {
       },
 
       clear: {
-        clear: 'both'
-      }
+        clear: 'both',
+      },
     };
 
     return styles;
@@ -205,25 +203,22 @@ class EditTable extends React.Component {
     hasUpload: false,
     isCanEdit: true,
     updateCostItems: () => {
-      console.log('There is no transfer method !')
-    }
+      console.log('There is no transfer method !');
+    },
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isCanSave: false,
-      detail: {
-        total: {
-          totalAmountRMB: 0,
-          totalAmountUSD: 0
-        },
-        items: [],
-        isEdits: [],
-        status: 0
-      }
-    }
-  }
+  state = {
+    isCanSave: false,
+    detail: {
+      total: {
+        totalAmountRMB: 0,
+        totalAmountUSD: 0,
+      },
+      items: [],
+      isEdits: [],
+      status: 0,
+    },
+  };
 
   componentDidMount() {
     this.initData(this.props.orderEntry);
@@ -236,7 +231,7 @@ class EditTable extends React.Component {
       const initialEdits = [];
       if (costItems && costItems.length) {
         costItems.map(item => {
-          const initialItem = _.pick(item, ['costType', 'description', 'amount', 'amountRMB'])
+          const initialItem = _.pick(item, ['costType', 'description', 'amount', 'amountRMB']);
           initialItems.push(_.merge(initialItem, {
             validateTitle: true,
             validateRMB: true,
@@ -249,7 +244,7 @@ class EditTable extends React.Component {
         detail.items = initialItems;
         detail.isEdits = initialEdits;
         this.calcTotalPrice(detail);
-        this.setState({detail, status: orderEntry.status})
+        this.setState({detail, status: orderEntry.status});
       } else {
         this.resetState();
       }
@@ -257,6 +252,7 @@ class EditTable extends React.Component {
   }
 
   renderTitleElem(styles) {
+
     return (
       <div style={_.merge({}, styles.titleContent)}>
         <div style={_.merge({}, styles.col1, styles.quotationDetailTitle)}>
@@ -278,28 +274,30 @@ class EditTable extends React.Component {
             </div> : ''
         }
 
-        <div style={_.merge({}, styles.col5, styles.quotationDetailTitle, {
-          padding: '5px 8px 0'
-        })}>
+        <div style={_.merge({}, styles.col5, styles.quotationDetailTitle, {padding: '5px 8px 0'})}>
           {
             this.props.isCanEdit ?
-              <Icon type="save" style={_.merge({}, styles.icon, {marginLeft: 6})}
-                    onClick={() => this.handlerSaveCostItems()}
+              <Icon
+                type="save" style={_.merge({}, styles.icon, {marginLeft: 6})}
+                onClick={() => this.handlerSaveCostItems()}
               /> : ''
           }
         </div>
       </div>
-    )
+    );
+
   }
 
   renderContentElem(styles) {
+
     const orderEntry = this.getOrderEntry();
+
     return (
-      <div key={`content`} style={_.merge({}, styles.line, styles.productContent) }>
+      <div key={'content'} style={_.merge({}, styles.line, styles.productContent) }>
         <div style={_.merge({}, styles.col1, styles.quotationDetailContent)}>
-                    <span style={styles.quotationDetailLeft}>
-                        {orderEntry && orderEntry.product ? orderEntry.product.name : ''}
-                    </span>
+          <span style={styles.quotationDetailLeft}>
+            {orderEntry && orderEntry.product ? orderEntry.product.name : ''}
+          </span>
         </div>
         <div style={_.merge({}, styles.col2, styles.quotationDetailContent)}>
           <span style={styles.quotationDetailLeft}>&nbsp;</span>
@@ -319,7 +317,8 @@ class EditTable extends React.Component {
         <div
           style={_.merge({}, styles.col5, styles.quotationDetailContent, styles.horizontalCenter)}>&nbsp;</div>
       </div>
-    )
+    );
+
   }
 
   getOrderEntry() {
@@ -339,16 +338,8 @@ class EditTable extends React.Component {
     const costTypes = this.getCostTypes();
     items.map((item, i) => {
       const isEdit = isEdits[i];
-      const dropDownCostItems = costTypes.map(costType => {
-        // let isExists = _.find(items, obj_item => obj_item.costType == costType.costType._id);
-        // if (isExists) {
-        {/*return <Menu.Item disabled*/
-        }
-        // key={`${i}_${costType.costType._id}`}>{costType.costType.name}</Menu.Item>
-        // } else {
-        return <Menu.Item key={`${i}_${costType.costType._id}`}>{costType.costType.name}</Menu.Item>
-        // }
-      });
+      const dropDownCostItems = costTypes.map(costType => <Menu.Item
+        key={`${i}_${costType.costType._id}`}>{costType.costType.name}</Menu.Item>);
 
       const menu = <Menu onClick={this.handlerChangeProductItem.bind(this, i)}>{dropDownCostItems}</Menu>;
       const changeCostType = _.find(costTypes, obj_item => obj_item.costType._id == item.costType);
@@ -357,48 +348,59 @@ class EditTable extends React.Component {
           href="#"
           style={_.merge({}, changeCostType ? styles.costItemDownChanged : styles.costItemDownDefault)}
         >
-                    {changeCostType ? changeCostType.costType.name : this.props.selectPrompt}
-                </span>
+          {changeCostType ? changeCostType.costType.name : this.props.selectPrompt}
+        </span>
       );
 
       const itemNameElem = isEdit ?
         <Dropdown overlay={menu} trigger={['click']}>{itemName}</Dropdown> : itemName;
       const remarksElem = isEdit ?
-        <Input type="textarea" autosize
-               onChange={this.handlerChangeRemark.bind(this, i)}
-               style={_.merge({}, styles.quotationDetailLeft, {color: '#9B9B9B'}, {width: '95%'})}
-               value={item.description}
-               placeholder={this.props.inputPrompt}/> :
+        <Input
+          autosize
+          type="textarea"
+          onChange={this.handlerChangeRemark.bind(this, i)}
+          style={_.merge({}, styles.quotationDetailLeft, {color: '#9B9B9B'}, {width: '95%'})}
+          value={item.description}
+          placeholder={this.props.inputPrompt}/> :
         <span style={_.merge({}, styles.quotationDetailLeft, {color: '#9B9B9B'})}>{item.description}</span>;
       const RMBElem = isEdit ?
-        <InputNumber disabled={offerType == 'RMB' ? false : true}
-                     min={0} style={_.merge({}, styles.quotationDetailRight, {width: '70%'})}
-                     onChange={this.handlerChangePrice.bind(this, i, 'rmb')}
-                     value={item.amountRMB}
-                     placeholder={'RMB'}/> :
+        <InputNumber
+          disabled={!(offerType == 'RMB')}
+          min={0} style={_.merge({}, styles.quotationDetailRight, {width: '70%'})}
+          onChange={this.handlerChangePrice.bind(this, i, 'rmb')}
+          value={item.amountRMB}
+          placeholder={'RMB'}/> :
         <span style={_.merge({}, styles.quotationDetailRight, {color: 'rgba(0,0,0,0.65)'})}>
-                    {Number.parseFloat(item.amountRMB).toFixed(2)}
-                </span>;
+          {Number.parseFloat(item.amountRMB).toFixed(2)}
+        </span>;
       const USDElem = isEdit ?
-        <InputNumber disabled={offerType == 'USD' ? false : true}
-                     min={0} style={_.merge({}, styles.quotationDetailRight, {width: '70%'})}
-                     onChange={this.handlerChangePrice.bind(this, i, 'usd')}
-                     value={item.amount}
-                     placeholder={"USD"}/> :
+        <InputNumber
+          disabled={!(offerType == 'USD')}
+          min={0}
+          style={_.merge({}, styles.quotationDetailRight, {width: '70%'})}
+          onChange={this.handlerChangePrice.bind(this, i, 'usd')}
+          value={item.amount}
+          placeholder={'USD'}/> :
         <span style={_.merge({}, styles.quotationDetailRight, {color: 'rgba(0,0,0,0.65)'})}>
-                    {Number.parseFloat(item.amount).toFixed(2)}
-                </span>;
+          {Number.parseFloat(item.amount).toFixed(2)}
+        </span>;
       const uploadElem = <Upload>
         <Button disabled={!isEdit}><Icon type="upload"/>Upload</Button>
       </Upload>;
       const btnElem = [
-        <Icon type="delete" style={_.merge({}, styles.icon)}
-              onClick={() => this.handlerDeleteCostItem(i)}/>
+        <Icon
+          key="btn"
+          type="delete"
+          style={_.merge({}, styles.icon)}
+          onClick={() => this.handlerDeleteCostItem(i)}
+        />,
       ];
       if (!isEdit) {
         btnElem.push(
-          <Icon type="edit" style={_.merge({}, styles.icon, {marginLeft: 6})}
-                onClick={() => this.handlerEditCostItem(i)}/>
+          <Icon
+            type="edit" style={_.merge({}, styles.icon, {marginLeft: 6})}
+            onClick={() => this.handlerEditCostItem(i)}
+          />
         );
       }
 
@@ -416,13 +418,13 @@ class EditTable extends React.Component {
             {RMBElem}
             {item.validateRMB ? '' :
               <div
-                style={_.merge({}, styles.productPrompt)}>{`no empty`}</div>}
+                style={_.merge({}, styles.productPrompt)}>{'no empty'}</div>}
           </div>
           <div style={_.merge({}, styles.col4, styles.quotationDetailSubContent)}>
             {USDElem}
             {item.validateUSD ? '' :
               <div
-                style={_.merge({}, styles.productPrompt)}>{`no empty`}</div>}
+                style={_.merge({}, styles.productPrompt)}>{'no empty'}</div>}
           </div>
           {
             this.props.hasUpload ?
@@ -430,18 +432,19 @@ class EditTable extends React.Component {
                 {uploadElem}
               </div> : ''
           }
-          <div style={_.merge({}, styles.col5, styles.quotationDetailSubContent, {
-            padding: '5px 8px 0'
-          })}>
+          <div style={_.merge({}, styles.col5, styles.quotationDetailSubContent, {padding: '5px 8px 0'})}>
             {this.props.isCanEdit ? btnElem : ''}
           </div>
         </div>
-      )
+      );
+
     });
+
     return subContentElem;
   }
 
   renderAddButtonElem(styles) {
+
     return (
       <div style={_.merge({}, styles.line)}>
         <div style={styles.addContent} onClick={() => this.handlerAddCostItem()}>
@@ -450,10 +453,12 @@ class EditTable extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
+
   }
 
   render() {
+
     let styles = this.getStyles(this);
 
     return (
@@ -466,14 +471,18 @@ class EditTable extends React.Component {
           {this.props.isCanEdit ? this.renderAddButtonElem(styles) : ''}
         </div>
       </div>
-    )
+    );
+
   }
 
   componentWillReceiveProps(nextProps) {
+
     let {orderEntry} = this.props;
+
     if (orderEntry !== nextProps.orderEntry) {
       this.initData(nextProps.orderEntry);
     }
+
   }
 
   componentWillUnmount() {
@@ -486,18 +495,19 @@ class EditTable extends React.Component {
       detail: {
         total: {
           totalAmountRMB: 0,
-          totalAmountUSD: 0
+          totalAmountUSD: 0,
         },
         items: [],
         isEdits: [],
-        status: 0
-      }
-    })
+        status: 0,
+      },
+    });
   }
 
   handlerAddCostItem() {
+
     const detail = this.state.detail;
-    // if (detail.items.length < this.getCostTypes().length) {
+
     let defaultItem = {
       costType: '',
       validateTitle: true,
@@ -507,11 +517,11 @@ class EditTable extends React.Component {
       amount: 0,
       validateUSD: true,
     };
+
     detail.items.push(defaultItem);
     detail.isEdits.push(true);
 
-    this.setState({detail, isCanSave: true})
-    // }
+    this.setState({detail, isCanSave: true});
   }
 
   handlerDeleteCostItem(i) {
@@ -519,21 +529,27 @@ class EditTable extends React.Component {
     detail.items.splice(i, 1);
 
     this.calcTotalPrice(detail);
-    this.setState({detail, isCanSave: true})
+    this.setState({detail, isCanSave: true});
   }
 
   handlerEditCostItem(i) {
     const detail = this.state.detail;
     detail.isEdits[i] = true;
-    this.setState({detail, isCanSave: true})
+    this.setState({detail, isCanSave: true});
   }
 
   handlerSaveCostItems() {
-    let {detail, isCanSave} = this.state;
+
+    let {
+      detail,
+      isCanSave,
+    } = this.state;
+
     if (!isCanSave) return;
 
     let isValidate = true;
-    detail.items.map(item => {
+
+    detail.items.forEach(item => {
 
       if (item.costType == '') {
         item.validateTitle = false;
@@ -556,6 +572,7 @@ class EditTable extends React.Component {
       if ((!item.validateTitle || !item.validateRMB || !item.validateUSD) && isValidate) {
         isValidate = false;
       }
+
     });
 
     if (isValidate && (this.props.updateCostItems)) {
@@ -568,7 +585,7 @@ class EditTable extends React.Component {
         const costItem = costItems[i] ? costItems[i] : {};
         newCostItems.push(
           _.merge(costItem, _.pick(item, ['amount', 'amountRMB', 'description', 'costType']))
-        )
+        );
       });
 
       const amountName = quotationType == 'estimated' ? 'amountEstimated' : 'amountConfirmed';
@@ -578,7 +595,7 @@ class EditTable extends React.Component {
         id: this.props.params && this.props.params.id,
         orderEntryId: this.props.orderEntry._id,
         [amountName]: Number.parseFloat(String(detail.total.totalAmountUSD)),
-        [costItemsName]: newCostItems
+        [costItemsName]: newCostItems,
       };
 
       detail.isEdits = _.fill(detail.isEdits, false);
@@ -596,25 +613,22 @@ class EditTable extends React.Component {
     item.costType = key.split('_')[1];
     item.validateTitle = true;
 
-    /*if (item.validateTitle && item.validateRMB && item.validateUSD) {
-     item.delColor = '#4990E2';
-     } else {
-     item.delColor = '#9B9B9B';
-     }*/
-
     detail.items[i] = item;
-    this.setState({detail})
+
+    this.setState({detail});
   }
 
   handlerChangeRemark(i, e) {
     const detail = this.state.detail;
     detail.items[i].description = e.target.value;
 
-    this.setState({detail})
+    this.setState({detail});
   }
 
   handlerChangePrice(i, type, value) {
+
     if (value == '') value = 0;
+
     const detail = this.state.detail;
 
     if (_.isNumber(value) || _.endsWith(value, '.')) {
@@ -643,7 +657,8 @@ class EditTable extends React.Component {
 
       this.calcTotalPrice(detail);
     }
-    this.setState({detail})
+
+    this.setState({detail});
   }
 
   calcTotalPrice(detail) {

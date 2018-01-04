@@ -12,24 +12,27 @@ class ResolveModal extends React.Component {
 
   static defaultProps = {
     title: 'Make an Appointment Successfully',
-    content: 'Order approved! You have appointed'
+    content: 'Order approved! You have appointed',
   };
 
   render() {
 
     return (
-      <Modal title={this.props.title} visible={this.props.resolveModalIsOpen}
-             onOk={this.handleOk} onCancel={() => this.props.handlerOpenResolveModal(false)}
-             footer={[
-               <Button key="submit" type="primary"
-                       onClick={() => this.props.handlerOpenResolveModal(false)}>
-                 View Order
-               </Button>
-             ]}
+      <Modal
+        title={this.props.title} visible={this.props.resolveModalIsOpen}
+        onOk={this.handleOk} onCancel={() => this.props.handlerOpenResolveModal(false)}
+        footer={[
+          <Button
+            key="submit" type="primary"
+            onClick={() => this.props.handlerOpenResolveModal(false)}>
+            View Order
+          </Button>,
+        ]}
       >
         <p>{this.props.content}</p>
       </Modal>
-    )
+    );
+
   }
 }
 

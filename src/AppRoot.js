@@ -4,6 +4,8 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {renderRoutes} from 'react-router-config';
 
 import LeftMenu from './LeftMenu';
@@ -21,12 +23,16 @@ class AppRoot extends React.Component {
       },
 
       rightContent: {
-        marginLeft: content.state.collapsed ? 64 : 200
+        marginLeft: content.state.collapsed ? 64 : 200,
       },
     };
 
     return styles;
   }
+
+  static propTypes = {
+    route: PropTypes.object,
+  };
 
   state = {
     collapsed: false,
@@ -60,7 +66,8 @@ class AppRoot extends React.Component {
           {renderRoutes(this.props.route.routes)}
         </div>
       </div>
-    )
+    );
+
   }
 }
 

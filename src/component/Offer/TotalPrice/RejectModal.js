@@ -22,6 +22,7 @@ class RejectModal extends React.Component {
         letterSpacing: 0,
         marginTop: 2,
       },
+
     };
 
     return styles;
@@ -31,31 +32,31 @@ class RejectModal extends React.Component {
     title: 'Reject Quotation',
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      reason: '',
-      isShowPrompt: true
-    }
-  }
+  state = {
+    reason: '',
+    isShowPrompt: true,
+  };
 
   render() {
 
     const styles = this.getStyles();
 
     return (
-      <Modal title={this.props.title} visible={this.props.rejectModalIsOpen}
-             onOk={this.handleOk.bind(this)} onCancel={this.handlerOpenRejectModal.bind(this)}
+      <Modal
+        title={this.props.title} visible={this.props.rejectModalIsOpen}
+        onOk={this.handleOk.bind(this)} onCancel={this.handlerOpenRejectModal.bind(this)}
       >
-        <Input type="textarea"
-               value={this.state.reason}
-               autosize={{minRows: 6, maxRows: 6}}
-               placeholder="please enter reject reason"
-               onChange={this.handlerChangeReason.bind(this)}
+        <Input
+          type="textarea"
+          value={this.state.reason}
+          autosize={{minRows: 6, maxRows: 6}}
+          placeholder="please enter reject reason"
+          onChange={this.handlerChangeReason.bind(this)}
         />
         {this.state.isShowPrompt ? '' : <div style={_.merge({}, styles.productPrompt)}>理由不能为空</div>}
       </Modal>
-    )
+    );
+
   }
 
   componentWillUnmount() {
@@ -66,8 +67,8 @@ class RejectModal extends React.Component {
     const reason = e.target.value;
     this.setState({
       reason: reason,
-      isShowPrompt: reason.length
-    })
+      isShowPrompt: reason.length,
+    });
   }
 
   handlerOpenRejectModal() {
@@ -90,8 +91,8 @@ class RejectModal extends React.Component {
 
   resetState(reason = '', isShowPrompt = true) {
     this.setState({
-      reason, isShowPrompt
-    })
+      reason, isShowPrompt,
+    });
   }
 
 }

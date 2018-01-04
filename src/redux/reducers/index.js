@@ -1,11 +1,12 @@
 /**
  * Created by songzhongkun on 17/4/8.
  */
+'use strict';
 
 import hobbyReducer from './profile';
 
-export default function AppReducer(state = {}, action) {
-    return {
-        hobby: hobbyReducer(state.hobby, action)
-    }
-}
+const AppReducer = (state = {}, action) => ({
+  hobby: hobbyReducer(state.hobby, action),
+});
+
+export default AppReducer;

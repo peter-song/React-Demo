@@ -4,32 +4,38 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {renderRoutes} from 'react-router-config';
 
 class MainFrame extends React.Component {
 
-    getStyles() {
-        const styles = {
-            content: {
-                padding: 20,
-            }
-        };
+  getStyles() {
 
-        return styles;
-    }
+    const styles = {
+      content: {
+        padding: 20,
+      },
+    };
 
-    render() {
+    return styles;
+  }
 
-        const styles = this.getStyles();
+  static propTypes = {
+    route: PropTypes.object,
+  };
 
-        console.log('this.props.route.routes', this.props.route)
-        return (
-            <div style={styles.content}>
-              {renderRoutes(this.props.route.routes)}
-            </div>
-        )
-    }
+  render() {
+
+    const styles = this.getStyles();
+
+    return (
+      <div style={styles.content}>
+        {renderRoutes(this.props.route.routes)}
+      </div>
+    );
+
+  }
 }
 
 export default MainFrame;

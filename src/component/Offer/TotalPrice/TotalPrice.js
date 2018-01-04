@@ -40,7 +40,7 @@ class TotalPrice extends React.Component {
         fontWeight: 400,
         fontSize: 14,
         color: 'rgba(0,0,0,0.65)',
-        letterSpacing: 0
+        letterSpacing: 0,
       },
 
       company: {
@@ -52,11 +52,11 @@ class TotalPrice extends React.Component {
       },
 
       contentLeft: {
-        float: 'left'
+        float: 'left',
       },
 
       contentRight: {
-        float: 'right'
+        float: 'right',
       },
 
       icon: {
@@ -66,56 +66,65 @@ class TotalPrice extends React.Component {
       },
 
       clear: {
-        clear: 'both'
-      }
+        clear: 'both',
+      },
+
     };
 
     return styles;
   }
+
+  static defaultProps = {
+    price: 'USD 22,030.00',
+    company: 'Shanghai Seasky Shipping ltd.',
+    rule: 'owner',
+  };
 
   state = {
     resolveModalIsOpen: false,
     rejectModalIsOpen: false,
   };
 
-  static defaultProps = {
-    price: 'USD 22,030.00',
-    company: 'Shanghai Seasky Shipping ltd.',
-    rule: 'owner'
-  };
-
   renderLeftElem(styles) {
+
     return (
       <div style={styles.contentLeft}>
         <span style={styles.title}>Quotation: </span>
         <span style={styles.price}>{this.props.price}</span>
-        <span style={_.merge({}, styles.title, {marginLeft: 15, cursor: 'pointer'})}
-              onClick={() => this.handlerDownloadPDF()}
+        <span
+          style={_.merge({}, styles.title, {marginLeft: 15, cursor: 'pointer'})}
+          onClick={() => this.handlerDownloadPDF()}
         >
-                    Pdf导出
-                </span>
+          Pdf导出
+        </span>
       </div>
-    )
+    );
+
   }
 
   renderRightElem(styles) {
+
     return (
       <div style={styles.contentRight}>
         <span style={styles.from}>Form: </span>
         <span style={styles.company}>{this.props.company}</span>
-        <Button type="primary" style={{marginLeft: 17}}
-                onClick={this.handlerOpenResolveModal.bind(this, true)}
+        <Button
+          type="primary" style={{marginLeft: 17}}
+          onClick={this.handlerOpenResolveModal.bind(this, true)}
         >
           Appointment
         </Button>
-        <Button style={{marginLeft: 10}}
-                onClick={this.handlerOpenRejectModal.bind(this, true)}
+        <Button
+          style={{marginLeft: 10}}
+          onClick={this.handlerOpenRejectModal.bind(this, true)}
         >Reject Quotation</Button>
       </div>
-    )
+    );
+
   }
 
   render() {
+
     const styles = this.getStyles();
 
     return (
@@ -123,36 +132,39 @@ class TotalPrice extends React.Component {
         {this.renderLeftElem(styles)}
         {this.props.rule == 'agent' ? '' : this.renderRightElem(styles)}
         <div style={styles.clear}></div>
-        <ResolveModal resolveModalIsOpen={this.state.resolveModalIsOpen}
-                      handlerOpenResolveModal={this.handlerOpenResolveModal.bind(this)}
+        <ResolveModal
+          resolveModalIsOpen={this.state.resolveModalIsOpen}
+          handlerOpenResolveModal={this.handlerOpenResolveModal.bind(this)}
         />
-        <RejectModal rejectModalIsOpen={this.state.rejectModalIsOpen}
-                     handlerOpenRejectModal={this.handlerOpenRejectModal.bind(this)}
-                     handlerRejectOk={this.handlerRejectOk.bind(this)}
+        <RejectModal
+          rejectModalIsOpen={this.state.rejectModalIsOpen}
+          handlerOpenRejectModal={this.handlerOpenRejectModal.bind(this)}
+          handlerRejectOk={this.handlerRejectOk.bind(this)}
         />
       </div>
-    )
+    );
+
   }
 
   handlerOpenResolveModal(isOpen) {
     this.setState({
-      resolveModalIsOpen: isOpen
-    })
+      resolveModalIsOpen: isOpen,
+    });
   }
 
   handlerOpenRejectModal(isOpen) {
     this.setState({
-      rejectModalIsOpen: isOpen
-    })
+      rejectModalIsOpen: isOpen,
+    });
   }
 
   handlerRejectOk(reason) {
     this.handlerOpenRejectModal(false);
-    console.log(reason)
+    console.log(reason);
   }
 
   handlerDownloadPDF() {
-    console.log(this.props.offerDetail)
+    console.log('offerDetail');
   }
 }
 

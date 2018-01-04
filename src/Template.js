@@ -14,7 +14,7 @@ class Template extends React.Component {
     const styles = {
       content: {
         padding: 20,
-      }
+      },
     };
 
     return styles;
@@ -27,16 +27,19 @@ class Template extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   render() {
+
     const styles = this.getStyles();
+
     return (
       <div style={styles.content}>
         <h1>Welcome to ...</h1>
       </div>
-    )
+    );
+
   }
 }
 

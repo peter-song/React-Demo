@@ -1,12 +1,14 @@
 /**
  * Created by songzhongkun on 17/4/8.
  */
-import {createStore, applyMiddleware, compose} from "redux";
-import rootReducer from "./reducers/index";
-import thunkMiddleWare from './middleware/clientMiddleWare';
-import createLogger from 'redux-logger';
+'use strict';
 
-import DevTools from "../component/DevTools/DevTools";
+import {createStore, applyMiddleware, compose} from 'redux';
+import rootReducer from './reducers/index';
+import thunkMiddleWare from './middleware/clientMiddleWare';
+// import createLogger from 'redux-logger';
+
+import DevTools from '../component/DevTools/DevTools';
 
 export default function configureStore(client, initialState) {
 

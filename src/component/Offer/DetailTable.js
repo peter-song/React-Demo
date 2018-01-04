@@ -156,8 +156,9 @@ class DetailTable extends React.Component {
       },
 
       clear: {
-        clear: 'both'
-      }
+        clear: 'both',
+      },
+
     };
 
     return styles;
@@ -167,26 +168,11 @@ class DetailTable extends React.Component {
     isMarginTop: true,
     hasDownload: false,
     columns: [
-      {
-        name: 'Vessel',
-        width: '20%'
-      },
-      {
-        name: 'ETA/Sea Trail Date',
-        width: '20%'
-      },
-      {
-        name: 'Port',
-        width: '20%'
-      },
-      {
-        name: 'Service Type',
-        fill: true
-      },
-      {
-        name: 'Rate',
-        width: '20%'
-      },
+      {name: 'Vessel', width: '20%'},
+      {name: 'ETA/Sea Trail Date', width: '20%'},
+      {name: 'Port', width: '20%'},
+      {name: 'Service Type', fill: true},
+      {name: 'Rate', width: '20%'},
     ],
     common: {
       vessel: 'MV SSHSLDS DSLDKH',
@@ -198,12 +184,9 @@ class DetailTable extends React.Component {
     detail: {},
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpens: []
-    }
-  }
+  state = {
+    isOpens: [],
+  };
 
   renderCommonElem(styles) {
     const {common, columns} = this.props;
@@ -212,31 +195,28 @@ class DetailTable extends React.Component {
       <div>
         <div style={_.merge({}, styles.verticalCenter, {background: '#E9E9E9'})}>
           {
-            columns.map((column, i) => {
-              return (
-                <div key={`column_${i}`}
-                     style={_.merge({}, styles.commonTitle, column.fill ? {flex: '1'} : {width: column.width}, i != columns.length - 1 ? styles.commonTitleBorderRight : {})}>
-                  {column.name}
-                </div>
-              )
-            })
+            columns.map((column, i) => (
+              <div
+                key={`column_${i}`}
+                style={_.merge({}, styles.commonTitle, column.fill ? {flex: '1'} : {width: column.width}, i != columns.length - 1 ? styles.commonTitleBorderRight : {})}>
+                {column.name}
+              </div>
+            ))
           }
         </div>
         <div style={{display: 'flex', alignItems: 'stretch'}}>
           {
-            commonArr.map((key, i) => {
-              return (
-                <div
-                  key={`common_${i + 1}`}
-                  style={_.merge({}, styles.commonContent, columns[i].fill ? {flex: '1'} : {width: columns[i].width}, i != commonArr.length - 1 ? styles.commonTitleBorderRight : {})}>
-                  <div style={styles.commonContent2}>{common[key]}</div>
-                </div>
-              )
-            })
+            commonArr.map((key, i) => (
+              <div
+                key={`common_${i + 1}`}
+                style={_.merge({}, styles.commonContent, columns[i].fill ? {flex: '1'} : {width: columns[i].width}, i != commonArr.length - 1 ? styles.commonTitleBorderRight : {})}>
+                <div style={styles.commonContent2}>{common[key]}</div>
+              </div>
+            ))
           }
         </div>
       </div>
-    )
+    );
   }
 
   renderTitleElem(styles) {
