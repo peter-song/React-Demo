@@ -13,6 +13,7 @@ class AppRoot extends React.Component {
   getStyles(content) {
 
     const styles = {
+
       leftNav: {
         height: '100%',
         position: 'fixed',

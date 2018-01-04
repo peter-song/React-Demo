@@ -12,10 +12,12 @@ let app = new Express();
 let port = require('../src/config').port + 1;
 
 let compiler = webpack(config);
+
 app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: config.output.publicPath
 }));
+
 app.use(webpackHotMiddleware(compiler));
 
 app.listen(port, function (error) {
