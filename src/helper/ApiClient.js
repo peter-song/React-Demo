@@ -21,13 +21,25 @@ export default class ApiClient {
             result.response.hobbies.push(data.text);
             resolve(result);
           } else {
-            fetch('/static/config/hobby.json')
+            /*fetch('/static/config/hobby.json')
               .then(response => response.json())
               .then(json => {
                 result = json;
                 resolve(json);
               })
-              .catch(err => reject(err));
+              .catch(err => reject(err));*/
+
+            resolve({
+              'code': 0,
+              'status': 'OK',
+              'response': {
+                'hobbies': [
+                  '听音乐',
+                  '打篮球',
+                  '唱歌',
+                ],
+              },
+            });
           }
 
         });

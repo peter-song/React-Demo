@@ -58,8 +58,8 @@ class Profile extends React.Component {
   static propTypes = {
     name: PropTypes.string,
     age: PropTypes.number,
+    hobbies: PropTypes.array,
     findHobbies: PropTypes.func,
-    hobbies: PropTypes.func,
     addHobby: PropTypes.func,
   };
 

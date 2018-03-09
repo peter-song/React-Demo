@@ -6,6 +6,10 @@ let Express = require('express');
 let webpack = require('webpack');
 let webpackDevMiddleware = require('webpack-dev-middleware');
 let webpackHotMiddleware = require('webpack-hot-middleware');
+let log4js = require('log4js');
+
+
+
 let config = require('./dev.config.js');
 
 let app = new Express();
@@ -14,16 +18,16 @@ let port = require('../src/config').port + 1;
 let compiler = webpack(config);
 
 app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
+  noInfo: true,
+  publicPath: config.output.publicPath,
 }));
 
 app.use(webpackHotMiddleware(compiler));
 
 app.listen(port, function (error) {
-    if (error) {
-        console.error(error)
-    } else {
-        console.info("==> Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
-    }
+  if (error) {
+    console.error(error);
+  } else {
+    console.info('==> Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port);
+  }
 });
