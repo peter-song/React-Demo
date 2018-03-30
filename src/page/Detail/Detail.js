@@ -10,7 +10,7 @@ import _ from 'lodash';
 import {Icon, Popconfirm, Tabs} from 'antd';
 const TabPane = Tabs.TabPane;
 
-import ConfigForm from '../../component/form/order/config-forms';
+import ConfigForm from 'component/form/order/config-forms';
 import SettingForm from '../../component/form/SettingForm';
 import EditTable from '../../component/Offer/EditTable';
 

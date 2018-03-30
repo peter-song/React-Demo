@@ -13,6 +13,7 @@ const ASSETS_PATH = path.resolve(ROOT_PATH, './static/dist');
 const config = require('../src/config');
 
 module.exports = {
+
   devtool: 'eval-source-map',
   context: ROOT_PATH,
 
@@ -34,7 +35,7 @@ module.exports = {
 
   // 模块
   module: {
-    // 各种加载器
+    // 各种加载器（转换器）
     loaders: [
       {
         test: /\.json$/,
@@ -42,7 +43,7 @@ module.exports = {
       },
       {
         test: /\.js$/, //一个匹配loaders所处理的文件的拓展名的正则表达式（必须）
-        exclude: /node_modules/,//手动添加必须处理的文件（文件夹）或屏蔽不需要处理的文件（文件夹）（可选）
+        exclude: /node_modules/,//手动添加必须处理的文件（文件夹）(include) 或屏蔽不需要处理的文件（文件夹）(exclude)（可选）
         loader: 'babel-loader',//loader的名称（babel为js解码器）（必须）
       },
       {
@@ -74,7 +75,20 @@ module.exports = {
 
   // 解决方案
   resolve: {
-    extensions: ['.css', '.json', '.js', '.jsx'], //省略扩展名
+
+    // 路径别名，可以在此定义相关路径，在组件使用的时候就可以不必写入相对路径
+    alias: {
+      component: path.resolve(__dirname, '../src/component/'),
+    },
+
+    // 省略扩展名, 加载组建市，如果没有文件后缀，自动补全一下后缀进行路径查找
+    extensions: ['.css', '.json', '.js', '.jsx'],
+
+    modules: [
+      path.resolve(__dirname, 'node_modules'), // 指定当前目录下的 node_modules 优先查找
+      'node_modules', // 如果有一些类库是放在一些奇怪的地方，可以添加自定义的路劲或目录
+    ],
+
   },
 
   // 插件
