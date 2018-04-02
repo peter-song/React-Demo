@@ -112,7 +112,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(), //热加载插件
     new Dotenv({
       path: './.env',
-      safe: true,
+      safe: true, // 如果设置为true，.env里的key必须包含.env.example文件里的key
     }),
   ],
 
