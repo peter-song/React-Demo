@@ -5,6 +5,8 @@ let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');//生成html
 let ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打包
 
+const Dotenv = require('dotenv-webpack');
+
 //常用路径
 const ROOT_PATH = path.resolve(__dirname, '../');
 const APP_PATH = path.resolve(ROOT_PATH, './src');
@@ -108,6 +110,10 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(), //为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并未它们分配最小的ID
     new webpack.optimize.UglifyJsPlugin(), //压缩JS代码
     new webpack.HotModuleReplacementPlugin(), //热加载插件
+    new Dotenv({
+      path: './.env',
+      safe: true,
+    }),
   ],
 
   // 开发服务器（webpack-dev-server）

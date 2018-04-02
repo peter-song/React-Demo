@@ -3,3 +3,5 @@ node_modules
 static/dist
 npm-debug.log
 test
+
+.env
