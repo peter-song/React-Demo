@@ -6,9 +6,6 @@ let Express = require('express');
 let webpack = require('webpack');
 let webpackDevMiddleware = require('webpack-dev-middleware');
 let webpackHotMiddleware = require('webpack-hot-middleware');
-let log4js = require('log4js');
-
-
 
 let config = require('./dev.config.js');
 
