@@ -6,13 +6,14 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');//生成html
 let ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打包
 
 const Dotenv = require('dotenv-webpack');
+const ReactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin;
 
 //常用路径
 const ROOT_PATH = path.resolve(__dirname, '../');
 const APP_PATH = path.resolve(ROOT_PATH, './src');
 const ASSETS_PATH = path.resolve(ROOT_PATH, './static/dist');
 
-const config = require('../src/config');
+// const config = require('../src/config');
 
 module.exports = {
 
@@ -21,17 +22,30 @@ module.exports = {
 
   // 文件入口
   entry: {
-    main: [
-      // 'webpack-hot-middleware/client',
-      path.resolve(APP_PATH, './App.js'), //_dirname是node.js中的一个全局变量，它指向当前执行脚本所在的目录
+    lib : [
+      'react',
+      'react-router-dom',
+      'react-redux',
+      'react-router',
+      'react-router-config',
+      'react-router-redux',
+      'react-loadable',
+      'moment',
+      'redux',
+      'qs',
+      'history',
     ],
+    vendor:[
+      'antd',
+    ],
+    client: path.resolve(APP_PATH, './App.js'),
   },
 
   // 打包文件出口
   output: {
     path: ASSETS_PATH, //打包后文件存放位置
-    filename: '[name]-[hash].js', //打包后文件名（'name'为entry定义的key值，本例为main）
-    chunkFilename: '[name].[chunkhash:5].min.js',
+    filename: '[name].bundle.js', //打包后文件名（'name'为entry定义的key值，本例为main）
+    chunkFilename: '[name].bundle.min.js',
     // publicPath: 'http://' + config.host + ':' + (config.port + 1) + '/dist/'//编译好的文件，在服务器的路径,这是静态资源引用路径
   },
 
@@ -96,24 +110,35 @@ module.exports = {
   // 插件
   plugins: [
     new webpack.BannerPlugin('Welcome to Peter\'s code.'), //添加版权声明
+
     new HtmlWebpackPlugin({
       title: 'ReactDemo', //文件标题
       fileName: 'index.html', //文件名称，默认index.html
       template: path.resolve(__dirname, '../index.tmpl.html'), //模板文件，会根据此文件生成加入了引用打包文件的html文件
       hash: true,
     }), //依据一个简单的模板，生成最终的html5文件，这个文件中自动引用了你打包后的JS文件。每次编译都在文件中插入一个不同的嘻哈值。
+
     new ExtractTextPlugin({
       filename: 'css/[name]-[hash].css', //避免缓存问题，加入hash值
       disable: false,
       allChunks: true,
     }),
+
     new webpack.optimize.OccurrenceOrderPlugin(), //为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并未它们分配最小的ID
+
     new webpack.optimize.UglifyJsPlugin(), //压缩JS代码
+
     new webpack.HotModuleReplacementPlugin(), //热加载插件
+
+    // new ReactLoadablePlugin({
+    //   filename: path.resolve(ASSETS_PATH, 'react-loadable.json'),
+    // }),
+
     new Dotenv({
       path: './.env',
       safe: true, // 如果设置为true，.env里的key必须包含.env.example文件里的key
     }),
+
   ],
 
   // 开发服务器（webpack-dev-server）

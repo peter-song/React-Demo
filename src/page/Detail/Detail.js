@@ -745,8 +745,6 @@ class Detail extends React.Component {
 
   render() {
 
-    console.log(process.env.DB_HOST, process.env.NAME);
-
     let styles = this.getStyles();
 
     return (
