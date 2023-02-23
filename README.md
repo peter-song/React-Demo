@@ -8,7 +8,7 @@ git clone git@github.com:peter-song/React-Demo.git
 
 cd React-Demo
 
-npm init
+npm i
 ````
 
 # 运行
